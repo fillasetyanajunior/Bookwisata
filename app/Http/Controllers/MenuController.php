@@ -76,8 +76,8 @@ class MenuController extends Controller
     {
         Menu::where('id',$menu->id)
             ->update([
-                'menu' => $request->menu,
-                'icon' => $request->icon,
+                'menu'  => $request->menu,
+                'icon'  => $request->icon,
             ]);
         return redirect('menu')->with('status','Menu Berhasil Di Update');
     }

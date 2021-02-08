@@ -80,17 +80,17 @@
                                     <nav>
                                         <ul id="navigation">
                                             <li><a href="{{ url('/') }}">Home</a></li>
-                                            <li><a href="{{ url('accomodasi/accomodasi') }}">Catagories</a>
+                                            <li><a>Catagories</a>
                                                 <ul class="submenu">
-                                                    <li><a href="{{ url('accomodasi/hotel') }}">Hotel</a></li>
-                                                    <li><a href="{{ url('accomodasi/kuliner') }}">Kuliner</a></li>
-                                                    <li><a href="{{ url('accomodasi/tour') }}">Tour Guide</a></li>
-                                                    <li><a href="{{ url('accomodasi/pusat') }}">Pusat Oleh-Oleh</a></li>
-                                                    <li><a href="{{ url('accomodasi/destinasi') }}">Destinasi</a></li>
-                                                    <li><a href="{{ url('accomodasi/paket') }}">Paket Wisata</a></li>
-                                                    <li><a href="{{ url('rental/mobil') }}">Mobil</a></li>
-                                                    <li><a href="{{ url('rental/bus') }}">Bus Pariwisata</a></li>
-                                                    <li><a href="{{ url('rental/kapal') }}">Kapal Pesiar</a></li>
+                                                    <li><a href="{{ route('listofhotel') }}">Hotel</a></li>
+                                                    <li><a href="{{ route('listofkuliner') }}">Kuliner</a></li>
+                                                    <li><a href="{{ route('listofguide') }}">Tour Guide</a></li>
+                                                    <li><a href="{{ route('listofpusat') }}">Pusat Oleh-Oleh</a></li>
+                                                    <li><a href="{{ route('listofdestinasi') }}">Destinasi</a></li>
+                                                    <li><a href="{{ route('listofpaket') }}">Paket Wisata</a></li>
+                                                    <li><a href="{{ route('listofmobil') }}">Mobil</a></li>
+                                                    <li><a href="{{ route('listofbus') }}">Bus Pariwisata</a></li>
+                                                    <li><a href="{{ route('listofkapal') }}">Kapal Pesiar</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
@@ -154,6 +154,179 @@
         <!-- slider Area End-->
 
         @yield('main')
+            <!-- Video Start Arera -->
+        <div class="video-area video-bg pt-200 pb-200"  data-background="{{url('assets/utama/img/service/video-bg.jpg')}}">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="video-caption text-center">
+                            <div class="video-icon">
+                                <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU" tabindex="0"><i class="fas fa-play"></i></a>
+                            </div>
+                            <p class="pera1">Love where you re going in the perfect time</p>
+                            <p class="pera2">Tripo is a World Leading Online</p>
+                            <p class="pera3"> Tour Booking Platform</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Video Start End -->
+        <!-- Support Company Start-->
+        <div class="support-company-area support-padding fix">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="support-location-img mb-50">
+                            <img src="{{url('assets/utama/img/service/support-img.jpg')}}" alt="">
+                            <div class="support-img-cap">
+                                <span>Since 1992</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6">
+                        <div class="right-caption">
+                            <!-- Section Tittle -->
+                            <div class="section-tittle section-tittle2">
+                                <span>About Our Company</span>
+                                <h2>We are Go Trip <br>Ravels Support Company</h2>
+                            </div>
+                            <div class="support-caption">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+                                <div class="select-suport-items">
+                                    <label class="single-items">Lorem ipsum dolor sit amet
+                                        <input type="checkbox" checked="checked active">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="single-items">Consectetur adipisicing sed do
+                                        <input type="checkbox" checked="checked active">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="single-items">Eiusmod tempor incididunt
+                                        <input type="checkbox" checked="checked active">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="single-items">Ad minim veniam, quis nostrud.
+                                        <input type="checkbox" checked="checked active">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <a href="#" class="btn border-btn">About us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Support Company End-->
+        <!-- Testimonial Start  -->
+        <!-- Testimonial Start  -->
+        <div class="testimonial-area testimonial-padding" data-background="{{url('assets/utama/img/testmonial/testimonial_bg.jpg')}}">
+            <div class="container ">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-xl-11 col-lg-11 col-md-9">
+                        <div class="h1-testimonial-active">
+                            <!-- Single Testimonial -->
+                            <div class="single-testimonial text-center">
+                                <!-- Testimonial Content -->
+                                <div class="testimonial-caption ">
+                                    <div class="testimonial-top-cap">
+                                        <img src="{{url('assets/utama/img/icon/testimonial.png')}}" alt="">
+                                        <p>Logisti Group is a representative logistics operator providing full range of ser
+                                            of customs clearance and transportation worl.</p>
+                                    </div>
+                                    <!-- founder -->
+                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                                        <div class="founder-img">
+                                            <img src=" {{url('assets/utama/img/testmonial/Homepage_testi.png')}}" alt="">
+                                        </div>
+                                        <div class="founder-text">
+                                            <span>Jessya Inn</span>
+                                            <p>Co Founder</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Testimonial -->
+                            <div class="single-testimonial text-center">
+                                <!-- Testimonial Content -->
+                                <div class="testimonial-caption ">
+                                    <div class="testimonial-top-cap">
+                                        <img src="{{ url('assets/utama/img/icon/testimonial.png')}}" alt="">
+                                        <p>Logisti Group is a representative logistics operator providing full range of ser
+                                            of customs clearance and transportation worl.</p>
+                                    </div>
+                                    <!-- founder -->
+                                    <div class="testimonial-founder d-flex align-items-center justify-content-center">
+                                        <div class="founder-img">
+                                            <img src="{{url('assets/utama/img/testmonial/Homepage_testi.png')}}" alt="">
+                                        </div>
+                                        <div class="founder-text">
+                                            <span>Jessya Inn</span>
+                                            <p>Founder</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Testimonial End -->
+        <!-- Blog Area Start -->
+        <div class="home-blog-area section-padding2">
+            <div class="container">
+                <!-- Section Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-tittle text-center">
+                            <span>Our Recent news</span>
+                            <h2>Tourist Blog</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="home-blog-single mb-30">
+                            <div class="blog-img-cap">
+                                <div class="blog-img">
+                                    <img src="{{url('assets/utama/img/blog/home-blog1.jpg')}}" alt="">
+                                </div>
+                                <div class="blog-cap">
+                                    <p> |   Traveling</p>
+                                    <h3><a href="single-blog.html">Tips For Taking A Long-Term Trip With Kids.</a></h3>
+                                    <a href="#" class="more-btn">Read more »</a>
+                                </div>
+                            </div>
+                            <div class="blog-date text-center">
+                                <span>24</span>
+                                <p>Now</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="home-blog-single mb-30">
+                            <div class="blog-img-cap">
+                                <div class="blog-img">
+                                    <img src="{{url('assets/utama/img/blog/home-blog2.jpg')}}" alt="">
+                                </div>
+                                <div class="blog-cap">
+                                    <p> |   Traveling</p>
+                                    <h3><a href="single-blog.html">Tips For Taking A Long-Term Trip With Kids.</a></h3>
+                                    <a href="#" class="more-btn">Read more »</a>
+                                </div>
+                            </div>
+                            <div class="blog-date text-center">
+                                <span>24</span>
+                                <p>Now</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Blog Area End -->
     </main>
           <footer>
             <!-- Footer Start-->
@@ -165,7 +338,7 @@
                                 <div class="single-footer-caption mb-30">
                                     <!-- logo -->
                                     <div class="footer-logo">
-                                        <h1>Bookwisata Indonesia</h1>
+                                        <h1 style="color: white;">Bookwisata Indonesia</h1>
                                     </div>
                                     <div class="footer-tittle">
                                         <div class="footer-pera">
@@ -182,7 +355,7 @@
                                 <div class="footer-tittle">
                                     <h4>Customer Support</h4>
                                     <ul>
-                                        <li><a href="/home">Login</a></li>
+                                        <li><a href="/login">Login</a></li>
                                         <li><a href="#">Layana Promosi Usaha</a></li>
                                         <li><a href="#">Cara Booking</a></li>
                                         <li><a href="#">FAQ</a></li>

@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelConteoller;
 use App\Http\Controllers\KapalController;
 use App\Http\Controllers\KulinerController;
+use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PaketController;
 use App\Http\Controllers\PromosiBusController;
@@ -45,6 +46,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',[UtamaController::class,'index']);
 
+Route::get('/listofbus',[UtamaController::class, 'ListOfBus'])->name('listofbus');
+Route::get('/listofmobil',[UtamaController::class, 'ListOfMobil'])->name('listofmobil');
+Route::get('/listofdestinasi',[UtamaController::class, 'ListOfDestinasi'])->name('listofdestinasi');
+Route::get('/listofpusat',[UtamaController::class, 'ListOfPusat'])->name('listofpusat');
+Route::get('/listofkuliner',[UtamaController::class, 'ListOfKuliner'])->name('listofkuliner');
+Route::get('/listofhotel',[UtamaController::class, 'ListOfHotel'])->name('listofhotel');
+Route::get('/listofkapal',[UtamaController::class, 'ListOfKapal'])->name('listofkapal');
+Route::get('/listofguide',[UtamaController::class, 'ListOfGuide'])->name('listofguide');
+Route::get('/listofpaket',[UtamaController::class, 'ListOfPaket'])->name('listofpaket');
+
+Route::get('/managementuser',[ManagementUserController::class,'index'])->name('managementuser');
+Route::get('/managementuser/edit/{user}',[ManagementUserController::class,'EditOfUser'])->name('edit_managementuser');
+Route::post('/managementuser/{user}',[ManagementUserController::class,'update'])->name('update_managementuser');
 
 Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
 Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');

@@ -30,9 +30,9 @@ class KapalController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Kapal Pesiar';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Kapal Pesiar';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.kapal.createkapal', compact('response'), $data);
     }
 
@@ -45,12 +45,12 @@ class KapalController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
+            'nama'      => 'required',
+            'provinsi'  => 'required',
             'kabupaten' => 'required',
-            'review' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'review'    => 'required',
+            'harga'     => 'required',
+            'gambar'    => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -65,12 +65,12 @@ class KapalController extends Controller
 
         Kapal::create([
             'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
+            'nama'      => $request->nama,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
-            'review' => $request->review,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'review'    => $request->review,
+            'harga'     => $request->harga,
+            'rating'    => 0,
         ]);
 
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Upload');
@@ -95,9 +95,9 @@ class KapalController extends Controller
      */
     public function edit(Kapal $kapal)
     {
-        $data['title'] = 'Update Posting Kapal Pesiar';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Kapal Pesiar';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.kapal.updatekapal', compact('kapal'), $data);
     }
 
@@ -134,24 +134,24 @@ class KapalController extends Controller
 
             Kapal::where('id', $kapal->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $kapal->nama)
                 ->update([
-                    'nama' => $request->nama
+                    'nama'      => $request->nama
                 ]);
             Kapal::where('id', $kapal->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         }
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Update');

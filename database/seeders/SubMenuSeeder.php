@@ -28,6 +28,12 @@ class SubMenuSeeder extends Seeder
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '2',
+            'sub_menu' => 'Access Menu',
+            'icon' => 'fas fa-users-cog',
+            'url' => 'accessmenu',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '2',
             'sub_menu' => 'Menu',
             'icon' => 'fas fa-folder',
             'url' => 'menu',
@@ -35,8 +41,14 @@ class SubMenuSeeder extends Seeder
         DB::table('sub_menu')->insert([
             'menu_id' => '2',
             'sub_menu' => 'Sub Menu',
-            'icon' => 'fas fa-folder',
+            'icon' => 'fas fa-folder-open',
             'url' => 'submenu',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '2',
+            'sub_menu' => 'Management User',
+            'icon' => 'fas fa-user-tie',
+            'url' => 'managementuser',
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '3',

@@ -15,13 +15,13 @@ class ResponseApiController extends Controller
         ])->json();
         foreach($url['kota_kabupaten'] as $kab){
             $kota[] = [
-                'id' => $kab['id'],
-                'nama' => $kab['nama']
+                'id'    => $kab['id'],
+                'nama'  => $kab['nama']
             ];
         }
         return response()->json([
-            'status' => 'ok',
-            'kota' => $kota
+            'status'    => 'ok',
+            'kota'      => $kota
         ]);
     }
 }

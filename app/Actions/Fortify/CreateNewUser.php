@@ -40,6 +40,7 @@ class CreateNewUser implements CreatesNewUsers
             'password'  => Hash::make($input['password']),
             'role'      => 3,
             'avatar'    => 'default.jpg',
+            'is_active'    => 1,
         ]);
     }
 }

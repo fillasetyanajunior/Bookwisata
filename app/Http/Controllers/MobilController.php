@@ -30,9 +30,9 @@ class MobilController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Mobil';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Mobil';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.mobil.createmobil', compact('response'), $data);
     }
 
@@ -45,16 +45,16 @@ class MobilController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'tipe' => 'required',
-            'transmisi' => 'required',
-            'ac' => 'required',
-            'overland' => 'required',
-            'jumlah_sit' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'nama'          => 'required',
+            'provinsi'      => 'required',
+            'kabupaten'     => 'required',
+            'tipe'          => 'required',
+            'transmisi'     => 'required',
+            'ac'            => 'required',
+            'overland'      => 'required',
+            'jumlah_sit'    => 'required',
+            'harga'         => 'required',
+            'gambar'        => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -68,17 +68,17 @@ class MobilController extends Controller
         }
 
         Mobil::create([
-            'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'tipe' => $request->tipe,
-            'transmisi' => $request->transmisi,
-            'overland' => $request->overland,
-            'ac' => $request->ac,
-            'jumlah_sit' => $request->jumlah_sit,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'tipe'          => $request->tipe,
+            'transmisi'     => $request->transmisi,
+            'overland'      => $request->overland,
+            'ac'            => $request->ac,
+            'jumlah_sit'    => $request->jumlah_sit,
+            'harga'         => $request->harga,
+            'rating'        => 0,
         ]);
 
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Upload');
@@ -103,9 +103,9 @@ class MobilController extends Controller
      */
     public function edit(Mobil $mobil)
     {
-        $data['title'] = 'Update Posting Mobil';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Mobil';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.mobil.updatemobil', compact('mobil'), $data);
     }
 
@@ -141,32 +141,32 @@ class MobilController extends Controller
 
             Mobil::where('id', $mobil->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'tipe' => $request->tipe,
-                    'transmisi' => $request->transmisi,
-                    'overland' => $request->overland,
-                    'ac' => $request->ac,
-                    'jumlah_sit' => $request->jumlah_sit,
-                    'harga' => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'tipe'          => $request->tipe,
+                    'transmisi'     => $request->transmisi,
+                    'overland'      => $request->overland,
+                    'ac'            => $request->ac,
+                    'jumlah_sit'    => $request->jumlah_sit,
+                    'harga'         => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $mobil->nama)
                 ->update([
-                    'nama' => $request->nama
+                    'nama'          => $request->nama
                 ]);
             Mobil::where('id', $mobil->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'tipe' => $request->tipe,
-                    'transmisi' => $request->transmisi,
-                    'overland' => $request->overland,
-                    'ac' => $request->ac,
-                    'jumlah_sit' => $request->jumlah_sit,
-                    'harga' => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'tipe'          => $request->tipe,
+                    'transmisi'     => $request->transmisi,
+                    'overland'      => $request->overland,
+                    'ac'            => $request->ac,
+                    'jumlah_sit'    => $request->jumlah_sit,
+                    'harga'         => $request->harga,
                 ]);
         }
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Update');

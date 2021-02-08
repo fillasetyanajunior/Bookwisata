@@ -30,9 +30,9 @@ class PusatController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Pusat Oleh-Oleh';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Pusat Oleh-Oleh';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.pusat.createpusat', compact('response'), $data);
     }
 
@@ -45,13 +45,13 @@ class PusatController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
+            'nama'      => 'required',
+            'provinsi'  => 'required',
             'kabupaten' => 'required',
-            'alamat' => 'required',
-            'review' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'alamat'    => 'required',
+            'review'    => 'required',
+            'harga'     => 'required',
+            'gambar'    => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -59,20 +59,20 @@ class PusatController extends Controller
             $file->storeAs('pusat', $name);
 
             FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
+                'nama'  => $request->nama,
+                'foto'  => $name,
             ]);
         }
 
         Pusat::create([
-            'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
+            'user_id'   => request()->user()->id,
+            'nama'      => $request->nama,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
-            'alamat' => $request->alamat,
-            'review' => $request->review,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'alamat'    => $request->alamat,
+            'review'    => $request->review,
+            'harga'     => $request->harga,
+            'rating'    => 0,
         ]);
 
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Upload');
@@ -97,9 +97,9 @@ class PusatController extends Controller
      */
     public function edit(Pusat $pusat)
     {
-        $data['title'] = 'Update Posting Pusat Oleh-Oleh';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Pusat Oleh-Oleh';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.pusat.updatepusat', compact('pusat'), $data);
     }
 
@@ -136,26 +136,26 @@ class PusatController extends Controller
 
             Pusat::where('id', $pusat->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'alamat' => $request->alamat,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'alamat'    => $request->alamat,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $pusat->nama)
                 ->update([
-                    'nama' => $request->nama
+                    'nama'      => $request->nama
                 ]);
             Pusat::where('id', $pusat->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'alamat' => $request->alamat,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'alamat'    => $request->alamat,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         }
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Update');

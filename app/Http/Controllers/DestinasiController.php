@@ -18,8 +18,8 @@ class DestinasiController extends Controller
      */
     public function index()
     {
-        $data['destinasi'] = Destinasi::all();
-        $data['title'] = 'Posting Destinasi';
+        $data['destinasi']  = Destinasi::all();
+        $data['title']      = 'Posting Destinasi';
         return view('admin.promosi.destinasi.showdestinasi', $data);
     }
 
@@ -30,9 +30,9 @@ class DestinasiController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Destinasi';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Destinasi';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.destinasi.createdestinasi', compact('response'), $data);
     }
 
@@ -45,13 +45,13 @@ class DestinasiController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
+            'nama'      => 'required',
+            'provinsi'  => 'required',
             'kabupaten' => 'required',
-            'alamat' => 'required',
-            'review' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'alamat'    => 'required',
+            'review'    => 'required',
+            'harga'     => 'required',
+            'gambar'    => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -65,14 +65,14 @@ class DestinasiController extends Controller
         }
 
         Destinasi::create([
-            'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
+            'user_id'   => request()->user()->id,
+            'nama'      => $request->nama,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
-            'alamat' => $request->alamat,
-            'review' => $request->review,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'alamat'    => $request->alamat,
+            'review'    => $request->review,
+            'harga'     => $request->harga,
+            'rating'    => 0,
         ]);
 
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Upload');
@@ -97,9 +97,9 @@ class DestinasiController extends Controller
      */
     public function edit(Destinasi $destinasi)
     {
-        $data['title'] = 'Update Posting Destinasi';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Destinasi';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.destinasi.updatedestinasi', compact('destinasi'), $data);
     }
 
@@ -135,26 +135,26 @@ class DestinasiController extends Controller
 
             Destinasi::where('id', $destinasi->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'alamat' => $request->alamat,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'alamat'    => $request->alamat,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $destinasi->nama)
                 ->update([
-                    'nama' => $request->nama
+                    'nama'      => $request->nama
                 ]);
             Destinasi::where('id', $destinasi->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'alamat' => $request->alamat,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'alamat'    => $request->alamat,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         }
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Update');

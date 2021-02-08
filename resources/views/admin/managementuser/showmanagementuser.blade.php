@@ -17,7 +17,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Promosi</a></li>
+              <li class="breadcrumb-item"><a href="#">Layout</a></li>
               <li class="breadcrumb-item active">{{$title}}</li>
             </ol>
           </div><!-- /.col -->
@@ -34,30 +34,44 @@
               </div>
           @endif
 
-            <a href="{{route('create_bus')}}" class="btn btn-primary my-3">Tambah {{$title}}</a>
             <table class="table bg-info ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nama Bus</th>
-                        <th scope="col">PO</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Nomer Hp</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
-                    @foreach ($bus as $Bus)
+                    @foreach ($user as $User)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$Bus->nama}}</td>
-                        <td>{{$Bus->po}}</td>
+                        <td>{{$User->name}}</td>
+                        <td>{{$User->email}}</td>
+                        <td>{{$User->nomer}}</td>
                         <td>
-                            <a class="btn btn-warning" href="/bus/{{$Bus->id}}">Edit</a>
-                            <form action="/bus/{{$Bus->id}}" method="post" class="d-inline">
-                                @method('delete')
-                                @csrf
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('yakin');">Delete</button>
-                            </form>
+                            @if ($User->role == 1)
+                                Admin
+                            @elseif($User->role == 2)
+                                Mitra
+                            @else
+                                User
+                            @endif
+                        </td>
+                        <td>
+                            @if ($User->is_active == 1)
+                                Active
+                            @else
+                                Isactive
+                            @endif
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="/managementuser/edit/{{$User->id}}">Edit</a>
                         </td>
                     </tr>
                     <?php $i++;?>

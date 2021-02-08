@@ -30,9 +30,9 @@ class GuideController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Tour Guide';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Tour Guide';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.guide.createguide', compact('response'), $data);
     }
 
@@ -45,12 +45,12 @@ class GuideController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
+            'nama'      => 'required',
+            'provinsi'  => 'required',
             'kabupaten' => 'required',
-            'review' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'review'    => 'required',
+            'harga'     => 'required',
+            'gambar'    => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -64,13 +64,13 @@ class GuideController extends Controller
         }
 
         Guide::create([
-            'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
+            'user_id'   => request()->user()->id,
+            'nama'      => $request->nama,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
-            'review' => $request->review,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'review'    => $request->review,
+            'harga'     => $request->harga,
+            'rating'    => 0,
         ]);
 
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Upload');
@@ -95,9 +95,9 @@ class GuideController extends Controller
      */
     public function edit(Guide $guide)
     {
-        $data['title'] = 'Update Posting Tour Guide';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Tour Guide';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.guide.updateguide', compact('guide'), $data);
     }
 
@@ -134,24 +134,24 @@ class GuideController extends Controller
 
             Guide::where('id', $guide->id)
                 ->update([
-                'nama' => $request->nama,
-                'provinsi' => $request->provinsi,
+                'nama'      => $request->nama,
+                'provinsi'  => $request->provinsi,
                 'kabupaten' => $request->kabupaten,
-                'review' => $request->review,
-                'harga' => $request->harga,
+                'review'    => $request->review,
+                'harga'     => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $guide->nama)
             ->update([
-                'nama' => $request->nama
+                'nama'      => $request->nama
             ]);
             Guide::where('id', $guide->id)
                 ->update([
-                'nama' => $request->nama,
-                'provinsi' => $request->provinsi,
+                'nama'      => $request->nama,
+                'provinsi'  => $request->provinsi,
                 'kabupaten' => $request->kabupaten,
-                'review' => $request->review,
-                'harga' => $request->harga,
+                'review'    => $request->review,
+                'harga'     => $request->harga,
                 ]);
         }
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Update');

@@ -30,9 +30,9 @@ class PaketController extends Controller
      */
     public function create()
     {
-        $data['title'] = 'Create Posting Paket Wisata';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response = $url['provinsi'];
+        $data['title']  = 'Create Posting Paket Wisata';
+        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $response       = $url['provinsi'];
         return view('admin.promosi.paket.createpaket', compact('response'), $data);
     }
 
@@ -45,12 +45,12 @@ class PaketController extends Controller
     public function store(Request $request)
     {
         $validatedData  = $request->validate([
-            'nama' => 'required',
-            'provinsi' => 'required',
+            'nama'      => 'required',
+            'provinsi'  => 'required',
             'kabupaten' => 'required',
-            'review' => 'required',
-            'harga' => 'required',
-            'gambar' => 'required',
+            'review'    => 'required',
+            'harga'     => 'required',
+            'gambar'    => 'required',
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -58,19 +58,19 @@ class PaketController extends Controller
             $file->storeAs('paket', $name);
 
             FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
+                'nama'  => $request->nama,
+                'foto'  => $name,
             ]);
         }
 
         Paket::create([
-            'user_id' => request()->user()->id,
-            'nama' => $request->nama,
-            'provinsi' => $request->provinsi,
+            'user_id'   => request()->user()->id,
+            'nama'      => $request->nama,
+            'provinsi'  => $request->provinsi,
             'kabupaten' => $request->kabupaten,
-            'review' => $request->review,
-            'harga' => $request->harga,
-            'rating' => 0,
+            'review'    => $request->review,
+            'harga'     => $request->harga,
+            'rating'    => 0,
         ]);
 
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Upload');
@@ -95,9 +95,9 @@ class PaketController extends Controller
      */
     public function edit(Paket $paket)
     {
-        $data['title'] = 'Update Posting Paket Wisata';
-        $url = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response'] = $url['provinsi'];
+        $data['title']      = 'Update Posting Paket Wisata';
+        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        $data['response']   = $url['provinsi'];
         return view('admin.promosi.paket.updatepaket', compact('paket'), $data);
     }
 
@@ -134,24 +134,24 @@ class PaketController extends Controller
 
             Paket::where('id', $paket->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         } else {
             FileUpload::where('nama', $paket->nama)
                 ->update([
-                    'nama' => $request->nama
+                    'nama'      => $request->nama
                 ]);
             Paket::where('id', $paket->id)
                 ->update([
-                    'nama' => $request->nama,
-                    'provinsi' => $request->provinsi,
+                    'nama'      => $request->nama,
+                    'provinsi'  => $request->provinsi,
                     'kabupaten' => $request->kabupaten,
-                    'review' => $request->review,
-                    'harga' => $request->harga,
+                    'review'    => $request->review,
+                    'harga'     => $request->harga,
                 ]);
         }
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Update');

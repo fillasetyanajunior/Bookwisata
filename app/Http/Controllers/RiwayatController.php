@@ -18,8 +18,8 @@ class RiwayatController extends Controller
         }else{
             $data['riwayat'] = Riwayat::where('riwayat.user_nama_customer', request()->user()->nama)->get();
         }
-        $data['tipe'] = Tipekamar::all();
-        $data['title'] = 'Riwayat';
+        $data['tipe']   = Tipekamar::all();
+        $data['title']  = 'Riwayat';
         return view('home.riwayat',$data);
     }
 

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('nomer');
             $table->enum('role', ['1', '2','3']);
             $table->string('avatar');
+            $table->integer('is_active');
             $table->rememberToken();
             $table->timestamps();
         });

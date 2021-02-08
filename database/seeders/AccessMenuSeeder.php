@@ -34,5 +34,9 @@ class AccessMenuSeeder extends Seeder
             'menu_id' => '3',
             'role_id' => '2'
         ]);
+        DB::table('access_menu')->insert([
+            'menu_id' => '1',
+            'role_id' => '3'
+        ]);
     }
 }

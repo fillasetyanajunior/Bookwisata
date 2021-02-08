@@ -54,7 +54,7 @@
                             <form action="/kapal/{{$Kapal->id}}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('yakin');">Delete</button>
                             </form>
                         </td>
                     </tr>

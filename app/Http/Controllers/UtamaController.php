@@ -29,4 +29,49 @@ class UtamaController extends Controller
         $data['paket']=Paket::paginate(3);
         return view('home.utama',$data);
     }
+    public function ListOfBus()
+    {
+        $bus = Bus::orderBy('nama')->paginate(30);
+        return view('catagories.bus',compact('bus'));
+    }
+    public function ListOfMobil()
+    {
+        $mobil = Mobil::orderBy('nama')->paginate(30);
+        return view('catagories.mobil',compact('mobil'));
+    }
+    public function ListOfDestinasi()
+    {
+        $destinasi = Destinasi::orderBy('nama')->paginate(30);
+        return view('catagories.destinasi',compact('destinasi'));
+    }
+    public function ListOfPusat()
+    {
+        $pusat = Pusat::orderBy('nama')->paginate(30);
+        return view('catagories.pusat',compact('pusat'));
+    }
+    public function ListOfKuliner()
+    {
+        $kuliner = Kuliner::orderBy('nama')->paginate(30);
+        return view('catagories.kuliner',compact('kuliner'));
+    }
+    public function ListOfHotel()
+    {
+        $hotel = Hotel::orderBy('nama')->paginate(30);
+        return view('catagories.hotel',compact('hotel'));
+    }
+    public function ListOfKapal()
+    {
+        $kapal = Kapal::orderBy('nama')->paginate(30);
+        return view('catagories.kapal',compact('kapal'));
+    }
+    public function ListOfGuide()
+    {
+        $guide = Guide::orderBy('nama')->paginate(30);
+        return view('catagories.guide',compact('guide'));
+    }
+    public function ListOfPaket()
+    {
+        $paket = Paket::orderBy('nama')->paginate(30);
+        return view('catagories.paket',compact('paket'));
+    }
 }
