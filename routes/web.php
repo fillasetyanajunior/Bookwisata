@@ -27,6 +27,7 @@ use App\Http\Controllers\PromosiPusatController;
 use App\Http\Controllers\PusatController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\UtamaController;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 /*
@@ -45,8 +46,6 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[UtamaController::class,'index']);
-Route::get('/myprofile',[HomeController::class, 'Myprofile'])->name('myprofile');
-Route::post('/myprofile/{user}',[HomeController::class,'UpdateMyProfile']);
 
 Route::get('/listofbus',[UtamaController::class, 'ListOfBus'])->name('listofbus');
 Route::get('/listofmobil',[UtamaController::class, 'ListOfMobil'])->name('listofmobil');
@@ -58,80 +57,92 @@ Route::get('/listofkapal',[UtamaController::class, 'ListOfKapal'])->name('listof
 Route::get('/listofguide',[UtamaController::class, 'ListOfGuide'])->name('listofguide');
 Route::get('/listofpaket',[UtamaController::class, 'ListOfPaket'])->name('listofpaket');
 
-Route::get('/managementuser',[ManagementUserController::class,'index'])->name('managementuser');
-Route::get('/managementuser/edit/{user}',[ManagementUserController::class,'EditOfUser'])->name('edit_managementuser');
-Route::post('/managementuser/{user}',[ManagementUserController::class,'update'])->name('update_managementuser');
-
-Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
-Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
-Route::put('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
-
-Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');
-Route::post('/bordingbus', [PromosiBusController::class,'boording'])->name('bordingbus');
 Route::get('/detailbus/{bus}', [PromosiBusController::class,'show'])->name('detailbus');
-Route::get('/bookchartbus', [PromosiBusController::class,'create'])->middleware('auth')->name('createbus');
-Route::post('/bookchartbus/bus/{bus}', [PromosiBusController::class,'store'])->name('storebus');
-Route::put('/bookchartbus/{riwayat}', [PromosiBusController::class,'update'])->name('updatebus');
-
-Route::get('/bordingmobil', [PromosiMobilController::class,'index'])->name('showbordingmobil');
-Route::post('/bordingmobil', [PromosiMobilController::class,'boording'])->name('bordingmobil');
 Route::get('/detailmobil/{mobil}', [PromosiMobilController::class,'show'])->name('detailmobil');
-Route::get('/bookchartmobil', [PromosiMobilController::class,'create'])->middleware('auth')->name('createmobil');
-Route::post('/bookchartmobil/mobil/{mobil}', [PromosiMobilController::class,'store'])->name('storemobil');
-Route::put('/bookchartmobil/{riwayat}', [PromosiMobilController::class,'update'])->name('updatemobil');
-
-Route::get('/bordingdestinasi', [PromosiDestinasiController::class,'index'])->name('showbordingdestinasi');
-Route::post('/bordingdestinasi', [PromosiDestinasiController::class,'boording'])->name('bordingdestinasi');
 Route::get('/detaildestinasi/{destinasi}', [PromosiDestinasiController::class,'show'])->name('detaildestinasi');
-Route::get('/bookchartdestinasi', [PromosiDestinasiController::class,'create'])->middleware('auth')->name('createdestinasi');
-Route::post('/bookchartdestinasi/destinasi/{destinasi}', [PromosiDestinasiController::class,'store'])->name('storedestinasi');
-Route::put('/bookchartdestinasi/{riwayat}', [PromosiDestinasiController::class,'update'])->name('updatedestinasi');
-
-Route::get('/bordingpusat', [PromosiPusatController::class,'index'])->name('showbordingpusat');
-Route::post('/bordingpusat', [PromosiPusatController::class,'boording'])->name('bordingpusat');
 Route::get('/detailpusat/{pusat}', [PromosiPusatController::class,'show'])->name('detailpusat');
-Route::get('/bookchartpusat', [PromosiPusatController::class,'create'])->middleware('auth')->name('createpusat');
-Route::post('/bookchartpusat/pusat/{pusat}', [PromosiPusatController::class,'store'])->name('storepusat');
-Route::put('/bookchartpusat/{riwayat}', [PromosiPusatController::class,'update'])->name('updatepusat');
-
-Route::get('/bordingguide', [PromosiGuideController::class,'index'])->name('showbordingguide');
-Route::post('/bordingguide', [PromosiGuideController::class,'boording'])->name('bordingguide');
 Route::get('/detailguide/{guide}', [PromosiGuideController::class,'show'])->name('detailguide');
-Route::get('/bookchartguide', [PromosiGuideController::class,'create'])->middleware('auth')->name('createguide');
-Route::post('/bookchartguide/guide/{guide}', [PromosiGuideController::class,'store'])->name('storeguide');
-Route::put('/bookchartguide/{riwayat}', [PromosiGuideController::class,'update'])->name('updateguide');
-
-Route::get('/bordinghotel', [PromosiHotelController::class,'index'])->name('showbordinghotel');
-Route::post('/bordinghotel', [PromosiHotelController::class,'boording'])->name('bordinghotel');
 Route::get('/detailhotel/{hotel}', [PromosiHotelController::class,'show'])->name('detailhotel');
-Route::get('/bookcharthotel', [PromosiHotelController::class,'create'])->middleware('auth')->name('createhotel');
-Route::post('/bookcharthotel/hotel/{hotel}', [PromosiHotelController::class,'store'])->name('storehotel');
-Route::put('/bookcharthotel/{riwayat}', [PromosiHotelController::class,'update'])->name('updatehotel');
-
-Route::get('/bordingkapal', [PromosiKapalController::class,'index'])->name('showbordingkapal');
-Route::post('/bordingkapal', [PromosiKapalController::class,'boording'])->name('bordingkapal');
 Route::get('/detailkapal/{kapal}', [PromosiKapalController::class,'show'])->name('detailkapal');
-Route::get('/bookchartkapal', [PromosiKapalController::class,'create'])->middleware('auth')->name('createkapal');
-Route::post('/bookchartkapal/kapal/{kapal}', [PromosiKapalController::class,'store'])->name('storekapal');
-Route::put('/bookchartkapal/{riwayat}', [PromosiKapalController::class,'update'])->name('updatekapal');
-
-Route::get('/bordingpaket', [PromosiPaketController::class,'index'])->name('showbordingpaket');
-Route::post('/bordingpaket', [PromosiPaketController::class,'boording'])->name('bordingpaket');
 Route::get('/detailpaket/{paket}', [PromosiPaketController::class,'show'])->name('detailpaket');
-Route::get('/bookchartpaket', [PromosiPaketController::class,'create'])->middleware('auth')->name('createpaket');
-Route::post('/bookchartpaket/paket/{paket}', [PromosiPaketController::class,'store'])->name('storepaket');
-Route::put('/bookchartpaket/{riwayat}', [PromosiPaketController::class,'update'])->name('updatepaket');
-
-Route::get('/bordingkuliner', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
-Route::post('/bordingkuliner', [PromosiKulinerController::class,'boording'])->name('bordingkuliner');
 Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])->name('detailkuliner');
-Route::get('/bookchartkuliner', [PromosiKulinerController::class,'create'])->middleware('auth')->name('createkuliner');
-Route::post('/bookchartkuliner/kuliner/{kuliner}', [PromosiKulinerController::class,'store'])->name('storekuliner');
-Route::put('/bookchartkuliner/{riwayat}', [PromosiKulinerController::class,'update'])->name('updatekuliner');
-
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
+    
+    Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
+    Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
+    Route::put('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
+    
+    //Bus
+    Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');
+    Route::post('/bordingbus', [PromosiBusController::class,'boording'])->name('bordingbus');
+    Route::get('/bookchartbus', [PromosiBusController::class,'create'])->middleware('auth')->name('createbus');
+    Route::post('/bookchartbus/bus/{bus}', [PromosiBusController::class,'store'])->name('storebus');
+    Route::put('/bookchartbus/{riwayat}', [PromosiBusController::class,'update'])->name('updatebus');
+    
+    //Mobil
+    Route::get('/bordingmobil', [PromosiMobilController::class,'index'])->name('showbordingmobil');
+    Route::post('/bordingmobil', [PromosiMobilController::class,'boording'])->name('bordingmobil');
+    Route::get('/bookchartmobil', [PromosiMobilController::class,'create'])->middleware('auth')->name('createmobil');
+    Route::post('/bookchartmobil/mobil/{mobil}', [PromosiMobilController::class,'store'])->name('storemobil');
+    Route::put('/bookchartmobil/{riwayat}', [PromosiMobilController::class,'update'])->name('updatemobil');
+    
+    //Destinasi
+    Route::get('/bordingdestinasi', [PromosiDestinasiController::class,'index'])->name('showbordingdestinasi');
+    Route::post('/bordingdestinasi', [PromosiDestinasiController::class,'boording'])->name('bordingdestinasi');
+    Route::get('/bookchartdestinasi', [PromosiDestinasiController::class,'create'])->middleware('auth')->name('createdestinasi');
+    Route::post('/bookchartdestinasi/destinasi/{destinasi}', [PromosiDestinasiController::class,'store'])->name('storedestinasi');
+    Route::put('/bookchartdestinasi/{riwayat}', [PromosiDestinasiController::class,'update'])->name('updatedestinasi');
+    
+    //Pusat Oleh-oleh
+    Route::get('/bordingpusat', [PromosiPusatController::class,'index'])->name('showbordingpusat');
+    Route::post('/bordingpusat', [PromosiPusatController::class,'boording'])->name('bordingpusat');
+    Route::get('/bookchartpusat', [PromosiPusatController::class,'create'])->middleware('auth')->name('createpusat');
+    Route::post('/bookchartpusat/pusat/{pusat}', [PromosiPusatController::class,'store'])->name('storepusat');
+    Route::put('/bookchartpusat/{riwayat}', [PromosiPusatController::class,'update'])->name('updatepusat');
+    
+    //Tourguide
+    Route::get('/bordingguide', [PromosiGuideController::class,'index'])->name('showbordingguide');
+    Route::post('/bordingguide', [PromosiGuideController::class,'boording'])->name('bordingguide');
+    Route::get('/bookchartguide', [PromosiGuideController::class,'create'])->middleware('auth')->name('createguide');
+    Route::post('/bookchartguide/guide/{guide}', [PromosiGuideController::class,'store'])->name('storeguide');
+    Route::put('/bookchartguide/{riwayat}', [PromosiGuideController::class,'update'])->name('updateguide');
+    
+    //Hotel
+    Route::get('/bordinghotel', [PromosiHotelController::class,'index'])->name('showbordinghotel');
+    Route::post('/bordinghotel', [PromosiHotelController::class,'boording'])->name('bordinghotel');
+    Route::get('/bookcharthotel', [PromosiHotelController::class,'create'])->middleware('auth')->name('createhotel');
+    Route::post('/bookcharthotel/hotel/{hotel}', [PromosiHotelController::class,'store'])->name('storehotel');
+    Route::put('/bookcharthotel/{riwayat}', [PromosiHotelController::class,'update'])->name('updatehotel');
+    
+    //Kapal Pesiar
+    Route::get('/bordingkapal', [PromosiKapalController::class,'index'])->name('showbordingkapal');
+    Route::post('/bordingkapal', [PromosiKapalController::class,'boording'])->name('bordingkapal');
+    Route::get('/bookchartkapal', [PromosiKapalController::class,'create'])->middleware('auth')->name('createkapal');
+    Route::post('/bookchartkapal/kapal/{kapal}', [PromosiKapalController::class,'store'])->name('storekapal');
+    Route::put('/bookchartkapal/{riwayat}', [PromosiKapalController::class,'update'])->name('updatekapal');
+    
+    //Paket Wisata
+    Route::get('/bordingpaket', [PromosiPaketController::class,'index'])->name('showbordingpaket');
+    Route::post('/bordingpaket', [PromosiPaketController::class,'boording'])->name('bordingpaket');
+    Route::get('/bookchartpaket', [PromosiPaketController::class,'create'])->middleware('auth')->name('createpaket');
+    Route::post('/bookchartpaket/paket/{paket}', [PromosiPaketController::class,'store'])->name('storepaket');
+    Route::put('/bookchartpaket/{riwayat}', [PromosiPaketController::class,'update'])->name('updatepaket');
+    
+    //Kuliner
+    Route::get('/bordingkuliner', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
+    Route::post('/bordingkuliner', [PromosiKulinerController::class,'boording'])->name('bordingkuliner');
+    Route::get('/bookchartkuliner', [PromosiKulinerController::class,'create'])->middleware('auth')->name('createkuliner');
+    Route::post('/bookchartkuliner/kuliner/{kuliner}', [PromosiKulinerController::class,'store'])->name('storekuliner');
+    Route::put('/bookchartkuliner/{riwayat}', [PromosiKulinerController::class,'update'])->name('updatekuliner');
+});
+
+
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/myprofile', [HomeController::class, 'Myprofile'])->name('myprofile');
+Route::post('/myprofile/{user}', [HomeController::class, 'UpdateMyProfile']);
+
+Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     
     Route::get('/menu',[MenuController::class,'index'])->name('menu');
     Route::get('/menu/create',[MenuController::class,'create'])->name('create_menu');
@@ -153,6 +164,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/accessmenu/{accessMenu}',[AccessMenuController::class,'edit'])->name('edit_accessmenu');
     Route::put('/accessmenu/{accessMenu}',[AccessMenuController::class,'update'])->name('update_accessmenu');
     Route::delete('/accessmenu/{accessMenu}',[AccessMenuController::class,'destroy'])->name('destroy_accessmenu');
+
+    Route::get('/managementuser', [ManagementUserController::class, 'index'])->name('managementuser');
+    Route::get('/managementuser/edit/{user}', [ManagementUserController::class, 'EditOfUser'])->name('edit_managementuser');
+    Route::post('/managementuser/{user}', [ManagementUserController::class, 'update'])->name('update_managementuser');
+});
+Route::group(['middleware' => ['auth','verified','mitra']], function () {
     
     Route::get('/bus',[BusController::class,'index'])->name('bus');
     Route::get('/bus/create',[BusController::class,'create'])->name('create_bus');
@@ -216,10 +233,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/guide/{guide}', [GuideController::class,'edit'])->name('edit_guide');
     Route::put('/guide/{guide}', [GuideController::class,'update'])->name('update_guide');
     Route::delete('/guide/{guide}', [GuideController::class,'destroy'])->name('destroy_guide');
-    
-    //Coba
-    Route::get('/coba',[CobaController::class,'index'])->name('coba');
-    Route::post('/cobas',[CobaController::class,'coba'])->name('cobas');
-    
+
+
     Route::post('/kabupaten',[ResponseApiController::class, 'kabupaten']);
-});
+});  
+    
+    // //Coba
+    // Route::get('/coba',[CobaController::class,'index'])->name('coba');
+    // Route::post('/cobas',[CobaController::class,'coba'])->name('cobas');
+    
