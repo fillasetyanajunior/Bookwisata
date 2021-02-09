@@ -45,6 +45,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/',[UtamaController::class,'index']);
+Route::get('/myprofile',[HomeController::class, 'Myprofile'])->name('myprofile');
+Route::post('/myprofile/{user}',[HomeController::class,'UpdateMyProfile']);
 
 Route::get('/listofbus',[UtamaController::class, 'ListOfBus'])->name('listofbus');
 Route::get('/listofmobil',[UtamaController::class, 'ListOfMobil'])->name('listofmobil');

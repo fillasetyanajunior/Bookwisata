@@ -18,7 +18,7 @@ class SubMenuSeeder extends Seeder
             'menu_id' => '1',
             'sub_menu' => 'Dashboard',
             'icon' => 'fas fa-tachometer-alt',
-            'url' => 'menu',
+            'url' => 'home',
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '1',
