@@ -16,7 +16,7 @@ class AdminMitra
      */
     public function handle(Request $request, Closure $next)
     {
-        if (request()->user()->role == 1 && request()->user()->role == 2) {
+        if (request()->user()->role == 1 || request()->user()->role == 2) {
             return $next($request);
         }
         return redirect()->route('home');
