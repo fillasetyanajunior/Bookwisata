@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                   <td colspan="2">Total Price</td>
-                  <td>{{$riwayat->harga}}</td>
+                  <td>{{$riwayat->total}}</td>
                 </tr>
               </tbody>
             </table>
