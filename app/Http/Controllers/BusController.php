@@ -55,7 +55,7 @@ class BusController extends Controller
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
             'harga'         => 'required',
-            'gambar'        => ['required','image','mimes:jpg,jpeg,png'],
+            'gambar.*'        => ['required','image'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -128,7 +128,7 @@ class BusController extends Controller
         if($request->hasfile('gambar'))
         {
             $request->validate([
-                'gambar' => 'image|mimes:jpg,jpeg,png'
+                'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $bus->nama)

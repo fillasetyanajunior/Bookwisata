@@ -54,7 +54,7 @@ class MobilController extends Controller
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
             'harga'         => 'required',
-            'gambar'        => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'gambar.*'        => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -124,7 +124,7 @@ class MobilController extends Controller
         if ($request->hasfile('gambar')) {
 
             $request->validate([
-                'gambar' => 'image|mimes:jpg,jpeg,png'
+                'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
             $filegambar = DB::table('fileuploads')
