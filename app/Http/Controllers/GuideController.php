@@ -50,7 +50,7 @@ class GuideController extends Controller
             'kabupaten' => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar'    => ['required', 'image|mimes:jpg,jpeg,png'],
+            'gambar'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
