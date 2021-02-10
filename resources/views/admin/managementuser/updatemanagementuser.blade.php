@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4 my-4">
-            <form action="/managemenetuser/{{$user->id}}" method="POST">
+            <form action="/managementuser/{{$user->id}}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nama</label>
