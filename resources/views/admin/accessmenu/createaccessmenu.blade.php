@@ -32,7 +32,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="menu" class="form-label">Nama Menu</label>
-                    <select class="form-select form-control" aria-label="Default select example" id="menu" name="menu_id">
+                    <select class="form-select form-control @error('menu_id') is-invalid @enderror" aria-label="Default select example" id="menu" name="menu_id">
                         <option selected>Select menu</option>
                         @foreach ($menu as $item)
                             <option value="{{$item->id}}">{{$item->menu}}</option>
@@ -41,7 +41,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="role_id" class="form-label">Nama Role</label>
-                    <select class="form-select form-control" aria-label="Default select example" id="role_id" name="role_id">
+                    <select class="form-select form-control @error('role_id') is-invalid @enderror" aria-label="Default select example" id="role_id" name="role_id">
                         <option selected>Select Role</option>
                         <option value="1">Admin</option>
                         <option value="2">Mitra</option>

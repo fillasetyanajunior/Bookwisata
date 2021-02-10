@@ -32,11 +32,11 @@
                 @csrf
                 <div class="mb-3">
                     <label for="nama_menu" class="form-label">Nama Menu</label>
-                    <input type="text" class="form-control" id="nama_menu" name="menu">
+                    <input type="text" class="form-control @error('menu') is-invalid @enderror" id="nama_menu" name="menu">
                 </div>
                 <div class="mb-3">
                     <label for="icon" class="form-label">Icon</label>
-                    <input type="text" class="form-control" id="icon" name="icon">
+                    <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon">
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit">Sumbit</button>
             </form>

@@ -46,7 +46,7 @@
               </div>
               <div class="mb-3">
                 <label for="formFile" class="form-label">File Foto</label>
-                <input class="form-control" type="file" id="formFile" name="avatar">
+                <input class="form-control @error('avatar') is-invalid @enderror" type="file" id="formFile" name="avatar">
               </div>
               <button type="submit" class="btn btn-primary">Update</button>
             </form>

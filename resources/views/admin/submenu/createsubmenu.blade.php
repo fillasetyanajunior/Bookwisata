@@ -32,7 +32,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="menu" class="form-label">Nama Menu</label>
-                    <select class="form-select form-control" aria-label="Default select example" id="menu" name="menu_id">
+                    <select class="form-select form-control @error('menu_id') is-invalid @enderror" aria-label="Default select example" id="menu" name="menu_id">
                         <option selected>Select menu</option>
                         @foreach ($menu as $item)
                             <option value="{{$item->id}}">{{$item->menu}}</option>
@@ -41,15 +41,15 @@
                 </div>
                 <div class="mb-3">
                     <label for="sub_menu" class="form-label">Nama Sub Menu</label>
-                    <input type="text" class="form-control" id="sub_menu" name="sub_menu">
+                    <input type="text" class="form-control @error('sub_menu') is-invalid @enderror" id="sub_menu" name="sub_menu">
                 </div>
                 <div class="mb-3">
                     <label for="icon" class="form-label">Icon</label>
-                    <input type="text" class="form-control" id="icon" name="icon">
+                    <input type="text" class="form-control @error('icon') is-invalid @enderror" id="icon" name="icon">
                 </div>
                 <div class="mb-3">
                     <label for="url" class="form-label">URL</label>
-                    <input type="text" class="form-control" id="url" name="url">
+                    <input type="text" class="form-control @error('url') is-invalid @enderror" id="url" name="url">
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit">Sumbit</button>
             </form>

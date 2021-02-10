@@ -51,7 +51,7 @@ class DestinasiController extends Controller
             'alamat'    => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar'    => 'required',
+            'gambar'        => ['required', 'image|mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -116,6 +116,9 @@ class DestinasiController extends Controller
             'kabupaten' => 'required',
         ]);
         if ($request->hasfile('gambar')) {
+            $request->validate([
+                'gambar' => 'image|mimes:jpg,jpeg,png'
+            ]);
             $filegambar = DB::table('fileuploads')
             ->where('destinasi', '=', $destinasi->nama)
                 ->get();

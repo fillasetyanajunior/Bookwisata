@@ -50,7 +50,7 @@ class PaketController extends Controller
             'kabupaten' => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar'    => 'required',
+            'gambar'    => ['required', 'image|mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -115,6 +115,11 @@ class PaketController extends Controller
         ]);
 
         if ($request->hasfile('gambar')) {
+
+            $request->validate([
+                'gambar' => 'image|mimes:jpg,jpeg,png'
+            ]);
+            
             $filegambar = DB::table('fileuploads')
             ->where('nama', '=', $paket->nama)
                 ->get();
