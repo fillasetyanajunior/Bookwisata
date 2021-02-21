@@ -62,9 +62,9 @@
                       <label class="form-label">Tipe</label>
                       <select class="form-select form-control  @error('tipe') is-invalid @enderror" aria-label="Default select example" name="tipe">
                       <option value="">Pilih Tipe Bus</option>
-                      <option value="11">Small Bus</option>
-                      <option value="12">Medium Bus</option>
-                      <option value="13">Big Bus</option>
+                      <option value="31">Small Bus</option>
+                      <option value="32">Medium Bus</option>
+                      <option value="33">Big Bus</option>
                       </select>
                     </div>
                     <div class="col mb-3">
