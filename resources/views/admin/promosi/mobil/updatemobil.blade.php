@@ -58,9 +58,9 @@
                         <label class="form-label">Tipe</label>
                         <select class="form-select form-control  @error('tipe') is-invalid @enderror" aria-label="Default select example" name="tipe">
                         <option value="">Pilih Tipe Mobil</option>
-                        <option value="1" @if ($mobil->tipe == 1) selected @endif>Sedan</option>
-                        <option value="2" @if ($mobil->tipe == 2) selected @endif>MVP</option>
-                        <option value="3" @if ($mobil->tipe == 3) selected @endif>LMVP</option>
+                        <option value="21" @if ($mobil->tipe == 21) selected @endif>Sedan</option>
+                        <option value="22" @if ($mobil->tipe == 22) selected @endif>MVP</option>
+                        <option value="23" @if ($mobil->tipe == 23) selected @endif>LMVP</option>
                         </select>
                     </div>
                     <div class="col mb-3">
