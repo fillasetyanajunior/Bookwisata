@@ -40,7 +40,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Mobil</th>
-                        <th scope="col">PO</th>
+                        <th scope="col">Tipe Mobil</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>

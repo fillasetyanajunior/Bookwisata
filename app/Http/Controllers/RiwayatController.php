@@ -16,7 +16,7 @@ class RiwayatController extends Controller
         } else if (request()->user()->role == 2) {
             $data['riwayat'] = Riwayat::where('riwayat.user_id_owner', request()->user()->id)->get();
         }else{
-            $data['riwayat'] = Riwayat::where('riwayat.user_nama_customer', request()->user()->nama)->get();
+            $data['riwayat'] = Riwayat::where('riwayat.user_nama_customer', request()->user()->name)->get();
         }
         $data['tipe']   = Tipekamar::all();
         $data['title']  = 'Riwayat';
