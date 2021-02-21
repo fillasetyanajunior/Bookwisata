@@ -64,11 +64,11 @@
                         <td>{{$riwayat->nomerhp}} </td>
                         <td>{{$riwayat->nama_pilihan}} </td>
                         <td>
-                          @if($riwayat->tipe == 11)
+                          @if($riwayat->tipe == 31)
                             Small Bus
-                          @elseif($riwayat->tipe == 12)
+                          @elseif($riwayat->tipe == 32)
                             Medium Bus
-                          @elseif($riwayat->tipe == 13)
+                          @elseif($riwayat->tipe == 33)
                             Big Bus
                           @elseif($riwayat->tipe == 21)
                             Sedan
