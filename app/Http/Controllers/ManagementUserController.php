@@ -23,7 +23,6 @@ class ManagementUserController extends Controller
         User::where('id',$user->id)
             ->update([
                 'role'  => $request->role,
-                'is_active'  => $request->is_active,
             ]);
 
         return redirect()->route('managementuser')->with('status','Update User Berhasil');

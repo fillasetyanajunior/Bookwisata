@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
     Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
-    Route::put('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
+    Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
     
     //Bus
     Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');

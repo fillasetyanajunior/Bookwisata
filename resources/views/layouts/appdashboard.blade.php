@@ -93,7 +93,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{url('assets/dist/js/pages/dashboard.js')}}"></script>
 <script src="{{url('assets/dist/js/kota.js')}}"></script>
-<script src="{{url('assets/dist/js/chat.js')}}"></script>
+<script src="{{url('assets/dist/js/countdown.js')}}"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script language="javascript" type="text/javaScript">
  
@@ -101,24 +101,29 @@
     var pusher = new Pusher('58dff3dcd7642b8137a0', {
       cluster: 'ap1'
     });
+    var chacking = $('.dropdown').attr('content')
  
     var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      var existing = $('.dropdown .dropdown-menu').html();
-      var ncount = $('.dropdown .countNotif').html();
-      var notifcount = parseInt(ncount);
-      var html='';
-      if(data){
+      channel.bind('my-event', function(data) {
+        var existing = $('.dropdown .dropdown-menu').html();
+        var ncount = $('.dropdown .countNotif').html();
+        var notifcount = parseInt(ncount);
+        var html='';
+        if (data.id == chacking) {
+          if(data){
+            
+            html +=' <a class="dropdown-item" href="/riwayat">' + data.messages + '</a>';
+    
+            notifcount +=1;
+            $('.dropdown .countNotif').text(notifcount);
+            var newNotifHtml = html + existing;
+            $('.dropdown .dropdown-menu').html(newNotifHtml);
+          }
+        } else {
+          
+        }
         
-        html +=' <a class="dropdown-item" href="/riwayat">' + data.messages + '</a>';
- 
-        notifcount +=1;
-        $('.dropdown .countNotif').text(notifcount);
-        var newNotifHtml = html + existing;
-        $('.dropdown .dropdown-menu').html(newNotifHtml);
-      }
-      
-    });
+      });
     });
 </script>
 </body>

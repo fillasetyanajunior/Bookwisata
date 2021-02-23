@@ -43,14 +43,6 @@
                         <option value="3"@if ($user->role == 3) selected @endif>User</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="is_active" class="form-label">Status</label>
-                    <select class="form-select form-control" aria-label="Default select example" id="is_active" name="is_active">
-                        <option selected>Select Status</option>
-                        <option value="0"@if ($user->is_active == 0) selected @endif>Inactive</option>
-                        <option value="1"@if ($user->is_active == 1) selected @endif>Active</option>
-                    </select>
-                </div>
                 <button type="submit" class="btn btn-primary" name="submit">Sumbit</button>
             </form>
         </div>

@@ -29,7 +29,6 @@
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4 my-4">
             <form action="/konfirmasi/{{$riwayat->id}}" method="POST">
-                @method('put')
                 @csrf
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
@@ -51,8 +50,8 @@
                     <label for="is_active" class="form-label">Konfirmasi</label>
                     <select class="form-select form-control" aria-label="Default select example" id="is_active" name="is_active">
                         <option value="">Select Konfirmasi</option>
-                        <option value="1" @if ($riwayat->is_active == 1) selected @endif >Hold</option>
-                        <option value="2" @if ($riwayat->is_active == 2) selected @endif >Cancel</option>
+                        <option value="1" @if ($riwayat->is_active == 1) selected @endif >Waitting</option>
+                        <option value="2" @if ($riwayat->is_active == 2) selected @endif >Hold</option>
                         <option value="3" @if ($riwayat->is_active == 3) selected @endif >Confirmed</option>
                     </select>
                 </div>

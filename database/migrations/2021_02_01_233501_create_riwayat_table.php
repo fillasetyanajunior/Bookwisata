@@ -31,6 +31,7 @@ class CreateRiwayatTable extends Migration
             $table->string('date');
             $table->string('total');
             $table->integer('is_active');
+            $table->integer('waktu_payment')->nullable();
             $table->timestamps();
         });
     }

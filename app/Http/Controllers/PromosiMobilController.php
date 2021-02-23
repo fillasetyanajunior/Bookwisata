@@ -85,7 +85,7 @@ class PromosiMobilController extends Controller
             $id = $mobil->user_id;
         }
         if ($id == $riwayat->user_id_owner) {
-            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan));
+            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $id));
         }
         return redirect()->route('showbordingmobil');
     }

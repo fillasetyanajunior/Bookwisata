@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['1', '2','3']);
             $table->string('avatar');
             $table->integer('is_active');
+            $table->timestamp('active_mitra')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

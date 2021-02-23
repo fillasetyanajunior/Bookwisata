@@ -50,7 +50,7 @@
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                           <th scope="col">Aksi</th>
                         @else
-                          
+                          <th scope="col">Waktu Pembayaran</th>
                         @endif
                     </tr>
                 </thead>
@@ -92,11 +92,13 @@
                         <td>{{$riwayat->total}} </td>
                         <td>
                             @if ($riwayat->is_active == 1)
-                                Hold
+                              Waitting
                             @elseif($riwayat->is_active == 2)
-                                Cancel
-                            @else
-                                Confirmed
+                              Hold
+                            @elseif($riwayat->is_active == 3)
+                              Confirmed
+                            @elseif($riwayat->is_active == 4)
+                              Expired 
                             @endif
                         </td>
                          @if (request()->user()->role == 1 || request()->user()->role == 2)
@@ -104,7 +106,9 @@
                           <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
                         </td>
                         @else
-                          
+                          <td>
+                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}"></p>
+                          </td>
                         @endif
                         
                     </tr>

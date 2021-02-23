@@ -31,10 +31,28 @@ class RiwayatController extends Controller
 
     public function update(Request $request, Riwayat $riwayat)
     {
-        Riwayat::where('id',$riwayat->id)
-                ->update([
-                    'is_active' => $request->is_active
+        if (!$request->waktu_payment) {
+            if ($request->is_active == 2) {
+                Riwayat::where('id',$riwayat->id)
+                        ->update([
+                            'is_active' => $request->is_active,
+                            'waktu_payment' => 1800,
+                        ]);
+            } else {
+                Riwayat::where('id', $riwayat->id)
+                        ->update([
+                            'is_active' => $request->is_active,
+                            'waktu_payment' => 0,
                 ]);
+            }
+            
+        }else{
+            Riwayat::where('id', $riwayat->id)
+                ->update([
+                    'is_active' => $request->is_active,
+                    'waktu_payment' => $request->waktu_payment,
+                ]);
+        }
         return redirect()->route('riwayat')->with('status','Pesanan Telah Di Konfirmasi');
     }
 }
