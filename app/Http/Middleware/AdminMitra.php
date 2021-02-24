@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,14 @@ class AdminMitra
     public function handle(Request $request, Closure $next)
     {
         if (request()->user()->role == 1 || request()->user()->role == 2) {
-            return $next($request);
+            if (request()->user()->active_mitra == date('Y-m-d')) {
+                User::where('id',request()->user()->id)
+                    ->update([
+                        'role' => 3,
+                    ]);
+            }else{
+                return $next($request);
+            }
         }
         return redirect()->route('home');
     }

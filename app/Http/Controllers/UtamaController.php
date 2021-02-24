@@ -11,6 +11,7 @@ use App\Models\Kuliner;
 use App\Models\Mobil;
 use App\Models\Paket;
 use App\Models\Pusat;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UtamaController extends Controller
@@ -73,5 +74,33 @@ class UtamaController extends Controller
     {
         $paket = Paket::orderBy('nama')->paginate(30);
         return view('catagories.paket',compact('paket'));
+    }
+
+    public function StoreLayananMitra(Request $request)
+    {
+        if ($request->id == 1) {
+           User::where('id',request()->user()->id)
+                ->update([
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+3 month',date('Y-m-d')))
+                ]);
+        } elseif ($request->id == 2) {
+           User::where('id',request()->user()->id)
+                ->update([
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+6 month', date('Y-m-d')))
+                ]);
+        } elseif ($request->id == 3) {
+           User::where('id',request()->user()->id)
+                ->update([
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+2 year', date('Y-m-d')))
+                ]);
+        } elseif ($request->id == 4) {
+           User::where('id',request()->user()->id)
+                ->update([
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+1 year', date('Y-m-d')))
+                ]);
+        } else {
+           return redirect('/')->with('status','Pilihan Tidak Ada');
+        }
+        
     }
 }

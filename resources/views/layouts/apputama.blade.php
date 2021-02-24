@@ -281,46 +281,82 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-tittle text-center">
-                            <span>Our Recent news</span>
-                            <h2>Tourist Blog</h2>
+                            <span>Bookwisata</span>
+                            <h3>Layanan Mitra</h3>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="{{url('assets/utama/img/blog/home-blog1.jpg')}}" alt="">
+                <div class="row mt-4">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-place mb-30">
+                            <center>
+                                <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                    <div class="card-header bg-success"><h3>Termurah</h3></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Layanan 3 Bulan</h4>
+                                        <p class="card-text" style="color: white">pemula</p>
+                                        <p class="card-text">150.000.-/3 Bulan</p>
+                                        <form action="/layananmitra" method="post">
+                                            <input type="hidden" name="id" value="1">
+                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="blog-cap">
-                                    <p> |   Traveling</p>
-                                    <h3><a href="single-blog.html">Tips For Taking A Long-Term Trip With Kids.</a></h3>
-                                    <a href="#" class="more-btn">Read more »</a>
-                                </div>
-                            </div>
-                            <div class="blog-date text-center">
-                                <span>24</span>
-                                <p>Now</p>
-                            </div>
+                            </center>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-6">
-                        <div class="home-blog-single mb-30">
-                            <div class="blog-img-cap">
-                                <div class="blog-img">
-                                    <img src="{{url('assets/utama/img/blog/home-blog2.jpg')}}" alt="">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-place mb-30">
+                            <center>
+                                <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                    <div class="card-header bg-success"><h3>Diskon 30%</h3></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Layanan 6 Bulan</h4>
+                                        <p class="card-text"><s>400.000.-</s></p>
+                                        <p class="card-text">280.000.-/6 Bulan</p>
+                                        <form action="/layananmitra" method="post">
+                                            <input type="hidden" name="id" value="2">
+                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="blog-cap">
-                                    <p> |   Traveling</p>
-                                    <h3><a href="single-blog.html">Tips For Taking A Long-Term Trip With Kids.</a></h3>
-                                    <a href="#" class="more-btn">Read more »</a>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-place mb-30">
+                            <center>
+                                <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                    <div class="card-header bg-success"><h3>Diskon 75%</h3></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Layanan 2 Tahun</h4>
+                                        <p class="card-text"><s>1.000.000.-</s></p>
+                                        <p class="card-text">750.000.-/6 Bulan</p>
+                                        <form action="/layananmitra" method="post">
+                                            <input type="hidden" name="id" value="3">
+                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="blog-date text-center">
-                                <span>24</span>
-                                <p>Now</p>
-                            </div>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-place mb-30">
+                            <center>
+                                <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                    <div class="card-header bg-success"><h3>Diskon 50%</h3></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Layanan 1 Tahun</h4>
+                                        <p class="card-text"><s>1.000.000.-</s></p>
+                                        <p class="card-text">500.000.-/Bln</p>
+                                        <form action="/layananmitra" method="post">
+                                            <input type="hidden" name="id" value="4">
+                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </center>
                         </div>
                     </div>
                 </div>
