@@ -138,7 +138,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 Route::get('/myprofile', [HomeController::class, 'Myprofile'])->name('myprofile');
 Route::post('/myprofile/{user}', [HomeController::class, 'UpdateMyProfile']);
 

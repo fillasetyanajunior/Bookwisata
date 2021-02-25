@@ -7,7 +7,7 @@ $(document).ready(function () {
     }
     function countDown() {
         if (counter >= 0) {
-            $('#waktu').html(counter);
+            $('#waktu').html('Lakukan Pembayaran Sebelum 30 Menit : ' + counter);
         }
         else {
             download();

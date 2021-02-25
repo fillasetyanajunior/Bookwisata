@@ -10,7 +10,8 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown" content="{{Auth::user()->id}}}">
+        <div class="id_user" content="{{Auth::user()->id}}"></div>
+        <li class="nav-item dropdown" >
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge countNotif">0</span>

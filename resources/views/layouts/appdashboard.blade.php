@@ -101,15 +101,15 @@
     var pusher = new Pusher('58dff3dcd7642b8137a0', {
       cluster: 'ap1'
     });
-    var chacking = $('.dropdown').attr('content')
- 
+    var chacking = $('.id_user').attr('content')
+
     var channel = pusher.subscribe('my-channel');
       channel.bind('my-event', function(data) {
         var existing = $('.dropdown .dropdown-menu').html();
         var ncount = $('.dropdown .countNotif').html();
         var notifcount = parseInt(ncount);
         var html='';
-        if (data.id == chacking) {
+        if (data.ids == chacking) {
           if(data){
             
             html +=' <a class="dropdown-item" href="/riwayat">' + data.messages + '</a>';
