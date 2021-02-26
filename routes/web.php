@@ -69,6 +69,8 @@ Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     
+    Route::post('/layananmitra', [UtamaController::class, 'StoreLayananMitra']);
+
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
     Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
     Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
