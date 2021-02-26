@@ -38,16 +38,16 @@
                     <div class="col mb-3">
                         <label class="form-label">Provinsi</label>
                         <select class="form-select form-control  @error('provinsi') is-invalid @enderror" aria-label="Default select example" id="form_prov" name="provinsi">
-                        <option selected disabled>Pilih Provinsi</option>
-                        @foreach ($response as $item)
-                        <option value="{{ $item['id'] }}">{{ $item['nama'] }}</option>
-                        @endforeach
+                            <option selected disabled>Pilih Provinsi</option>
+                            @foreach ($response as $item)
+                            <option value="{{ $item['id'] }}">{{ $item['nama'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col mb-3">
                         <label class="form-label">Kabupaten/Kota</label>
                         <select class="form-select form-control  @error('kabupaten') is-invalid @enderror" aria-label="Default select example" id="form_kab" disabled  name="kabupaten">
-                        <option selected >Pilih Kota</option>
+                            <option selected >Pilih Kota</option>
                         </select>
                     </div>
                 </div>

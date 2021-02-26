@@ -6,33 +6,33 @@
     
 <x-slidebar></x-slidebar>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">{{$title}}</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Utama</a></li>
-              <li class="breadcrumb-item active">{{$title}}</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{$title}}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Utama</a></li>
+                    <li class="breadcrumb-item active">{{$title}}</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-12 mx-2">
-          @if (session('status'))
-              <div class="alert alert-success">
-                  {{ session('status') }}
-              </div>
-          @endif
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif
             <table class="table bg-info ">
                 <thead>
                     <tr>
@@ -48,9 +48,9 @@
                         <th scope="col">Total</th>
                         <th scope="col">Status</th>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
-                          <th scope="col">Aksi</th>
+                        <th scope="col">Aksi</th>
                         @else
-                          <th scope="col">Waktu Pembayaran</th>
+                        <th scope="col">Waktu Pembayaran</th>
                         @endif
                     </tr>
                 </thead>
@@ -64,27 +64,27 @@
                         <td>{{$riwayat->nomerhp}} </td>
                         <td>{{$riwayat->nama_pilihan}} </td>
                         <td>
-                          @if($riwayat->tipe == 31)
+                        @if($riwayat->tipe == 31)
                             Small Bus
-                          @elseif($riwayat->tipe == 32)
+                        @elseif($riwayat->tipe == 32)
                             Medium Bus
-                          @elseif($riwayat->tipe == 33)
+                        @elseif($riwayat->tipe == 33)
                             Big Bus
-                          @elseif($riwayat->tipe == 21)
+                        @elseif($riwayat->tipe == 21)
                             Sedan
-                          @elseif($riwayat->tipe == 22)
+                        @elseif($riwayat->tipe == 22)
                             MVP
-                          @elseif($riwayat->tipe == 23)
+                        @elseif($riwayat->tipe == 23)
                             LMVP
-                          @elseif($riwayat->tipe == '-')
+                        @elseif($riwayat->tipe == '-')
                             {{$riwayat->tipe}}
-                          @else
+                        @else
                             @foreach ($tipe as $item)
                                 @if ($item->id == $riwayat->tipe)
                                     {{$item->tipe}}
                                 @endif
                             @endforeach
-                          @endif    
+                        @endif    
                         </td>
                         <td>{{$riwayat->jumlahpesanan}} </td>
                         <td>{{$riwayat->hari}} </td>
@@ -92,23 +92,23 @@
                         <td>{{$riwayat->total}} </td>
                         <td>
                             @if ($riwayat->is_active == 1)
-                              Waitting
+                            Waitting
                             @elseif($riwayat->is_active == 2)
-                              Hold
+                            Hold
                             @elseif($riwayat->is_active == 3)
-                              Confirmed
+                            Confirmed
                             @elseif($riwayat->is_active == 4)
-                              Expired 
+                            Expired 
                             @endif
                         </td>
-                         @if (request()->user()->role == 1 || request()->user()->role == 2)
+                        @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
-                          <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
+                        <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
                         </td>
                         @else
-                          <td>
+                        <td>
                             <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}"></p>
-                          </td>
+                        </td>
                         @endif
                         
                     </tr>
@@ -118,7 +118,7 @@
             </table>
         </div>
     </div>
-  </div>
+</div>
  
 @endsection
 

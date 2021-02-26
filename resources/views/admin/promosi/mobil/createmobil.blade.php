@@ -12,15 +12,15 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1 class="m-0">{{$title}}</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Postingan</a></li>
-                <li class="breadcrumb-item active">{{$title}}</li>
-                </ol>
-            </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <h1 class="m-0">{{$title}}</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Postingan</a></li>
+                    <li class="breadcrumb-item active">{{$title}}</li>
+                    </ol>
+                </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -38,16 +38,16 @@
                     <div class="col mb-3">
                         <label class="form-label">Provinsi</label>
                         <select class="form-select form-control  @error('provinsi') is-invalid @enderror" aria-label="Default select example" id="form_prov" name="provinsi">
-                        <option selected disabled>Pilih Provinsi</option>
-                        @foreach ($response as $item)
-                        <option value="{{ $item['id'] }}">{{ $item['nama'] }}</option>
-                        @endforeach
+                            <option selected disabled>Pilih Provinsi</option>
+                            @foreach ($response as $item)
+                            <option value="{{ $item['id'] }}">{{ $item['nama'] }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col mb-3">
                         <label class="form-label">Kabupaten/Kota</label>
                         <select class="form-select form-control  @error('kabupaten') is-invalid @enderror" aria-label="Default select example" id="form_kab" disabled  name="kabupaten">
-                        <option selected >Pilih Kota</option>
+                            <option selected >Pilih Kota</option>
                         </select>
                     </div>
                 </div>
@@ -55,18 +55,18 @@
                     <div class="col mb-3">
                         <label class="form-label">Tipe</label>
                         <select class="form-select form-control  @error('tipe') is-invalid @enderror" aria-label="Default select example" name="tipe">
-                        <option value="">Pilih Tipe Bus</option>
-                        <option value="21">Sedan</option>
-                        <option value="22">MVP</option>
-                        <option value="23">LMVP</option>
+                            <option value="">Pilih Tipe Bus</option>
+                            <option value="21">Sedan</option>
+                            <option value="22">MVP</option>
+                            <option value="23">LMVP</option>
                       </select>
                     </div>
                     <div class="col mb-3">
                         <label class="form-label">Transmisi</label>
                         <select class="form-select form-control  @error('transmisi') is-invalid @enderror" aria-label="Default select example" name="transmisi">
-                        <option value="" >Pilih Transmii</option>
-                        <option value="1">Manual</option>
-                        <option value="2">Automatic</option>
+                            <option value="" >Pilih Transmii</option>
+                            <option value="1">Manual</option>
+                            <option value="2">Automatic</option>
                         </select>
                     </div>
                   </div>
@@ -74,17 +74,17 @@
                     <div class="col mb-3">
                         <label class="form-label">AC</label>
                         <select class="form-select form-control  @error('ac') is-invalid @enderror" aria-label="Default select example" name="ac">
-                        <option value="" >Pilih Ac</option>
-                        <option value="1">Ya</option>
-                        <option value="2">Tidak</option>
+                            <option value="" >Pilih Ac</option>
+                            <option value="1">Ya</option>
+                            <option value="2">Tidak</option>
                         </select>
                     </div>
                     <div class="col mb-3">
                         <label class="form-label">Overland</label>
                         <select class="form-select form-control  @error('overland') is-invalid @enderror" aria-label="Default select example" name="overland">
-                        <option value="" >Pilih Overland</option>
-                        <option value="1">Ya</option>
-                        <option value="2">Tidak</option>
+                            <option value="" >Pilih Overland</option>
+                            <option value="1">Ya</option>
+                            <option value="2">Tidak</option>
                         </select>
                     </div>
                 </div>
