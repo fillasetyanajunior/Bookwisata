@@ -101,6 +101,6 @@ class UtamaController extends Controller
         } else {
            return redirect('/')->with('status','Pilihan Tidak Ada');
         }
-        
+        return redirect('/')->with('status', 'Pesanan Telah Diterima Tolong Lakukan Pembayaran');
     }
 }
