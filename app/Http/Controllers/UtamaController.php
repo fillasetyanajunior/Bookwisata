@@ -81,22 +81,22 @@ class UtamaController extends Controller
         if ($request->id == 1) {
            User::where('id',request()->user()->id)
                 ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+3 month',date('Y-m-d')))
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+3 month'))
                 ]);
         } elseif ($request->id == 2) {
            User::where('id',request()->user()->id)
                 ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+6 month', date('Y-m-d')))
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+6 month'))
                 ]);
         } elseif ($request->id == 3) {
            User::where('id',request()->user()->id)
                 ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+2 year', date('Y-m-d')))
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+2 year'))
                 ]);
         } elseif ($request->id == 4) {
            User::where('id',request()->user()->id)
                 ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+1 year', date('Y-m-d')))
+                    'active_mitra'  =>  date('Y-m-d', strtotime('+1 year'))
                 ]);
         } else {
            return redirect('/')->with('status','Pilihan Tidak Ada');

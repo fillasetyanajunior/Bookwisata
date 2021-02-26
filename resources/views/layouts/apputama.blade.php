@@ -297,6 +297,7 @@
                                         <p class="card-text" style="color: white">pemula</p>
                                         <p class="card-text">150.000.-/3 Bulan</p>
                                         <form action="/layananmitra" method="post">
+                                            @csrf
                                             <input type="hidden" name="id" value="1">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
@@ -315,6 +316,7 @@
                                         <p class="card-text"><s>400.000.-</s></p>
                                         <p class="card-text">280.000.-/6 Bulan</p>
                                         <form action="/layananmitra" method="post">
+                                            @csrf
                                             <input type="hidden" name="id" value="2">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
@@ -333,6 +335,7 @@
                                         <p class="card-text"><s>1.000.000.-</s></p>
                                         <p class="card-text">750.000.-/6 Bulan</p>
                                         <form action="/layananmitra" method="post">
+                                            @csrf
                                             <input type="hidden" name="id" value="3">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
@@ -351,6 +354,7 @@
                                         <p class="card-text"><s>1.000.000.-</s></p>
                                         <p class="card-text">500.000.-/Bln</p>
                                         <form action="/layananmitra" method="post">
+                                            @csrf
                                             <input type="hidden" name="id" value="4">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
