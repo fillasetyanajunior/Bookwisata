@@ -6,7 +6,7 @@ $(document).ready(function () {
     } else {
     }
     function countDown() {
-        if (counter >= 0) {
+        if (counter > 0) {
             $('#waktu').html('Lakukan Pembayaran Sebelum 30 Menit : ' + counter);
         }
         else {
