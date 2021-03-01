@@ -111,7 +111,11 @@
                         </td>
                         @else
                         <td>
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3 || $riwayat->is_active == 1) 
+                                
+                            @else
                             <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}"></p>
+                            @endif
                         </td>
                         @endif
                         

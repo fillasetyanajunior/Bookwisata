@@ -55,7 +55,8 @@ $(document).ready(function () {
 
     function download() {
         var bool
-        var _url = '/konfirmasi/' + _id
+        var id = $(".time").attr("itemid")
+        var _url = '/konfirmasi/' + id
         let _token = $('meta[name="csrf-token"]').attr('content')
 
         $.ajax({
