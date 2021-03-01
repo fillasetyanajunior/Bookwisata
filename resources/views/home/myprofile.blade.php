@@ -44,6 +44,12 @@
                     <label for="nomer" class="form-label">Nomer Hp</label>
                     <input type="text" class="form-control" id="nomer" name="nomer" value="{{$user->nomer}}">
                 </div>
+                @if (Auth::user()->role == 2)    
+                <div class="mb-3">
+                    <label for="active_mitra" class="form-label">Active Mitra</label>
+                    <input type="text" class="form-control" id="active_mitra" name="active_mitra" value="{{$user->active_mitra}}" disabled>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label for="formFile" class="form-label">File Foto</label>
                     <input class="form-control @error('avatar') is-invalid @enderror" type="file" id="formFile" name="avatar">
