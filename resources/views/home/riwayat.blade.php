@@ -92,18 +92,22 @@
                         <td>{{$riwayat->total}} </td>
                         <td>
                             @if ($riwayat->is_active == 1)
-                            Waitting
+                                Waitting
                             @elseif($riwayat->is_active == 2)
-                            Hold
+                                Hold
                             @elseif($riwayat->is_active == 3)
-                            Confirmed
+                                Confirmed
                             @elseif($riwayat->is_active == 4)
-                            Expired 
+                                Expired 
                             @endif
                         </td>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
-                        <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3) 
+                                
+                            @else
+                            <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
+                            @endif
                         </td>
                         @else
                         <td>

@@ -31,28 +31,37 @@ class RiwayatController extends Controller
 
     public function update(Request $request, Riwayat $riwayat)
     {
-        if ($request->waktu_payment == 0) {
-            Riwayat::where('id', $riwayat->id)
-                ->update([
-                    'is_active' => $request->is_active,
-                    'waktu_payment' => $request->waktu_payment,
-                ]);
-            
-        }else{
-            if ($request->is_active == 2) {
-                Riwayat::where('id',$riwayat->id)
-                        ->update([
-                            'is_active' => $request->is_active,
-                            'waktu_payment' => 1800,
-                        ]);
-            } else {
-                Riwayat::where('id', $riwayat->id)
-                        ->update([
-                            'is_active' => $request->is_active,
-                            'waktu_payment' => 0,
-                ]);
-            }
+        $ceks = Riwayat::orderBy('user_nama_customer','ASC')->where('user_nama_customer',$riwayat->user_nama_customer)->get();
+        $cek[] = null;
+        foreach($ceks as $items){
+            $cek = $items;
         }
-        return redirect()->route('riwayat')->with('status','Pesanan Telah Di Konfirmasi');
+        if($cek->waktu_payment == null || $cek->is_active == 1 || $cek->is_active == 2 || $cek->is_active == 3){
+            if ($request->waktu_payment) {
+                Riwayat::where('id', $riwayat->id)
+                    ->update([
+                        'is_active' => $request->is_active,
+                        'waktu_payment' => $request->waktu_payment,
+                    ]);
+                
+            }else{
+                if ($request->is_active == 2) {
+                    Riwayat::where('id',$riwayat->id)
+                            ->update([
+                                'is_active' => $request->is_active,
+                                'waktu_payment' => 1800,
+                            ]);
+                } else {
+                    Riwayat::where('id', $riwayat->id)
+                            ->update([
+                                'is_active' => $request->is_active,
+                                'waktu_payment' => 0,
+                    ]);
+                }
+            }
+            return redirect()->route('riwayat')->with('status','Pesanan Telah Di Konfirmasi');
+        }else{
+            return redirect()->route('riwayat')->with('status','Pesanan Gagal Di Konfirmasi');
+        }
     }
 }

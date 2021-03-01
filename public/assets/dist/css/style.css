@@ -1,0 +1,7 @@
+span.turn {
+        animation: turn 0.7s ease;
+    }
+    @keyframes turn {
+        0% {transform: rotateX(0deg)}
+        100% {transform: rotateX(360deg)}
+    }

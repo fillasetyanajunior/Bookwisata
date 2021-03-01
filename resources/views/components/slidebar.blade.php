@@ -86,7 +86,7 @@
 
                                 @else
                                     <li class="nav-item">
-                                        <a href="{{route($sm->url)}}" class="nav-link">
+                                        <a href="{{route($sm->url)}}" class="nav-link url" content="{{$sm->url}}">
                                             <i class="{{$sm->icon}} nav-icon"></i>
                                             <p>{{$sm->sub_menu}}</p>
                                         </a>
@@ -98,7 +98,7 @@
                 <?php endforeach?>
                 <li class="nav-header">Logout</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="nav-link url" href="{{ route('logout') }} " content="{{'logout'}}"
                         onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                         <i class="fas fa-sign-out-alt  nav-icon"></i>
