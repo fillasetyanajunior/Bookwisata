@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BordingpassMail;
 use App\Models\Riwayat;
 use App\Models\Tipekamar;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class RiwayatController extends Controller
 {
@@ -36,6 +37,8 @@ class RiwayatController extends Controller
         foreach($ceks as $items){
             $cek = $items;
         }
+        $email = $riwayat->email;
+
         if($cek->waktu_payment == null || $cek->is_active == 1 || $cek->is_active == 2 || $cek->is_active == 3){
             if ($request->waktu_payment) {
                 Riwayat::where('id', $riwayat->id)
@@ -51,6 +54,15 @@ class RiwayatController extends Controller
                                 'is_active' => $request->is_active,
                                 'waktu_payment' => 1800,
                             ]);
+                } elseif($request->is_active == 3){
+
+                    Mail::to($email)->send(new BordingpassMail($riwayat->id,$riwayat->nama));
+
+                    Riwayat::where('id', $riwayat->id)
+                        ->update([
+                            'is_active' => $request->is_active,
+                            'waktu_payment' => 0,
+                        ]);
                 } else {
                     Riwayat::where('id', $riwayat->id)
                             ->update([
@@ -64,4 +76,5 @@ class RiwayatController extends Controller
             return redirect()->route('riwayat')->with('status','Pesanan Gagal Di Konfirmasi');
         }
     }
+    
 }

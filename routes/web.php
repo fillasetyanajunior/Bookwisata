@@ -15,6 +15,7 @@ use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PromosiBusController;
 use App\Http\Controllers\PromosiDestinasiController;
 use App\Http\Controllers\PromosiGuideController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\PromosiMobilController;
 use App\Http\Controllers\PromosiPaketController;
 use App\Http\Controllers\PromosiPusatController;
 use App\Http\Controllers\PusatController;
+use App\Http\Controllers\QrController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\UtamaController;
 use Illuminate\Auth\Events\Verified;
@@ -44,6 +46,12 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::get('/pdf/{id}',[PdfController::class, 'PdfGenerate']);
+
+Route::get('/coba',function (){
+    return view('coba');
+});
 
 Route::get('/',[UtamaController::class,'index']);
 
