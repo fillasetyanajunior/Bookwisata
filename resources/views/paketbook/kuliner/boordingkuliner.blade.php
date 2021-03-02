@@ -58,11 +58,11 @@
             <form action="/bordingkuliner" method="post">
                 @csrf
                 @php
-                    $kuliner = DB::table('riwayat')
-                            ->join('kuliner','kuliner.nama','=','riwayat.nama_pilihan')
+                    $kuliner = DB::table('detail_riwayat')
+                            ->join('kuliner','kuliner.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('kuliner.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($kuliner as $kuliner)

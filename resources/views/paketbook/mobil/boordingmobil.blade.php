@@ -58,11 +58,11 @@
             <form action="/bordingmobil" method="post">
                 @csrf
                 @php
-                    $mobil = DB::table('riwayat')
-                            ->join('mobil','mobil.nama','=','riwayat.nama_pilihan')
+                    $mobil = DB::table('detail_riwayat')
+                            ->join('mobil','mobil.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('mobil.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($mobil as $mobil)

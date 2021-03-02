@@ -58,11 +58,11 @@
             <form action="/bordingpaket" method="post">
                 @csrf
                 @php
-                    $paket = DB::table('riwayat')
-                            ->join('paket','paket.nama','=','riwayat.nama_pilihan')
+                    $paket = DB::table('detail_riwayat')
+                            ->join('paket','paket.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('paket.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($paket as $paket)

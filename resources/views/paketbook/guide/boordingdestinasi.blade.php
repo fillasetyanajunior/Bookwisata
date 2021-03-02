@@ -58,11 +58,11 @@
             <form action="/bordingguide" method="post">
                 @csrf
                 @php
-                    $guide = DB::table('riwayat')
-                            ->join('guide','guide.nama','=','riwayat.nama_pilihan')
+                    $guide = DB::table('detail_riwayat')
+                            ->join('guide','guide.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('guide.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($guide as $guide)

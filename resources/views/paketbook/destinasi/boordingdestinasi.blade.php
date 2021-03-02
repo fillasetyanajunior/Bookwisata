@@ -58,11 +58,11 @@
             <form action="/bordingdestinasi" method="post">
                 @csrf
                 @php
-                    $destinasi = DB::table('riwayat')
-                            ->join('destinasi','destinasi.nama','=','riwayat.nama_pilihan')
+                    $destinasi = DB::table('detail_riwayat')
+                            ->join('destinasi','destinasi.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('destinasi.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($destinasi as $destinasi)

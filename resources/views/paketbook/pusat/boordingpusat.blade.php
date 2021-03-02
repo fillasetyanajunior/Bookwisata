@@ -58,11 +58,11 @@
             <form action="/bordingpusat" method="post">
                 @csrf
                 @php
-                    $pusat = DB::table('riwayat')
-                            ->join('pusat','pusat.nama','=','riwayat.nama_pilihan')
+                    $pusat = DB::table('detail_riwayat')
+                            ->join('pusat','pusat.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('pusat.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($pusat as $pusat)

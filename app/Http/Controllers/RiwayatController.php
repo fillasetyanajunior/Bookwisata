@@ -6,6 +6,7 @@ use App\Mail\BordingpassMail;
 use App\Models\Riwayat;
 use App\Models\Tipekamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class RiwayatController extends Controller
@@ -13,11 +14,19 @@ class RiwayatController extends Controller
     public function index()
     {
         if(request()->user()->role == 1){
-            $data['riwayat'] = Riwayat::all();
+            $data['riwayat'] = DB::table('riwayat')
+                                ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
+                                ->get();
         } else if (request()->user()->role == 2) {
-            $data['riwayat'] = Riwayat::where('riwayat.user_id_owner', request()->user()->id)->get();
+            $data['riwayat'] = DB::table('riwayat')
+                                ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
+                                ->where('riwayat.user_id_owner', request()->user()->id)
+                                ->get();
         }else{
-            $data['riwayat'] = Riwayat::where('riwayat.user_nama_customer', request()->user()->name)->get();
+            $data['riwayat'] = DB::table('riwayat')
+                                ->join('detail_riwayat','detail_riwayat.id','=','riwayat.id_detail_riwayat')
+                                ->where('riwayat.user_nama_customer', request()->user()->name)
+                                ->get();
         }
         $data['tipe']   = Tipekamar::all();
         $data['title']  = 'Riwayat';
@@ -26,18 +35,26 @@ class RiwayatController extends Controller
 
     public function edit(Riwayat $riwayat)
     {
-        $data['title'] = 'Riwayat';
-        return view('home.riwayatkonfirmasi', $data, compact('riwayat'));
+        $data['riwayat'] = DB::table('riwayat')
+                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
+                            ->where('riwayat.id_detail_riwayat', $riwayat->id_detail_riwayat)
+                            ->get();
+        $data['title']  = 'Riwayat';
+        return view('home.riwayatkonfirmasi', $data);
     }
 
     public function update(Request $request, Riwayat $riwayat)
     {
-        $ceks = Riwayat::orderBy('user_nama_customer','ASC')->where('user_nama_customer',$riwayat->user_nama_customer)->get();
+        $ceks = DB::table('riwayat')
+                    ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
+                    ->orderBy('user_nama_customer','ASC')
+                    ->where('user_nama_customer',$riwayat->user_nama_customer)
+                    ->get();
+
         $cek[] = null;
         foreach($ceks as $items){
             $cek = $items;
         }
-        $email = $riwayat->email;
 
         if($cek->waktu_payment == null || $cek->is_active == 1 || $cek->is_active == 2 || $cek->is_active == 3){
             if ($request->waktu_payment) {
@@ -56,7 +73,7 @@ class RiwayatController extends Controller
                             ]);
                 } elseif($request->is_active == 3){
 
-                    Mail::to($email)->send(new BordingpassMail($riwayat->id,$riwayat->nama));
+                    Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
 
                     Riwayat::where('id', $riwayat->id)
                         ->update([

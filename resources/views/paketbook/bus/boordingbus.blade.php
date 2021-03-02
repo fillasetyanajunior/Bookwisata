@@ -58,11 +58,11 @@
             <form action="{{route('bordingbus')}}" method="post">
                 @csrf
                 @php
-                    $bus = DB::table('riwayat')
-                            ->join('bus','bus.nama','=','riwayat.nama_pilihan')
+                    $bus = DB::table('detail_riwayat')
+                            ->join('bus','bus.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('bus.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($bus as $bus)

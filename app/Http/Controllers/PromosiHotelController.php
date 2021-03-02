@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MyEvent;
+use App\Models\DetailRiwayat;
 use App\Models\Hotel;
 use App\Models\Riwayat;
 use App\Models\Tipekamar;
@@ -14,6 +15,7 @@ class PromosiHotelController extends Controller
     public function index()
     {
         $data['lasted'] = DB::table('riwayat')
+                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
                             ->where('user_nama_customer', '=', request()->user()->name)
                             ->limit('1')
                             ->orderBy('created_at', 'DESC')
@@ -25,6 +27,7 @@ class PromosiHotelController extends Controller
     public function create()
     {
         $data['riwayat'] = DB::table('riwayat')
+                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
                             ->where('user_nama_customer', '=', request()->user()->name)
                             ->limit('1')
                             ->orderBy('created_at', 'DESC')
@@ -43,10 +46,7 @@ class PromosiHotelController extends Controller
         $durasi = 24 * $hari;
 
         $jumlah = ($harga * $hari * $pesanan) + $potongan;
-
-        Riwayat::create([
-            'user_nama_customer'    => request()->user()->name,
-            'user_id_owner'         => $request->hidden,
+        $detail_riwayat = DetailRiwayat::create([
             'nama'                  => "",
             'email'                 => "",
             'nomerhp'               => "",
@@ -60,6 +60,11 @@ class PromosiHotelController extends Controller
             'hari'                  => $hari,
             'date'                  => $request->date,
             'total'                 => $jumlah,
+        ]);
+        Riwayat::create([
+            'user_nama_customer'    => request()->user()->name,
+            'user_id_owner'         => $request->hidden,
+            'id_detail_riwayat'     => $detail_riwayat->id,
             'is_active'             => 1
         ]);
         return redirect()->route('createhotel');
@@ -79,12 +84,19 @@ class PromosiHotelController extends Controller
             'email'         => 'required',
             'namalengkap'   => 'required',
         ]);
-        Riwayat::where('id', $riwayat->id)
+
+        $rwt = Riwayat::where('id', $riwayat->id)->get();
+        $id_detail_riwayats = null;
+        foreach ($rwt as $id) {
+            $id_detail_riwayats = $id->id_detail_riwayat;
+        }
+        DetailRiwayat::where('id', $id_detail_riwayats)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,
                 'email'     => $request->email
             ]);
+
         $id = null;
         $hotel = Hotel::where('user_id', $riwayat->user_id_owner)->get();
         foreach ($hotel as $hotel) {

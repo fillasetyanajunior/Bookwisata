@@ -58,11 +58,11 @@
             <form action="/bordinghotel" method="post">
                 @csrf
                 @php
-                    $hotel = DB::table('riwayat')
-                            ->join('hotel','hotel.nama','=','riwayat.nama_pilihan')
+                    $hotel = DB::table('detail_riwayat')
+                            ->join('hotel','hotel.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('hotel.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($hotel as $hotel)

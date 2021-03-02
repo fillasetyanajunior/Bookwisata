@@ -39,11 +39,11 @@
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Pesanan</th>
-                        <td>: {{$data->jumlahpesanan}}</td>
+                        <td>: {{$data->jumlahpesanan}} Pesanan</td>
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Hari </th>
-                        <td>: {{$data->hari}}</td>
+                        <td>: {{$data->hari}} Hari</td>
                     </tr>
                     <tr>
                         <th scope="row">Tanggal Pemesanan</th>

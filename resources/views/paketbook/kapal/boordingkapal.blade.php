@@ -58,11 +58,11 @@
             <form action="/bordingkapal" method="post">
                 @csrf
                 @php
-                    $kapal = DB::table('riwayat')
-                            ->join('kapal','kapal.nama','=','riwayat.nama_pilihan')
+                    $kapal = DB::table('detail_riwayat')
+                            ->join('kapal','kapal.nama','=','detail_riwayat.nama_pilihan')
                             ->limit('1')
                             ->where('kapal.nama','=',$lasted->nama_pilihan)
-                            ->orderBy('riwayat.date','DESC')
+                            ->orderBy('detail_riwayat.date','DESC')
                             ->get();
                 @endphp
                 @foreach ($kapal as $kapal)
