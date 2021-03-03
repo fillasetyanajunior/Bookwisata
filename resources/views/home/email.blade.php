@@ -15,6 +15,6 @@
     <p>{{env('APP_NAME')}}</p>
     <br><br><br>
     <p>Link Boardingpass</p>
-    <a href="{{url('pdf/' . $_id)}}">Boardingpass</a>
+    <a href="{{url('pdf/' . $_id)}}" class="link">Boardingpass</a>
 </body>
 </html>

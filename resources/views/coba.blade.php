@@ -1,84 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="{{url('assets/utama/js/jquery-3-5-1.js') }}"></script>
+    <script language="javascript" type="text/javaScript">
+     $(document).ready(function () {
+        $('.link').show()
+        $('.link').on('click',function () {
+             $('.link').hide()
+        });
+
+        
+    });
+    </script>
     <title>Boardingpass</title>
 </head>
 <body>
-    <header class="header">
-        
-    </header>
-    <div class="container">
-        <div class="d-flex justify-content-around mt-5">
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <th scope="row">Kepada Mr/Mr's </th>
-                    </tr>
-                    <tr>
-                        {{-- <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate(substr(str_shuffle($permitted_chars), 0, 6))) !!} "></th> --}}
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex justify-content-around mt-5">
-            <table class="table table-borderless">
-                <tbody>
-                    <tr>
-                        <th scope="row">Nama Lengkap</th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Email</th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Nomer Hp</th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Pesanan</th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jumlah Pesanan</th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jumlah Hari </th>
-                        <td>: </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Tanggal Pemesanan</th>
-                        <td>: </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex justify-content-around mt-5">
-            <table class="table">
-                <thead class="table biru">
-                    <tr>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Jumlah</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Harga</th>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Total</th>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <footer class="footer">
-        
-    </footer>
+    <h4>Halo </h4>
+    <p>Terima kasih telah memesan layanan kami semoga kamu senang dengan pelayanan kami.</p>
+    <p>Untuk itu kami ingatkan untuk kamu untuk mencetak Boardingpas yang kami kirimkan <span>dan setelah itu tunjukan kepada mitra kami yang bergabung untuk mengambil layanan yang kami sediakan untuk anda.</span> </p>
+    <p>Untuk informasi lebih lanjut mengenai layanan kami,silahkan menghubungi kami di customer support (+62 274 - 443165) atau melalui live chat di <a href="{{url('/')}}">bookwisata.com</a> </p>
+    <p>Salam</p>
+    <p>{{env('APP_NAME')}}</p>
+    <br><br><br>
+    <p>Link Boardingpass</p>
+    <a href="" class="link">Boardingpass</a>
+    
 </body>
 </html>

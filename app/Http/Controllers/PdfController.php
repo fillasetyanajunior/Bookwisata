@@ -22,8 +22,7 @@ class PdfController extends Controller
         {
             $data = $riwayats;
         }
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $pdf = PDF::loadview('home.boardingpass', compact('data'),compact('permitted_chars'));
+        $pdf = PDF::loadview('home.boardingpass', compact('data'));
         return $pdf->download('Boadringpass_Bookwisata.pdf');
     }
 }

@@ -20,6 +20,7 @@ class CreateRiwayatTable extends Migration
             $table->string('id_detail_riwayat');
             $table->integer('is_active');
             $table->integer('waktu_payment')->nullable();
+            $table->string('qr_code')->nullable();
             $table->timestamps();
         });
     }

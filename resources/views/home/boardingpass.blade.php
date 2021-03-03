@@ -13,7 +13,7 @@
                         <th scope="row">Kepada Mr/Mr's {{$data->nama}}</th>
                     </tr>
                     <tr>
-                        <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate(substr(str_shuffle($permitted_chars), 0, 6))) !!} "></th>
+                        <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($data->qr_code)) !!} "></th>
                     </tr>
                 </tbody>
             </table>

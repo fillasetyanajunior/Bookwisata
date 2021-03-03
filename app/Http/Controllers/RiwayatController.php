@@ -73,13 +73,15 @@ class RiwayatController extends Controller
                             ]);
                 } elseif($request->is_active == 3){
 
-                    Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
-
+                    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                    $qr = substr(str_shuffle($permitted_chars), 0, 6);
                     Riwayat::where('id', $riwayat->id)
                         ->update([
-                            'is_active' => $request->is_active,
+                            'is_active'     => $request->is_active,
+                            'qr_code'       => $qr,
                             'waktu_payment' => 0,
                         ]);
+                    Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
                 } else {
                     Riwayat::where('id', $riwayat->id)
                             ->update([
