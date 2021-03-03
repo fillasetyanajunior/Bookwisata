@@ -54,7 +54,8 @@ class MobilController extends Controller
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
             'harga'         => 'required',
-            'gambar.*'        => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'review'         => 'required',
+            'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -78,6 +79,7 @@ class MobilController extends Controller
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
             'harga'         => $request->harga,
+            'review'         => $request->review,
             'rating'        => 0,
         ]);
 
@@ -155,6 +157,7 @@ class MobilController extends Controller
                     'ac'            => $request->ac,
                     'jumlah_sit'    => $request->jumlah_sit,
                     'harga'         => $request->harga,
+                    'review'         => $request->review,
                 ]);
         } else {
             FileUpload::where('nama', $mobil->nama)
@@ -172,6 +175,7 @@ class MobilController extends Controller
                     'ac'            => $request->ac,
                     'jumlah_sit'    => $request->jumlah_sit,
                     'harga'         => $request->harga,
+                    'review'         => $request->review,
                 ]);
         }
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Update');

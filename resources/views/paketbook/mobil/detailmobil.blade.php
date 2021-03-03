@@ -77,6 +77,16 @@
                     </div>
                 </div>
             </div>
+            <div class="d-flex justify-content-center">
+                <div class="card mt-3 mb-3 col-10">
+                    <div class="card-header">
+                        <h2>Review {{$mobil->nama}}</h2>
+                    </div>
+                    <div class="card-body">
+                        {{$mobil->review}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

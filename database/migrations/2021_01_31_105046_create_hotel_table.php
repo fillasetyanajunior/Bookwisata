@@ -20,9 +20,9 @@ class CreateHotelTable extends Migration
             $table->string('provinsi'); 
             $table->string('kabupaten'); 
             $table->string('tipe'); 
-            $table->string('bad'); 
-            $table->string('review');
+            $table->string('bad');
             $table->string('rating');
+            $table->text('review');
             $table->string('harga'); 
             $table->timestamps();
         });

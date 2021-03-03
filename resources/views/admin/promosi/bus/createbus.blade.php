@@ -103,6 +103,10 @@
                     <input type="text" class="form-control  @error('harga') is-invalid @enderror" id="harga" placeholder="Harga" name="harga" value="{{old('harga')}}">
                 </div>
                 <div class="mb-3">
+                    <label for="review" class="form-label">Review</label>
+                    <textarea class="form-control @error('review') is-invalid @enderror" id="review" rows="5" name="review"></textarea>
+                </div>
+                <div class="mb-3">
                     <label for="formFile" class="form-label">Foto</label>
                     <input class="form-control  @error('gambar') is-invalid @enderror" type="file" id="formFile" name="gambar[]" multiple>
                 </div>

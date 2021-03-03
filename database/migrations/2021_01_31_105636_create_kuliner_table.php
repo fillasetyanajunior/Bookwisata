@@ -20,8 +20,8 @@ class CreateKulinerTable extends Migration
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('alamat');
-            $table->string('review');
             $table->string('rating');
+            $table->text('review');
             $table->string('harga');
             $table->timestamps();
         });

@@ -55,7 +55,8 @@ class BusController extends Controller
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
             'harga'         => 'required',
-            'gambar.*'        => ['required','image'],
+            'review'        => 'required',
+            'gambar.*'      => ['required','image'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -80,6 +81,7 @@ class BusController extends Controller
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
             'harga'         => $request->harga,
+            'review'         => $request->review,
             'rating'        => 0,
         ]);
         
@@ -160,6 +162,7 @@ class BusController extends Controller
                 'ac'            => $request->ac,
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
+                'review'         => $request->review,
             ]);
         }
         else
@@ -180,6 +183,7 @@ class BusController extends Controller
                 'ac'            => $request->ac,
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
+                'review'         => $request->review,
                 ]);
         }
         return redirect('bus')->with('status', 'Postingan Bus Berhasil Di Update');

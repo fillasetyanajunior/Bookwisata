@@ -104,6 +104,10 @@
                     <label for="harga" class="form-label">Harga</label>
                     <input type="text" class="form-control  @error('harga') is-invalid @enderror" id="harga" placeholder="Harga" name="harga" value="{{$bus->harga}}">
                 </div>
+                <div class="mb-3">
+                    <label for="review" class="form-label">Review</label>
+                    <textarea class="form-control @error('review') is-invalid @enderror" id="review" rows="5" name="review">{{$bus->review}}</textarea>
+                </div>
                 <div class="form-check mb-3">
                     <input class="form-check-input" type="checkbox" value="" id="checkbox">
                     <label class="form-check-label" for="flexCheckDefault">

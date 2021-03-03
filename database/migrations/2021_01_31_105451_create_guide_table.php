@@ -19,8 +19,8 @@ class CreateGuideTable extends Migration
             $table->string('nama');
             $table->string('provinsi');
             $table->string('kabupaten');
-            $table->string('review');
             $table->string('rating');
+            $table->text('review');
             $table->string('harga');
             $table->timestamps();
         });

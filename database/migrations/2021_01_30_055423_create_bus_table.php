@@ -26,6 +26,7 @@ class CreateBusTable extends Migration
             $table->string('overland');
             $table->string('jumlah_sit');
             $table->string('rating');
+            $table->text('review');
             $table->string('harga');
             $table->timestamps();
         });
