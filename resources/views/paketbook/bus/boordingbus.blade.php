@@ -38,7 +38,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="d-flex justify-content-center mt-5">
+            <div class="text-justify mt-5">
                 <div class="col-md-4">
                     <center>
                         Jangan Lupa Cetak Bordingpass yang kami kirim lewat email Dan Tunjukan Kepada Kami
@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="card-footer text-white bg-info">
-            <div class="d-flex justify-content-center">
+            <div class="text-justify">
                 {{$lasted->date}}
             </div>
         </div>
