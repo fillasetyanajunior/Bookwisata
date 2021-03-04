@@ -7,7 +7,7 @@
         <div class="card-header text-white bg-info">
             Bordingpass
         </div>
-        <div class="card-body bg-warning text-white" style="font-size: 18px;">
+        <div class="card-body table-responsive text-white" style="font-size: 18px;">
             <table class="table">
                 <thead>
                     <tr>
@@ -38,16 +38,13 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-justify mt-5">
-                <div class="col-md-4">
-                    <center>
-                        Jangan Lupa Cetak Bordingpass yang kami kirim lewat email Dan Tunjukan Kepada Kami
-                    </center>
+            <div class="text-center mt-5">
+                    Jangan Lupa Cetak Bordingpass yang kami kirim lewat email Dan Tunjukan Kepada Kami
                 </div>
             </div>
         </div>
         <div class="card-footer text-white bg-info">
-            <div class="text-justify">
+            <div class="text-center">
                 {{$lasted->date}}
             </div>
         </div>
