@@ -2,7 +2,7 @@
 
 @section('main')
 @foreach ($riwayat as $riwayat)
-<div class="container-sm container-lg container-md container-xs mt-3 mb-3">
+<div class="container col-xs-12 col-sm-6 col-md-8 mt-3 mb-3">
     <div class="row">
         <div class="col-lg-6">
             <form action="/bookcharthotel/{{$riwayat->id}} " method="post">
