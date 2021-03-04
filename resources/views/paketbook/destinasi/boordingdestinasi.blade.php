@@ -69,15 +69,12 @@
                 <input type="hidden" name="jumlah_rating" value="{{$destinasi->rating}}">
                 <input type="hidden" name="nama" value="{{$destinasi->nama}}">
                 @endforeach
-                <div class="d-flex justify-content-between mt-5">     
-                    <div class="form-row">
-                        <div class="col-12">
-                            <input type="text" class="form-control" name="rating" placeholder="1-4">
-                            <small class="form-text text-muted">Nilai Kami 1-4</small>
-                        </div>
+                <div class="form-inline mt-5">
+                    <div class="col-md-6 ">
+                        <input type="text" class="form-control" name="rating" placeholder="1-4">
+                        <small class="form-text text-muted">Nilai Kami 1-4</small>
                     </div>
-                    <div></div>
-                    <div class="col-4">
+                    <div class="col-md-6 text-justify">
                         <p>Terima Kasi Telah Mempercayai Kami Sebagai Partner Untuk Pemesanan Yang Kami Sediakan Untuk Anda</p>
                     </div>
                 </div>

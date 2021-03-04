@@ -86,7 +86,7 @@
                                 ->get();
                     @endphp
                     @foreach ($foto as $foto)
-                    <img src="{{asset('kuliner/' . $foto->foto)}}"  class="rounded mt-3" width="500px">
+                    <img src="{{asset('kuliner/' . $foto->foto)}}"  class="rounded mt-3" width="300px">
                     @endforeach
                 </div>
                 <div class="card-body">

@@ -1,6 +1,6 @@
 @extends('layouts.apputama')
 @section('main')
-<div class="container col-xs-12 col-sm-6 col-md-8">
+<div class="container">
     <div class="row">
         <div class="col">
             <div class="d-flex justify-content-center">
@@ -37,8 +37,8 @@
                                 <span class="sr-only">Next</span>
                             </a>
                         </div>
-                        <div class="d-flex bd-highlight mt-4">
-                            <div class="mr-auto p-2 bd-highlight">
+                        <div class="row mt-5">
+                            <div class="col-xs-6 col-sm-6">
                                 <h3>Bookwisata</h3>
                                 <form action="/bookchartpaket/paket/{{$paket->id}}" method="post">
                                     @csrf
@@ -67,7 +67,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="p-2 bd-highlight">
+                            <div class="col-xs-6 col-sm-6 text-right">
                                 <h3>Harga Perhari</h3>
                                 <h3>Rp {{$paket->harga}}</h3>
                                 <button type="submit" class="btn btn-primiry mt-3">Booking</button>

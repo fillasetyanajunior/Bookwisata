@@ -1,7 +1,7 @@
 @extends('layouts.apputama')
 @section('main')
 @foreach ($lasted as $lasted)    
-<div class="container col-xs-12 col-sm-6 col-md-8 my-5">
+<div class="container my-5">
     <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" class="card-img-top mb-5" alt="...">
     <div class="card mb-3">
         <div class="card-header text-white bg-info">
@@ -70,15 +70,12 @@
                 <input type="hidden" name="nama" value="{{$bus->nama}}">
                 <input type="hidden" name="tipe" value="{{$bus->tipe}}">
                 @endforeach
-                <div class="d-flex justify-content-between mt-5">     
-                    <div class="form-row">
-                        <div class="col-12">
-                            <input type="text" class="form-control" name="rating" placeholder="1-4">
-                            <small class="form-text text-muted">Nilai Kami 1-4</small>
-                        </div>
+                <div class="form-inline mt-5">
+                    <div class="col-md-6 ">
+                        <input type="text" class="form-control" name="rating" placeholder="1-4">
+                        <small class="form-text text-muted">Nilai Kami 1-4</small>
                     </div>
-                    <div></div>
-                    <div class="col-4">
+                    <div class="col-md-6 text-justify">
                         <p>Terima Kasi Telah Mempercayai Kami Sebagai Partner Untuk Pemesanan Yang Kami Sediakan Untuk Anda</p>
                     </div>
                 </div>
