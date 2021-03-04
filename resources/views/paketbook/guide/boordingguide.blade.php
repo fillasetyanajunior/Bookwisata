@@ -8,7 +8,7 @@
             Bordingpass
         </div>
         <div class="card-body bg-warning text-white" style="font-size: 18px;">
-            <table class="table table-borderless">
+            <table class="table">
                 <thead>
                     <tr>
                         <th scope="col">Nama</th>
