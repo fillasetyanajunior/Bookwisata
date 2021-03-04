@@ -7,7 +7,7 @@
         <div class="card-header text-white bg-info">
             Bordingpass
         </div>
-        <div class="card-body bg-warning text-white" style="font-size: 18px;">
+        <div class="card-body" style="font-size: 18px;">
             <table class="table table-borderless">
                 <thead>
                     <tr>
