@@ -1,6 +1,6 @@
 @extends('layouts.apputama')
 @section('main')
-<div class="container">
+<div class="container-sm container-lg container-md container-xs">
     <div class="row">
         <div class="col">
             <div class="d-flex justify-content-center">

@@ -1,7 +1,7 @@
 @extends('layouts.apputama')
 @section('main')
 @foreach ($lasted as $lasted)    
-<div class="container my-5">
+<div class="container-sm container-lg container-md container-xs my-5">
     <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" class="card-img-top mb-5" alt="...">
     <div class="card mb-3">
         <div class="card-header text-white bg-info">
