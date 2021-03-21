@@ -83,9 +83,9 @@
                         <h2>Review {{$kuliner->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        <pre>
-                            {{$kuliner->review}}
-                        </pre>
+                        <p>
+                            {!!nl2br(str_replace("{}", " \n", $kuliner->review))!!}
+                        </p>
                     </div>
                 </div>
             </div>

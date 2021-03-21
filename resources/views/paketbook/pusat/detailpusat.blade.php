@@ -83,9 +83,9 @@
                         <h2>Review {{$pusat->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        <pre>
-                            {{$pusat->review}}
-                        </pre>
+                        <p>
+                            {!!nl2br(str_replace("{}", " \n", $pusat->review))!!}
+                        </p>
                     </div>
                 </div>
             </div>

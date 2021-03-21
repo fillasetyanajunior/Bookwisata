@@ -83,9 +83,9 @@
                         <h2>Review {{$guide->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        <pre>
-                            {{$guide->review}}
-                        </pre>
+                        <p>
+                            {!!nl2br(str_replace("{}", " \n", $guide->review))!!}
+                        </p>
                     </div>
                 </div>
             </div>
