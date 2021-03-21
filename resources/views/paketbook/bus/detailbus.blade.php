@@ -85,7 +85,7 @@
                     </div>
                     <div class="card-body">
                         <p>
-                            {{$bus->review}}
+                            {!!nl2br(str_replace("{}", " \n", $bus->review))!!}
                         </p>
                     </div>
                 </div>
