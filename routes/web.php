@@ -54,6 +54,7 @@ Route::get('/coba',function (){
 });
 
 Route::get('/',[UtamaController::class,'index']);
+Route::post('/',[UtamaController::class,'Pencarian']);
 
 Route::get('/listofbus',[UtamaController::class, 'ListOfBus'])->name('listofbus');
 Route::get('/listofmobil',[UtamaController::class, 'ListOfMobil'])->name('listofmobil');

@@ -13,6 +13,7 @@ use App\Models\Paket;
 use App\Models\Pusat;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UtamaController extends Controller
 {
@@ -67,7 +68,7 @@ class UtamaController extends Controller
     }
     public function ListOfGuide()
     {
-        $guide = Guide::orderBy('nama')->paginate(30);
+        $paket = Guide::orderBy('nama')->paginate(30);
         return view('catagories.guide',compact('guide'));
     }
     public function ListOfPaket()
@@ -102,5 +103,38 @@ class UtamaController extends Controller
            return redirect('/')->with('status','Pilihan Tidak Ada');
         }
         return redirect('/')->with('status', 'Pesanan Telah Diterima Tolong Lakukan Pembayaran');
+    }
+    public function Pencarian(Request $request)
+    {
+        $bus        = DB::table('bus')->where('nama','like',"%".$request->pencarian."%")->first();
+        $mobil      = DB::table('mobil')->where('nama','like',"%".$request->pencarian."%")->first();
+        $destinasi  = DB::table('destinasi')->where('nama','like',"%".$request->pencarian."%")->first();
+        $pusat      = DB::table('pusat')->where('nama','like',"%".$request->pencarian."%")->first();
+        $kuliner    = DB::table('kuliner')->where('nama','like',"%".$request->pencarian."%")->first();
+        $hotel      = DB::table('hotel')->where('nama','like',"%".$request->pencarian."%")->first();
+        $kapal      = DB::table('kapal')->where('nama','like',"%".$request->pencarian."%")->first();
+        $guide      = DB::table('guide')->where('nama','like',"%".$request->pencarian."%")->first();
+        $paket      = DB::table('paket')->where('nama','like',"%".$request->pencarian."%")->first();
+        if(null != $hotel){
+            return redirect()->route('listofhotel');
+        }else if(null != $kuliner){
+            return redirect()->route('listofkuliner');
+        }else if(null != $guide){
+            return redirect()->route('listofguide');
+        }else if(null != $pusat){
+            return redirect()->route('listofpusat');
+        }else if(null != $destinasi){
+            return redirect()->route('listofdestinasi');
+        }else if(null != $paket){
+            return redirect()->route('listofpaket');
+        }else if(null != $mobil){
+            return redirect()->route('listofmobil');
+        }else if(null != $bus){
+            return redirect()->route('listofbus');
+        }else if(null != $kapal){
+            return redirect()->route('listofkapal');
+        }else{
+            return redirect('/')->with('status','Pilihan Anda Tidak Ada');
+        }
     }
 }

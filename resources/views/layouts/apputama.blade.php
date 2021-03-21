@@ -135,7 +135,7 @@
                                         <input type="text" placeholder="When Would you like to go ?" name="pencarian" value="{{old('pencarian')}}">
                                     </div>
                                     <div class="search-form mb-30">
-                                        <button type="submit" name="submit" class="btn btn-primary">Search</button>
+                                        <button type="submit" class="btn btn-primary">Search</button>
                                     </div>
                                 </form>
                             </div>
