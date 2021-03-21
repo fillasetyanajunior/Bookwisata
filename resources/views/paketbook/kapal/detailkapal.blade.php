@@ -83,7 +83,9 @@
                         <h2>Review {{$kapal->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$kapal->review}}
+                        <pre>
+                            {{$kapal->review}}
+                        </pre>
                     </div>
                 </div>
             </div>

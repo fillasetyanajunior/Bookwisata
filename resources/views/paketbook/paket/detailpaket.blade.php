@@ -83,7 +83,9 @@
                         <h2>Review {{$paket->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$paket->review}}
+                        <pre>
+                            {{$paket->review}}
+                        </pre>
                     </div>
                 </div>
             </div>

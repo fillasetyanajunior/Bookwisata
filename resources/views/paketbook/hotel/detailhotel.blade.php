@@ -90,7 +90,9 @@
                         <h2>Review {{$hotel->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$hotel->review}}
+                        <pre>
+                            {{$hotel->review}}
+                        </pre>
                     </div>
                 </div>
             </div>

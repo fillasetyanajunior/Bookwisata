@@ -83,7 +83,9 @@
                         <h2>Review {{$pusat->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$pusat->review}}
+                        <pre>
+                            {{$pusat->review}}
+                        </pre>
                     </div>
                 </div>
             </div>

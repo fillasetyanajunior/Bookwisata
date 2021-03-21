@@ -84,7 +84,9 @@
                         <h2>Review {{$bus->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$bus->review}}
+                        <pre>
+                            {{$bus->review}}
+                        </pre>
                     </div>
                 </div>
             </div>

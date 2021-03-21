@@ -83,7 +83,9 @@
                         <h2>Review {{$kuliner->nama}}</h2>
                     </div>
                     <div class="card-body">
-                        {{$kuliner->review}}
+                        <pre>
+                            {{$kuliner->review}}
+                        </pre>
                     </div>
                 </div>
             </div>
