@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($mobil as $mobil)
+                @foreach ($mobils as $mobil)
                  @php
                     $foto = DB::table('mobil')
                                 ->join('fileuploads','fileuploads.nama','=','mobil.nama')
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($bus as $bus)
+                @foreach ($buss as $bus)
                 @php
                     $foto = DB::table('bus')
                                 ->join('fileuploads','fileuploads.nama','=','bus.nama')
@@ -167,7 +167,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($paket as $paket)
+                @foreach ($pakets as $paket)
                @php
                     $foto = DB::table('paket')
                                 ->join('fileuploads','fileuploads.nama','=','paket.nama')
@@ -222,7 +222,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($kapal as $kapal)
+                @foreach ($kapals as $kapal)
                 @php
                     $foto = DB::table('kapal')
                                 ->join('fileuploads','fileuploads.nama','=','kapal.nama')
@@ -277,7 +277,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($hotel as $hotel)
+                @foreach ($hotels as $hotel)
                @php
                     $foto = DB::table('hotel')
                                 ->join('fileuploads','fileuploads.nama','=','hotel.nama')
@@ -332,7 +332,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($guide as $guide)
+                @foreach ($guides as $guide)
                 @php
                     $foto = DB::table('guide')
                                 ->join('fileuploads','fileuploads.nama','=','guide.nama')
@@ -387,7 +387,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($kuliner as $kuliner)
+                @foreach ($kuliners as $kuliner)
                 @php
                     $foto = DB::table('kuliner')
                                 ->join('fileuploads','fileuploads.nama','=','kuliner.nama')
@@ -442,7 +442,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($destinasi as $destinasi)
+                @foreach ($destinasis as $destinasi)
                 @php
                     $foto = DB::table('destinasi')
                                 ->join('fileuploads','fileuploads.nama','=','destinasi.nama')
@@ -497,7 +497,7 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($pusat as $pusat)
+                @foreach ($pusats as $pusat)
                 @php
                     $foto = DB::table('pusat')
                                 ->join('fileuploads','fileuploads.nama','=','pusat.nama')
@@ -538,34 +538,6 @@
                                 </ul>
                             </div>
                             <a href="/detailpusat/{{$pusat->id}}" class="btn btn-primiry mt-3">Detail</a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-tittle text-center">
-                        <span>Bookwisata | Info terbaru kami</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @foreach ($info as $info)
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <div class="single-place mb-30">
-                        <div class="place-img">
-                            <h1>{{$info->title}} </h1>
-                        </div>
-                        <div class="place-cap">
-                            <div class="place-cap-top">
-                                <h3>{{$info->informasi}}</h3>
-                            </div>
-                            <div class="place-cap-bottom">
-                                <ul>
-                                    <li><i class="far fa-clock"></i>{{$info->updated_at}}</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

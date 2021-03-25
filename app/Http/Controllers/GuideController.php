@@ -63,14 +63,24 @@ class GuideController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Guide::create([
-            'user_id'   => request()->user()->id,
-            'nama'      => $request->nama,
-            'provinsi'  => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'review'    => $request->review,
-            'harga'     => $request->harga,
-            'rating'    => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'review'        => $request->review,
+            'harga'         => $request->harga,
+            'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
 
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Upload');
@@ -114,6 +124,15 @@ class GuideController extends Controller
             'kabupaten' => 'required',
         ]);
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if ($request->hasfile('gambar')) {
 
             $request->validate([
@@ -141,11 +160,12 @@ class GuideController extends Controller
 
             Guide::where('id', $guide->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $guide->nama)
@@ -154,11 +174,12 @@ class GuideController extends Controller
             ]);
             Guide::where('id', $guide->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         }
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Update');

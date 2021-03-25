@@ -69,6 +69,15 @@ class BusController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if($kab['id'] == $request->kabupaten){
+                $kota = $kab['nama'];
+            }
+        }
+
         Bus::create([
             'user_id'       => request()->user()->id,
             'nama'          => $request->nama,
@@ -81,8 +90,9 @@ class BusController extends Controller
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
             'harga'         => $request->harga,
-            'review'         => $request->review,
+            'review'        => $request->review,
             'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
         
         return redirect('bus')->with('status','Postingan Bus Berhasil Di Upload');
@@ -127,6 +137,15 @@ class BusController extends Controller
             'kabupaten' => 'required',
         ]);
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if($request->hasfile('gambar'))
         {
             $request->validate([
@@ -162,7 +181,8 @@ class BusController extends Controller
                 'ac'            => $request->ac,
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
-                'review'         => $request->review,
+                'review'        => $request->review,
+                'kota_search'   => $kota,
             ]);
         }
         else
@@ -184,6 +204,7 @@ class BusController extends Controller
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
                 'review'         => $request->review,
+                'kota_search'   => $kota,
                 ]);
         }
         return redirect('bus')->with('status', 'Postingan Bus Berhasil Di Update');

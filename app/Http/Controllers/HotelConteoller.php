@@ -67,16 +67,26 @@ class HotelConteoller extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Hotel::create([
-            'user_id'   => request()->user()->id,
-            'nama'      => $request->nama,
-            'provinsi'  => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'tipe'      => $request->tipe,
-            'bad'       => $request->bad,
-            'review'    => $request->review,
-            'harga'     => $request->harga,
-            'rating'    => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'tipe'          => $request->tipe,
+            'bad'           => $request->bad,
+            'review'        => $request->review,
+            'harga'         => $request->harga,
+            'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
         
         return redirect('hotel')->with('status','Postingan Hotel Berhasil Di Upload');
@@ -120,6 +130,15 @@ class HotelConteoller extends Controller
         $validatedData  = $request->validate([
             'kabupaten' => 'required',
         ]);
+
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
         
         if ($request->hasfile('gambar')) {
 
@@ -146,13 +165,14 @@ class HotelConteoller extends Controller
 
             Hotel::where('id', $hotel->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'tipe'      => $request->tipe,
-                'bad'       => $request->bad,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'bad'           => $request->bad,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $hotel->nama)
@@ -161,13 +181,14 @@ class HotelConteoller extends Controller
                 ]);
             Hotel::where('id', $hotel->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'tipe'      => $request->tipe,
-                'bad'       => $request->bad,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'bad'           => $request->bad,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         }
         return redirect('hotel')->with('status', 'Postingan Hotel Berhasil Di Update');

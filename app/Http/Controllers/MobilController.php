@@ -68,6 +68,15 @@ class MobilController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Mobil::create([
             'user_id'       => request()->user()->id,
             'nama'          => $request->nama,
@@ -79,8 +88,9 @@ class MobilController extends Controller
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
             'harga'         => $request->harga,
-            'review'         => $request->review,
+            'review'        => $request->review,
             'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
 
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Upload');
@@ -123,6 +133,16 @@ class MobilController extends Controller
         $validatedData  = $request->validate([
             'kabupaten' => 'required',
         ]);
+
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if ($request->hasfile('gambar')) {
 
             $request->validate([
@@ -157,7 +177,8 @@ class MobilController extends Controller
                     'ac'            => $request->ac,
                     'jumlah_sit'    => $request->jumlah_sit,
                     'harga'         => $request->harga,
-                    'review'         => $request->review,
+                    'review'        => $request->review,
+                    'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $mobil->nama)
@@ -175,7 +196,8 @@ class MobilController extends Controller
                     'ac'            => $request->ac,
                     'jumlah_sit'    => $request->jumlah_sit,
                     'harga'         => $request->harga,
-                    'review'         => $request->review,
+                    'review'        => $request->review,
+                    'kota_search'   => $kota,
                 ]);
         }
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Update');

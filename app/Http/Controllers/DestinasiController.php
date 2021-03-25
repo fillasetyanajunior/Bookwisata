@@ -64,15 +64,25 @@ class DestinasiController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Destinasi::create([
-            'user_id'   => request()->user()->id,
-            'nama'      => $request->nama,
-            'provinsi'  => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'alamat'    => $request->alamat,
-            'review'    => $request->review,
-            'harga'     => $request->harga,
-            'rating'    => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'alamat'        => $request->alamat,
+            'review'        => $request->review,
+            'harga'         => $request->harga,
+            'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
 
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Upload');
@@ -115,6 +125,16 @@ class DestinasiController extends Controller
         $validatedData  = $request->validate([
             'kabupaten' => 'required',
         ]);
+
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if ($request->hasfile('gambar')) {
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
@@ -138,12 +158,13 @@ class DestinasiController extends Controller
 
             Destinasi::where('id', $destinasi->id)
                 ->update([
-                    'nama'      => $request->nama,
-                    'provinsi'  => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'alamat'    => $request->alamat,
-                    'review'    => $request->review,
-                    'harga'     => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'alamat'        => $request->alamat,
+                    'review'        => $request->review,
+                    'harga'         => $request->harga,
+                    'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $destinasi->nama)
@@ -152,12 +173,13 @@ class DestinasiController extends Controller
                 ]);
             Destinasi::where('id', $destinasi->id)
                 ->update([
-                    'nama'      => $request->nama,
-                    'provinsi'  => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'alamat'    => $request->alamat,
-                    'review'    => $request->review,
-                    'harga'     => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'alamat'        => $request->alamat,
+                    'review'        => $request->review,
+                    'harga'         => $request->harga,
+                    'kota_search'   => $kota,
                 ]);
         }
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Update');

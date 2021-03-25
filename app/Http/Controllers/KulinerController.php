@@ -64,15 +64,25 @@ class KulinerController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Kuliner::create([
-            'user_id'   => request()->user()->id,
-            'nama'      => $request->nama,
-            'provinsi'  => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'alamat'    => $request->alamat,
-            'review'    => $request->review,
-            'harga'     => $request->harga,
-            'rating'    => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'alamat'        => $request->alamat,
+            'review'        => $request->review,
+            'harga'         => $request->harga,
+            'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
 
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Upload');
@@ -116,6 +126,15 @@ class KulinerController extends Controller
             'kabupaten' => 'required',
         ]);
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if ($request->hasfile('gambar')) {
 
             $request->validate([
@@ -141,12 +160,13 @@ class KulinerController extends Controller
 
             Kuliner::where('id', $kuliner->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'alamat'    => $request->alamat,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'alamat'        => $request->alamat,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $kuliner->nama)
@@ -155,12 +175,13 @@ class KulinerController extends Controller
                 ]);
             Kuliner::where('id', $kuliner->id)
                 ->update([
-                'nama'      => $request->nama,
-                'provinsi'  => $request->provinsi,
-                'kabupaten' => $request->kabupaten,
-                'alamat'    => $request->alamat,
-                'review'    => $request->review,
-                'harga'     => $request->harga,
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'alamat'        => $request->alamat,
+                'review'        => $request->review,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota,
                 ]);
         }
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Update');

@@ -27,6 +27,12 @@ class SubMenuSeeder extends Seeder
             'url' => 'riwayat',
         ]);
         DB::table('sub_menu')->insert([
+            'menu_id' => '1',
+            'sub_menu' => 'My Profile',
+            'icon' => 'fas fa-users-cog',
+            'url' => 'myprofile',
+        ]);
+        DB::table('sub_menu')->insert([
             'menu_id' => '2',
             'sub_menu' => 'Access Menu',
             'icon' => 'fas fa-users-cog',
@@ -49,6 +55,12 @@ class SubMenuSeeder extends Seeder
             'sub_menu' => 'Management User',
             'icon' => 'fas fa-user-tie',
             'url' => 'managementuser',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '2',
+            'sub_menu' => 'Informasi',
+            'icon' => 'far fa-sticky-note',
+            'url' => 'informasi',
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '3',

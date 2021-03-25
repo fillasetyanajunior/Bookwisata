@@ -10,6 +10,7 @@ use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\GuideController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelConteoller;
+use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KapalController;
 use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\ManagementUserController;
@@ -175,6 +176,13 @@ Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     Route::get('/accessmenu/{accessMenu}',[AccessMenuController::class,'edit'])->name('edit_accessmenu');
     Route::put('/accessmenu/{accessMenu}',[AccessMenuController::class,'update'])->name('update_accessmenu');
     Route::delete('/accessmenu/{accessMenu}',[AccessMenuController::class,'destroy'])->name('destroy_accessmenu');
+
+    Route::get('/informasi',[InformasiController::class,'index'])->name('informasi');
+    Route::get('/informasi/create',[InformasiController::class,'create'])->name('create_informasi');
+    Route::post('/informasi',[InformasiController::class,'store'])->name('store_informasi');
+    Route::get('/informasi/{informasi}',[InformasiController::class,'edit'])->name('edit_informasi');
+    Route::put('/informasi/{informasi}',[InformasiController::class,'update'])->name('update_informasi');
+    Route::delete('/informasi/{informasi}',[InformasiController::class,'destroy'])->name('destroy_informasi');
 
     Route::get('/managementuser', [ManagementUserController::class, 'index'])->name('managementuser');
     Route::get('/managementuser/edit/{user}', [ManagementUserController::class, 'EditOfUser'])->name('edit_managementuser');

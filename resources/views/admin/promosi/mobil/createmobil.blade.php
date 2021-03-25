@@ -103,8 +103,9 @@
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Foto</label>
                     <input class="form-control  @error('gambar') is-invalid @enderror" type="file" id="formFile" name="gambar[]" multiple>
+                    <small id="emailHelp" class="form-text text-muted">Masukan Beberpa Foto</small>
                 </div>
-                <button type="submit" name="submit" class="btn btn-primary">Post</button>
+                <button type="submit" name="submit" class="btn btn-primary mb-5">Post</button>
             </form>
         </div>
     </div>

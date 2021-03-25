@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Informasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'Dashboard';
+        $data['title']      = 'Dashboard';
+        $data['informasi']   = Informasi::orderBy('updated_at','desc')->paginate(5);
         return view('home.dashboard',$data);
     }
 

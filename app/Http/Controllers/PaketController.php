@@ -63,14 +63,24 @@ class PaketController extends Controller
             ]);
         }
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         Paket::create([
-            'user_id'   => request()->user()->id,
-            'nama'      => $request->nama,
-            'provinsi'  => $request->provinsi,
-            'kabupaten' => $request->kabupaten,
-            'review'    => $request->review,
-            'harga'     => $request->harga,
-            'rating'    => 0,
+            'user_id'       => request()->user()->id,
+            'nama'          => $request->nama,
+            'provinsi'      => $request->provinsi,
+            'kabupaten'     => $request->kabupaten,
+            'review'        => $request->review,
+            'harga'         => $request->harga,
+            'rating'        => 0,
+            'kota_search'   => $kota,
         ]);
 
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Upload');
@@ -114,6 +124,15 @@ class PaketController extends Controller
             'kabupaten' => 'required',
         ]);
 
+        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
+            'id_provinsi' => $request->provinsi
+        ]);
+        foreach ($url['kota_kabupaten'] as $kab) {
+            if ($kab['id'] == $request->kabupaten) {
+                $kota = $kab['nama'];
+            }
+        }
+
         if ($request->hasfile('gambar')) {
 
             $request->validate([
@@ -139,11 +158,12 @@ class PaketController extends Controller
 
             Paket::where('id', $paket->id)
                 ->update([
-                    'nama'      => $request->nama,
-                    'provinsi'  => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'review'    => $request->review,
-                    'harga'     => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'review'        => $request->review,
+                    'harga'         => $request->harga,
+                    'kota_search'   => $kota,
                 ]);
         } else {
             FileUpload::where('nama', $paket->nama)
@@ -152,11 +172,12 @@ class PaketController extends Controller
                 ]);
             Paket::where('id', $paket->id)
                 ->update([
-                    'nama'      => $request->nama,
-                    'provinsi'  => $request->provinsi,
-                    'kabupaten' => $request->kabupaten,
-                    'review'    => $request->review,
-                    'harga'     => $request->harga,
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'review'        => $request->review,
+                    'harga'         => $request->harga,
+                    'kota_search'   => $kota,
                 ]);
         }
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Update');
