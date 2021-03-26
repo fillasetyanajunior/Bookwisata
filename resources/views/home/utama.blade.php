@@ -126,7 +126,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="100px">
+                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="200px">
                             @endforeach
                         </div>
                         <div class="place-cap">
