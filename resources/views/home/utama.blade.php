@@ -92,7 +92,7 @@
                                     <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
                                 @endif  
                                 <h3><a href="#">{{$mobil->nama}}</a></h3>
-                                <p class="dolor">{{$mobil->harga}} IDR <span>/Hari</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($mobil->harga)),3)))}}<span>/Hari</span></p>
                             </div>
                             <div class="place-cap-bottom">
                                 <ul>
@@ -126,7 +126,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" width="100px">
+                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="100px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -145,7 +145,7 @@
                                 <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
                             @endif  
                                 <h3><a href="#"> {{$bus->nama}} </a></h3>
-                                <p class="dolor">{{$bus->harga}} IDR<span>/Hari</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($bus->harga)),3)))}}<span>/Hari</span></p>
                             </div>
                             <div class="place-cap-bottom">
                                 <ul>
@@ -199,7 +199,7 @@
                                 @endif  
                                 <h3><a href="#">{{$paket->nama}}</a></h3>
                                 <h4>{{$paket->alamat}}</h4>
-                                <p class="dolor"> {{$paket->harga}} IDR<span>/Paket</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($paket->harga)),3)))}}<span>/Paket</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -254,7 +254,7 @@
                                 @endif  
                                 <h3><a href="#">{{$kapal->nama}} </a></h3>
                                 <h4>{{$kapal->lokasi}}</h4>
-                                <p class="dolor">{{$kapal->harga}} IDR<span>/Kapal</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kapal->harga)),3)))}}<span>/Kapal</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -309,7 +309,7 @@
                                 @endif  
                                 <h3><a href="#">{{$hotel->nama}} </a></h3>
                                 <h4>{{$hotel->lokasi}}</h4>
-                                <p class="dolor">{{$hotel->harga}} IDR<span>/Hari</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($hotel->harga)),3)))}}<span>/Hari</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -364,7 +364,7 @@
                                 @endif  
                                 <h3><a href="#">{{$guide->nama}} </a></h3>
                                 <h4>{{$guide->lokasi}}</h4>
-                                <p class="dolor">{{$guide->harga}} IDR<span>/Hari</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($guide->harga)),3)))}}<span>/Hari</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -419,7 +419,7 @@
                                 @endif  
                                 <h3><a href="#">{{$kuliner->nama}}</a></h3>
                                 <h4>{{$kuliner->alamat}}</h4>
-                                <p class="dolor"> {{$kuliner->harga}} IDR<span>/Paket</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kuliner->harga)),3)))}}<span>/Paket</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -474,7 +474,7 @@
                                 @endif  
                                 <h3><a href="#">{{$destinasi->nama}} </a></h3>
                                 <h4>{{$destinasi->lokasi}}</h4>
-                                <p class="dolor">{{$destinasi->harga}} IDR<span>/Paket</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($detinasi->harga)),3)))}}<span>/Paket</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
@@ -529,7 +529,7 @@
                                 @endif  
                                 <h3><a href="#">{{$pusat->nama}} </a></h3>
                                 <h4>{{$pusat->lokasi}}</h4>
-                                <p class="dolor">{{$pusat->harga}} IDR<span>/Paket</span></p>
+                                <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($pusat->harga)),3)))}}<span>/Paket</span></p>
                                 <p class="dolor"></p>
                             </div>
                             <div class="place-cap-bottom">
