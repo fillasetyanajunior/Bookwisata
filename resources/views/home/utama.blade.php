@@ -73,7 +73,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('mobil/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('mobil/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -126,7 +126,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -179,7 +179,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('paket/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('paket/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -234,7 +234,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('kapal/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('kapal/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -289,7 +289,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('hotel/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('hotel/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -344,7 +344,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('guide/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('guide/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -399,7 +399,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('kuliner/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('kuliner/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -454,7 +454,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('destinasi/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('destinasi/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
@@ -509,7 +509,7 @@
                     <div class="single-place mb-30">
                         <div class="place-img">
                             @foreach ($foto as $foto)
-                            <img src="{{asset('pusat/' . $foto->foto)}}" alt="" height="200px">
+                            <img src="{{asset('pusat/' . $foto->foto)}}" alt="" height="300px">
                             @endforeach
                         </div>
                         <div class="place-cap">
