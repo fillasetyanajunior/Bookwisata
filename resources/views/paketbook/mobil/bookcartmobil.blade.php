@@ -54,9 +54,9 @@
                         <tbody>
                             <tr>
                                 <td colspan="2">
-                                    @if($riwayat->tipe == 1)
+                                    @if($riwayat->tipe == 21)
                                         Sedan
-                                    @elseif($riwayat->tipe == 2)
+                                    @elseif($riwayat->tipe == 22)
                                         MVP
                                     @else
                                         LMVP
@@ -128,9 +128,9 @@
                         <tr>
                             <td colspan="2">Tipe Mobil</td>
                             <td>
-                            @if($riwayat->tipe == 1)
+                            @if($riwayat->tipe == 21)
                                 Sedan
-                            @elseif($riwayat->tipe == 2)
+                            @elseif($riwayat->tipe == 22)
                                 MVP
                             @else
                                 LMVP

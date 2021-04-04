@@ -54,9 +54,9 @@
                         <tbody>
                             <tr>
                                 <td colspan="2">
-                                    @if($riwayat->tipe == 11)
+                                    @if($riwayat->tipe == 31)
                                         Small Bus
-                                    @elseif($riwayat->tipe == 12)
+                                    @elseif($riwayat->tipe == 32)
                                         Medium Bus
                                     @else
                                         Big Bus
@@ -127,9 +127,9 @@
                             <tr>
                                 <td colspan="2">Tipe Bus</td>
                                 <td> 
-                                    @if($riwayat->tipe == 11)
+                                    @if($riwayat->tipe == 31)
                                         Small Bus
-                                    @elseif($riwayat->tipe == 12)
+                                    @elseif($riwayat->tipe == 32)
                                         Medium Bus
                                     @else
                                         Big Bus
