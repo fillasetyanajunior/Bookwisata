@@ -140,20 +140,39 @@ class DestinasiController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
             $filegambar = DB::table('fileuploads')
-            ->where('destinasi', '=', $destinasi->nama)
-                ->get();
-            foreach ($filegambar as $gambar) {
-                Storage::delete('destinasi/' . $gambar->foto);
-            }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('destinasi', $name);
+                            ->where('destinasi', '=', $destinasi->nama)
+                            ->get();
+            $jumlah = FileUpload::where('nama', $destinasi->nama)->count();
 
-                FileUpload::where('nama', $destinasi->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
+            foreach ($filegambar as $gambar) {
+                Storage::delete(asset('destinasi/' . $gambar->foto));
+            }
+
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('destinasi', $name);
+
+                    FileUpload::where('nama', $destinasi->nama)
+                        ->update([
+                            'nama' => $request->nama,
+                            'foto' => $name,
+                        ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $destinasi->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('destinasi', $name);
+
+                    FileUpload::where('nama', $destinasi->nama)
+                        ->update([
+                            'nama' => $request->nama,
+                            'foto' => $name,
+                        ]);
+                }
             }
 
             Destinasi::where('id', $destinasi->id)

@@ -147,20 +147,39 @@ class HotelConteoller extends Controller
             ]);
             
             $filegambar = DB::table('fileuploads')
-            ->where('nama', '=', $hotel->nama)
-                ->get();
-            foreach ($filegambar as $gambar) {
-                Storage::delete('hotel/' . $gambar->foto);
-            }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('hotel', $name);
+                            ->where('nama', '=', $hotel->nama)
+                            ->get();
+            $jumlah = FileUpload::where('nama', $hotel->nama)->count();
 
-                FileUpload::where('nama', $hotel->nama)
+            foreach ($filegambar as $gambar) {
+                Storage::delete(asset('hotel/' . $gambar->foto));
+            }
+
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('hotel', $name);
+
+                    FileUpload::where('nama', $hotel->nama)
                     ->update([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $hotel->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('hotel', $name);
+
+                    FileUpload::where('nama', $hotel->nama)
+                    ->update([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
+                }
             }
 
             Hotel::where('id', $hotel->id)

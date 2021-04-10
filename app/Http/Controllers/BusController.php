@@ -145,28 +145,46 @@ class BusController extends Controller
                 $kota = $kab['nama'];
             }
         }
-
         if($request->hasfile('gambar'))
         {
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
-            ]);
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $bus->nama)
-                            ->get(); 
+                ]);
+                $filegambar = DB::table('fileuploads')
+                                ->where('nama', '=', $bus->nama)
+                                ->get();
+                $jumlah = FileUpload::where('nama',$bus->nama)->count();
+
             foreach($filegambar as $gambar)
             {
-                Storage::delete('bus/'.$gambar->foto);
+                Storage::delete(asset('bus/'. $gambar->foto));
             }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('bus', $name);
 
-                FileUpload::where('nama',$bus->nama)
-                        ->update([
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('bus', $name);
+
+                    FileUpload::where('nama', $bus->nama)
+                    ->update([
                         'nama' => $request->nama,
                         'foto' => $name,
-                ]);
+                    ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $bus->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('bus', $name);
+
+                    FileUpload::where('nama', $bus->nama)
+                    ->update([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
+                }
             }
 
             Bus::where('id',$bus->id)

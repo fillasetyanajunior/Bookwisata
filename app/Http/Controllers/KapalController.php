@@ -142,18 +142,37 @@ class KapalController extends Controller
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $kapal->nama)
                             ->get();
-            foreach ($filegambar as $gambar) {
-                Storage::delete('kapal/' . $gambar->foto);
-            }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('kapal', $name);
+            $jumlah = FileUpload::where('nama', $kapal->nama)->count();
 
-                FileUpload::where('nama', $kapal->nama)
+            foreach ($filegambar as $gambar) {
+                Storage::delete(asset('kapal/' . $gambar->foto));
+            }
+
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('kapal', $name);
+
+                    FileUpload::where('nama', $kapal->nama)
                     ->update([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $kapal->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('kapal', $name);
+
+                    FileUpload::where('nama', $kapal->nama)
+                    ->update([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
+                }
             }
 
             Kapal::where('id', $kapal->id)

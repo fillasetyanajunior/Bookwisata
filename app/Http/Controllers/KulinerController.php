@@ -142,20 +142,39 @@ class KulinerController extends Controller
             ]);
             
             $filegambar = DB::table('fileuploads')
-            ->where('nama', '=', $kuliner->nama)
-                ->get();
-            foreach ($filegambar as $gambar) {
-                Storage::delete('kuliner/' . $gambar->foto);
-            }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('kuliner', $name);
+                            ->where('nama', '=', $kuliner->nama)
+                            ->get();
+            $jumlah = FileUpload::where('nama', $kuliner->nama)->count();
 
-                FileUpload::where('nama', $kuliner->nama)
+            foreach ($filegambar as $gambar) {
+                Storage::delete(asset('kuliner/' . $gambar->foto));
+            }
+
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('kuliner', $name);
+
+                    FileUpload::where('nama', $kuliner->nama)
                     ->update([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $kuliner->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('kuliner', $name);
+
+                    FileUpload::where('nama', $kuliner->nama)
+                    ->update([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
+                }
             }
 
             Kuliner::where('id', $kuliner->id)

@@ -140,20 +140,39 @@ class PaketController extends Controller
             ]);
             
             $filegambar = DB::table('fileuploads')
-            ->where('nama', '=', $paket->nama)
-                ->get();
-            foreach ($filegambar as $gambar) {
-                Storage::delete('paket/' . $gambar->foto);
-            }
-            foreach ($request->file('gambar') as $file) {
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-                $file->storeAs('paket', $name);
+                            ->where('nama', '=', $paket->nama)
+                            ->get();
+            $jumlah = FileUpload::where('nama', $paket->nama)->count();
 
-                FileUpload::where('nama', $paket->nama)
+            foreach ($filegambar as $gambar) {
+                Storage::delete(asset('paket/' . $gambar->foto));
+            }
+
+            if ($jumlah == count($request->file('gambar'))) {
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('paket', $name);
+
+                    FileUpload::where('nama', $paket->nama)
                     ->update([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
+                }
+            } else {
+
+                FileUpload::where('nama', $paket->nama)->delete();
+
+                foreach ($request->file('gambar') as $file) {
+                    $name = time() . rand(1, 100) . '.' . $file->extension();
+                    $file->storeAs('paket', $name);
+
+                    FileUpload::where('nama', $paket->nama)
+                    ->update([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
+                }
             }
 
             Paket::where('id', $paket->id)
