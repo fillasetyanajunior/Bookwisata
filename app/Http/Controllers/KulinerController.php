@@ -169,8 +169,7 @@ class KulinerController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('kuliner', $name);
 
-                    FileUpload::where('nama', $kuliner->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);

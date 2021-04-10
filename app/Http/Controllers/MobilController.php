@@ -177,8 +177,7 @@ class MobilController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('mobil', $name);
 
-                    FileUpload::where('nama', $mobil->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);

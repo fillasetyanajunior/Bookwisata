@@ -169,8 +169,7 @@ class PusatController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('pusat', $name);
 
-                    FileUpload::where('nama', $pusat->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);

@@ -167,11 +167,10 @@ class DestinasiController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('destinasi', $name);
 
-                    FileUpload::where('nama', $destinasi->nama)
-                        ->update([
-                            'nama' => $request->nama,
-                            'foto' => $name,
-                        ]);
+                    FileUpload::create([
+                        'nama' => $request->nama,
+                        'foto' => $name,
+                    ]);
                 }
             }
 

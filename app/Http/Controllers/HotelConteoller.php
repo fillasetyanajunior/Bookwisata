@@ -174,8 +174,7 @@ class HotelConteoller extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('hotel', $name);
 
-                    FileUpload::where('nama', $hotel->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);

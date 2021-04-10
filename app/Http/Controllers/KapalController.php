@@ -167,8 +167,7 @@ class KapalController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('kapal', $name);
 
-                    FileUpload::where('nama', $kapal->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);

@@ -179,11 +179,10 @@ class BusController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('bus', $name);
 
-                    FileUpload::where('nama', $bus->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
+                    FileUpload::create([
+                            'nama' => $request->nama,
+                            'foto' => $name,
+                        ]);
                 }
             }
 

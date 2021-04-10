@@ -168,8 +168,7 @@ class GuideController extends Controller
                     $name = time() . rand(1, 100) . '.' . $file->extension();
                     $file->storeAs('guide', $name);
 
-                    FileUpload::where('nama', $guide->nama)
-                    ->update([
+                    FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
