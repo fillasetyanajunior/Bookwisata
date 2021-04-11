@@ -29,6 +29,7 @@ use App\Http\Controllers\PromosiPusatController;
 use App\Http\Controllers\PusatController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\TransaksiMitraController;
 use App\Http\Controllers\UtamaController;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\App;
@@ -79,7 +80,8 @@ Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     
-    Route::post('/layananmitra', [UtamaController::class, 'StoreLayananMitra']);
+    Route::post('/layananmitra', [TransaksiMitraController::class, 'create']);
+    Route::post('/layananmitra/create', [TransaksiMitraController::class, 'store']);
 
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
     Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
@@ -186,7 +188,10 @@ Route::group(['middleware' => ['auth', 'verified','admin']], function () {
 
     Route::get('/managementuser', [ManagementUserController::class, 'index'])->name('managementuser');
     Route::get('/managementuser/edit/{user}', [ManagementUserController::class, 'EditOfUser'])->name('edit_managementuser');
+    Route::get('/managementuser/show/{user}', [ManagementUserController::class, 'show']);
     Route::post('/managementuser/{user}', [ManagementUserController::class, 'update'])->name('update_managementuser');
+
+    Route::get('/showlayananmitra', [TransaksiMitraController::class,'index'])->name('layananmitra');
 });
 Route::group(['middleware' => ['auth','verified','mitra']], function () {
     

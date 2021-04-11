@@ -33,63 +33,30 @@
                 {{ session('status') }}
             </div>
         @endif
+            <input type="text" class="form-control my-3 col-2" id="search" placeholder="Search">
             <table class="table bg-info ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Email</th>
-                        <th scope="col">Nomer Hp</th>
-                        <th scope="col">Pemesanan</th>
-                        <th scope="col">Tipe</th>
-                        <th scope="col">Jumlah</th>
-                        <th scope="col">Hari</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Total</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Kode QR</th>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <th scope="col">Aksi</th>
+                        <th scope="col">Waktu Pembayaran</th>
                         @else
                         <th scope="col">Waktu Pembayaran</th>
                         @endif
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="myTable">
                     <?php $i = 1;?>
                     @foreach ($riwayat as $riwayat)
                     <tr>
                         <th scope="row">{{$i}} </th>
                         <td>{{$riwayat->nama}} </td>
                         <td>{{$riwayat->email}} </td>
-                        <td>{{$riwayat->nomerhp}} </td>
-                        <td>{{$riwayat->nama_pilihan}} </td>
-                        <td>
-                        @if($riwayat->tipe == 31)
-                            Small Bus
-                        @elseif($riwayat->tipe == 32)
-                            Medium Bus
-                        @elseif($riwayat->tipe == 33)
-                            Big Bus
-                        @elseif($riwayat->tipe == 21)
-                            Sedan
-                        @elseif($riwayat->tipe == 22)
-                            MVP
-                        @elseif($riwayat->tipe == 23)
-                            LMVP
-                        @elseif($riwayat->tipe == '-')
-                            {{$riwayat->tipe}}
-                        @else
-                            @foreach ($tipe as $item)
-                                @if ($item->id == $riwayat->tipe)
-                                    {{$item->tipe}}
-                                @endif
-                            @endforeach
-                        @endif    
-                        </td>
-                        <td>{{$riwayat->jumlahpesanan}} </td>
-                        <td>{{$riwayat->hari}} </td>
-                        <td>{{$riwayat->date}} </td>
-                        <td>{{$riwayat->total}} </td>
                         <td>
                             @if ($riwayat->is_active == 1)
                                 Waitting
@@ -101,6 +68,7 @@
                                 Expired 
                             @endif
                         </td>
+                        <td>{{$riwayat->qr_code}}</td>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
                             @if ($riwayat->is_active == 4 || $riwayat->is_active == 3) 
@@ -109,13 +77,19 @@
                             <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
                             @endif
                         </td>
+                        <td>
+                            <p>{{$riwayat->waktu_payment}}</p>
+                        </td>
                         @else
                         <td>
-                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3 || $riwayat->is_active == 1) 
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3) 
                                 
                             @else
-                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}"></p>
+                            <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                             @endif
+                        </td>
+                        <td>
+                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}>{{$riwayat->waktu_payment}}"></p>
                         </td>
                         @endif
                         

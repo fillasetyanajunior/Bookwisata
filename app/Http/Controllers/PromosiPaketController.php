@@ -91,6 +91,10 @@ class PromosiPaketController extends Controller
                 'nomerhp'   => $request->nomerhp,
                 'email'     => $request->email
             ]);
+        Riwayat::where('id', $riwayat->id)
+            ->update([
+                'note' => $request->note
+            ]);
 
         $id = null;
         $paket = Paket::where('user_id', $riwayat->user_id_owner)->get();

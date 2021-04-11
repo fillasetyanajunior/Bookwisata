@@ -12,26 +12,30 @@
             <div class="card mt-2">
                 <div class="card-body">
                     <div class="form-group">
-                    <label for="nama">Nama Panggilan</label>
-                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="nama" name="name" aria-describedby="nama" value="{{old('name')}}">
-                    <small id="nama" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
+                        <label for="nama">Nama Panggilan</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="nama" name="name" aria-describedby="nama" value="{{old('name')}}">
+                        <small id="nama" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
                     </div>
                     <div class="row">
-                    <div class="col">
-                    <label for="nomer">No.HP Anda</label>
-                        <input type="text" class="form-control @error('nomerhp') is-invalid @enderror" id="nomerhp" name="nomerhp" placeholder="08xxxxxxxxxx" value="{{old('nomerhp')}}">
-                        <small id="nomerhp" class="form-text text-muted">contoh : +628222233312 kode negara +62 dan nomer hp 08222233312</small>
-                    </div>
-                    <div class="col">
-                    <label for="email">Email Anda</label>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="xxxx@gmail.com" value="{{old('email')}}">
-                        <small id="nama" class="form-text text-muted">contoh : bookingcart@gmail.com</small>
-                    </div>
+                        <div class="col">
+                            <label for="nomer">No.HP Anda</label>
+                            <input type="text" class="form-control @error('nomerhp') is-invalid @enderror" id="nomerhp" name="nomerhp" placeholder="08xxxxxxxxxx" value="{{old('nomerhp')}}">
+                            <small id="nomerhp" class="form-text text-muted">contoh : +628222233312 kode negara +62 dan nomer hp 08222233312</small>
+                        </div>
+                        <div class="col">
+                            <label for="email">Email Anda</label>
+                            <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="xxxx@gmail.com" value="{{old('email')}}">
+                            <small id="nama" class="form-text text-muted">contoh : bookingcart@gmail.com</small>
+                        </div>
                     </div>
                     <div class="form-group mt-4">
-                    <label for="namalengkap">Nama Lengkap</label>
-                    <input type="text" class="form-control @error('namalengkap') is-invalid @enderror" id="namalengkap" name="namalengkap" value="{{old('namalengkap')}}">
-                    <small id="namalengkap" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
+                        <label for="namalengkap">Nama Lengkap</label>
+                        <input type="text" class="form-control @error('namalengkap') is-invalid @enderror" id="namalengkap" name="namalengkap" value="{{old('namalengkap')}}">
+                        <small id="namalengkap" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
+                    </div>
+                    <div class="form-group mt-4">
+                        <label for="note">Note</label>
+                        <textarea class="form-control" id="note" name="note" rows="4"></textarea>
                     </div>
                 </div>
             </div>

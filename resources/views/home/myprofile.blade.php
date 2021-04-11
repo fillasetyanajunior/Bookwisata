@@ -44,10 +44,18 @@
                     <label for="nomer" class="form-label">Nomer Hp</label>
                     <input type="text" class="form-control" id="nomer" name="nomer" value="{{$user->nomer}}">
                 </div>
+                <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{$user->alamat}}">
+                </div>
                 @if (Auth::user()->role == 2)    
                 <div class="mb-3">
                     <label for="active_mitra" class="form-label">Active Mitra</label>
                     <input type="text" class="form-control" id="active_mitra" name="active_mitra" value="{{$user->active_mitra}}" disabled>
+                </div>
+                <div class="mb-3">
+                    <label for="kode_mitra" class="form-label">Kode Mitra</label>
+                    <input type="text" class="form-control" id="kode_mitra" name="kode_mitra" value="{{$user->kode_mitra}}" disabled>
                 </div>
                 @endif
                 <div class="mb-3">

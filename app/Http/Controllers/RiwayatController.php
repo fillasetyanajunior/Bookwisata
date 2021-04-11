@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\BordingpassMail;
+use App\Models\DetailRiwayat;
 use App\Models\Riwayat;
 use App\Models\Tipekamar;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class RiwayatController extends Controller
         }
         $data['tipe']   = Tipekamar::all();
         $data['title']  = 'Riwayat';
-        return view('home.riwayat',$data);
+        return view('riwayat.riwayat',$data);
     }
 
     public function edit(Riwayat $riwayat)
@@ -40,7 +41,7 @@ class RiwayatController extends Controller
                             ->where('riwayat.id_detail_riwayat', $riwayat->id_detail_riwayat)
                             ->get();
         $data['title']  = 'Riwayat';
-        return view('home.riwayatkonfirmasi', $data);
+        return view('riwayat.riwayatkonfirmasi', $data);
     }
 
     public function update(Request $request, Riwayat $riwayat)
@@ -66,11 +67,28 @@ class RiwayatController extends Controller
                 
             }else{
                 if ($request->is_active == 2) {
-                    Riwayat::where('id',$riwayat->id)
+                    
+                    if ($request->time_payment == 1) {
+                        Riwayat::where('id',$riwayat->id)
+                                ->update([
+                                    'is_active'     => $request->is_active,
+                                    'waktu_payment' => date('Y-m-d h:i:s', strtotime('+4 hour'))
+                                ]);
+                    } else if ($request->time_payment == 2) {
+                        Riwayat::where('id',$riwayat->id)
+                                ->update([
+                                    'is_active'     => $request->is_active,
+                                    'waktu_payment' => date('Y-m-d h:i:s', strtotime('+12 hour'))
+                                ]);
+                    }else{
+                        Riwayat::where('id', $riwayat->id)
                             ->update([
-                                'is_active' => $request->is_active,
-                                'waktu_payment' => 1800,
+                                'is_active'     => $request->is_active,
+                                'waktu_payment' => date('Y-m-d h:i:s', strtotime('+24 hour'))
                             ]);
+                    }
+                    
+
                 } elseif($request->is_active == 3){
 
                     $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -79,14 +97,14 @@ class RiwayatController extends Controller
                         ->update([
                             'is_active'     => $request->is_active,
                             'qr_code'       => $qr,
-                            'waktu_payment' => 0,
+                            'waktu_payment' => null,
                         ]);
                     Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
                 } else {
                     Riwayat::where('id', $riwayat->id)
                             ->update([
                                 'is_active' => $request->is_active,
-                                'waktu_payment' => 0,
+                                'waktu_payment' => null,
                     ]);
                 }
             }
@@ -94,6 +112,13 @@ class RiwayatController extends Controller
         }else{
             return redirect()->route('riwayat')->with('status','Pesanan Gagal Di Konfirmasi');
         }
+    }
+
+    public function show(Riwayat $riwayat)
+    {
+        $data['title']      = 'Detail Transaksi';
+        $data['riwayat']    = DetailRiwayat::where('id',$riwayat->id_detail_riwayat)->first();
+        return view('riwayat.showdetailriwayat',$data);
     }
     
 }

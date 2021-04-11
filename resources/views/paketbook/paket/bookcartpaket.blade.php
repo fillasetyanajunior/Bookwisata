@@ -33,6 +33,10 @@
                         <input type="text" class="form-control @error('namalengkap') is-invalid @enderror" id="namalengkap" name="namalengkap" value="{{old('namalengkap')}}">
                         <small id="namalengkap" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
                     </div>
+                    <div class="form-group mt-4">
+                        <label for="note">Note</label>
+                        <textarea class="form-control" id="note" name="note" rows="4"></textarea>
+                    </div>
                 </div>
             </div>
             <div class="card text-white  mb-3 mt-3">

@@ -27,11 +27,15 @@ class AccessMenuSeeder extends Seeder
             'role_id' => '1'
         ]);
         DB::table('access_menu')->insert([
+            'menu_id' => '4',
+            'role_id' => '1'
+        ]);
+        DB::table('access_menu')->insert([
             'menu_id' => '1',
             'role_id' => '2'
         ]);
         DB::table('access_menu')->insert([
-            'menu_id' => '3',
+            'menu_id' => '4',
             'role_id' => '2'
         ]);
         DB::table('access_menu')->insert([

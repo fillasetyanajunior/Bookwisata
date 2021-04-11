@@ -79,33 +79,6 @@ class UtamaController extends Controller
         return view('catagories.paket',compact('paket'));
     }
 
-    public function StoreLayananMitra(Request $request)
-    {
-        if ($request->id == 1) {
-           User::where('id',request()->user()->id)
-                ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+3 month'))
-                ]);
-        } elseif ($request->id == 2) {
-           User::where('id',request()->user()->id)
-                ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+6 month'))
-                ]);
-        } elseif ($request->id == 3) {
-           User::where('id',request()->user()->id)
-                ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+2 year'))
-                ]);
-        } elseif ($request->id == 4) {
-           User::where('id',request()->user()->id)
-                ->update([
-                    'active_mitra'  =>  date('Y-m-d', strtotime('+1 year'))
-                ]);
-        } else {
-           return redirect('/')->with('status','Pilihan Tidak Ada');
-        }
-        return redirect('/')->with('status', 'Pesanan Telah Diterima Tolong Lakukan Pembayaran');
-    }
     public function Pencarian(Request $request)
     {
         if ($request->pencarian != null) {    

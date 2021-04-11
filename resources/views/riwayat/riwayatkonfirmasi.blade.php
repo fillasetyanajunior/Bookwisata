@@ -54,6 +54,15 @@
                         <option value="3" @if ($riwayat[0]->is_active == 3) selected @endif >Confirmed</option>
                     </select>
                 </div>
+                <div class="mb-3">
+                    <label for="is_active" class="form-label">Konfirmasi</label>
+                    <select class="form-select form-control" aria-label="Default select example" id="is_active" name="is_active">
+                        <option value="">Select Konfirmasi</option>
+                        <option value="1">4 Jam</option>
+                        <option value="2">12 Jam</option>
+                        <option value="3">24 Jam</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary" name="submit">Konfirmasi</button>
             </form>
         </div>

@@ -28,48 +28,40 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4">
-            @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
 
             <table class="table bg-info ">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Role</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Aksi</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Nomer Hp</th>
+                        <th scope="col">Alamat</th>
+                        <th scope="col">Paket Mitra</th>
+                        <th scope="col">Waktu Pembayaran</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
-                    @foreach ($user as $User)
+                    @foreach ($transaksi as $transaksi)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$User->name}}</td>
+                        <td>{{$transaksi->nama}}</td>
+                        <td>{{$transaksi->email}}</td>
+                        <td>{{$transaksi->nomer}}</td>
+                        <td>{{$transaksi->alamat}}</td>
                         <td>
-                            @if ($User->role == 1)
-                                Admin
-                            @elseif($User->role == 2)
-                                Mitra
+                            @if ($transaksi->paket_mitra == 1)
+                                3 Bulan
+                            @elseif($transaksi->paket_mitra == 2)
+                                6 Bulan
+                            @elseif($transaksi->paket_mitra == 3)
+                                2 Tahun
                             @else
-                                User
+                                1 Tahun
                             @endif
                         </td>
-                        <td>
-                            @if ($User->is_active == 1)
-                                Active
-                            @else
-                                Isactive
-                            @endif
-                        </td>
-                        <td>
-                            <a class="btn btn-warning" href="/managementuser/edit/{{$User->id}}">Edit</a>
-                            <a class="btn btn-success" href="/managementuser/show/{{$User->id}}">Detail</a>
-                        </td>
+                        <td>{{$transaksi->waktu_payment}}</td>
                     </tr>
                     <?php $i++;?>
                     @endforeach

@@ -29,6 +29,20 @@ class DatabaseSeeder extends Seeder
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now(),
         ]);
+        
+        DB::table('users')->insert([
+            'name'              => 'Fuad Ashari',
+            'email'             => 'azhartour_yk@yahoo.com',
+            'email_verified_at' => Carbon::now(),
+            'password'          => Hash::make("kaysad3103"),
+            'nomer'             => '08157913168',
+            'role'              => 1,
+            'avatar'            => '-',
+            'is_active'         => 1,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+        
         $this->call([
             TipekamarSeeder::class,
             MenuSeeder::class,

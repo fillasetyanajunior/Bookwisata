@@ -89,8 +89,12 @@ class PromosiBusController extends Controller
                     ->update([
                         'nama'      => $request->namalengkap,
                         'nomerhp'   =>$request->nomerhp,
-                        'email'     => $request->email
+                        'email'     => $request->email,
         ]);
+        Riwayat::where('id',$riwayat->id)
+                ->update([
+                    'note' => $request->note
+                ]);
 
         $id = null;
         $bus = Bus::where('user_id',$riwayat->user_id_owner)->get();
