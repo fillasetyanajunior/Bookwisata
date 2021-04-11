@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         
         DB::table('users')->insert([
             'name'              => 'Fuad Ashari',
-            'email'             => 'azhartour_yk@yahoo.com',
+            'email'             => 'azhartour_yk@yahoo.co.id',
             'email_verified_at' => Carbon::now(),
             'password'          => Hash::make("kaysad3103"),
             'nomer'             => '08157913168',
