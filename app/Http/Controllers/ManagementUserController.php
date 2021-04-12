@@ -49,28 +49,33 @@ class ManagementUserController extends Controller
             }
 
             $mitra = TransaksiMitra::where('nama',$user->name)->first();
-            if ($mitra->paket_mitra == 1) {
-                $active_mitra = date('Y-m-d', strtotime('+3 month'));
-            } elseif ($mitra->paket_mitra == 2) {
-                $active_mitra = date('Y-m-d', strtotime('+6 month'));
-            } elseif ($mitra->paket_mitra == 3) {
-                $active_mitra = date('Y-m-d', strtotime('+2 year'));
+            if ($mitra != null) {
+                if ($mitra->paket_mitra == 1) {
+                    $active_mitra = date('Y-m-d', strtotime('+3 month'));
+                } elseif ($mitra->paket_mitra == 2) {
+                    $active_mitra = date('Y-m-d', strtotime('+6 month'));
+                } elseif ($mitra->paket_mitra == 3) {
+                    $active_mitra = date('Y-m-d', strtotime('+2 year'));
+                } else {
+                    $active_mitra = date('Y-m-d', strtotime('+1 year'));
+                }
+                
+                User::where('id',$user->id)
+                    ->update([
+                        'role'  => $request->role,
+                    ]);
+                Mitra::create([
+                    'nama'          => $mitra->nama,
+                    'email'         => $mitra->email,
+                    'nomer'         => $mitra->nomer,
+                    'alamat'        => $mitra->alamat,
+                    'active_mitra'  => $active_mitra,
+                    'kode_mitra'    => $kode_mitra,
+                ]);
             } else {
-                $active_mitra = date('Y-m-d', strtotime('+1 year'));
+                return redirect()->back()->with('status','Update Data Gagal Karena Tidak Ada Transaksi Layanan Mitra');
             }
             
-            User::where('id',$user->id)
-                ->update([
-                    'role'  => $request->role,
-                ]);
-            Mitra::create([
-                'nama'          => $mitra->nama,
-                'email'         => $mitra->email,
-                'nomer'         => $mitra->nomer,
-                'alamat'        => $mitra->alamat,
-                'active_mitra'  => $active_mitra,
-                'kode_mitra'    => $kode_mitra,
-            ]);
         } else {
             User::where('id', $user->id)
                 ->update([
