@@ -73,7 +73,7 @@ class ManagementUserController extends Controller
                     'kode_mitra'    => $kode_mitra,
                 ]);
             } else {
-                return redirect()->back()->with('status','Update Data Gagal Karena Tidak Ada Transaksi Layanan Mitra');
+                return redirect()->route('managementuser')->with('status','Update Data Gagal Karena Tidak Ada Transaksi Layanan Mitra');
             }
             
         } else {
