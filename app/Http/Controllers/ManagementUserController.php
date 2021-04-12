@@ -29,18 +29,23 @@ class ManagementUserController extends Controller
     {
         if ($request->role == 2) {
             //Acak Kode Mitra
-            $no = Mitra::orderBy('kode_mitra','DESC')->first();
-            dd($no);
-            $nama = substr($no->kode_mitra, 4, 4);
-            $tambah = (int) $nama + 1;
-            if (strlen($tambah) == 1) {
-                $kode_mitra = 'MTR' . "000" . $tambah;
-            } elseif (strlen($tambah) == 2) {
-                $kode_mitra = 'MTR' . "00" . $tambah;
-            } elseif (strlen($tambah) == 3) {
-                $kode_mitra = 'MTR' . "0" . $tambah;
-            } else {
-                $kode_mitra = 'MTR' . $tambah;
+            $no = Mitra::orderBy("kode_mitra","DESC")->first();
+            if($no == null)
+            {
+                $kode_mitra = 'MTR0001';
+            }else
+            {
+                $nama = substr($no->kode_mitra, 4, 4);
+                $tambah = (int) $nama + 1;
+                if (strlen($tambah) == 1) {
+                    $kode_mitra = 'MTR' . "000" . $tambah;
+                } elseif (strlen($tambah) == 2) {
+                    $kode_mitra = 'MTR' . "00" . $tambah;
+                } elseif (strlen($tambah) == 3) {
+                    $kode_mitra = 'MTR' . "0" . $tambah;
+                } else {
+                    $kode_mitra = 'MTR' . $tambah;
+                }
             }
 
             $mitra = TransaksiMitra::where('nama',$user->name)->first();
