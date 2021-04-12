@@ -29,7 +29,7 @@ class ManagementUserController extends Controller
     {
         if ($request->role == 2) {
             //Acak Kode Mitra
-            $no = Mitra::orderBy('kode_mitra')->first();
+            $no = Mitra::orderBy('kode_mitra','DESC')->first();
             $nama = substr($no->kode_mitra, 4, 4);
             $tambah = (int) $nama + 1;
             if (strlen($tambah) == 1) {
