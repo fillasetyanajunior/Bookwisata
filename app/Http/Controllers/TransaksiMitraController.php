@@ -41,7 +41,7 @@ class TransaksiMitraController extends Controller
             TransaksiMitra::create([
                 'nama'          => $request->nama,
                 'email'         => $request->email,
-                'nomer'         => $request->nomer,
+                'nomer'         => $request->nomerhp,
                 'alamat'        => $request->alamat,
                 'paket_mitra'   => $request->paket_mitra,
                 'waktu_payment' => date('Y-m-d h:i:s', strtotime('+24 hour')),
