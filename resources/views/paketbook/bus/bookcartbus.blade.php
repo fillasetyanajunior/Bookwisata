@@ -67,7 +67,7 @@
                                     @endif
                                         /Hari
                                 </td>
-                                <td>{{$riwayat->harga}}</td>
+                                <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}</td>
                                 </tr>
                             <tr>
                                 <td colspan="2">Berapa Hari</td>
@@ -75,11 +75,11 @@
                             </tr>
                             <tr>
                                 <td colspan="2">Taxes and Other Fees (Including Sales Tax, Service Fee and Other Taxes)</td>
-                                <td>{{$riwayat->potongan}}</td>
+                                <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">Total Price</td>
-                                <td>{{$riwayat->total}}</td>
+                                <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->total)),3)))}}</td>
                             </tr>
                         </tbody>
                     </table>

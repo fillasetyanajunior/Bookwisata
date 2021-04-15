@@ -40,25 +40,20 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Mobil</th>
-                        <th scope="col">Tipe Mobil</th>
+                        <th scope="col">Owner Company</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($mobil as $Mobil)
+                    @php
+                        $user = User::where('id',$mobil->user_id)->first();
+                    @endphp
                     <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Mobil->nama}}</td>
-                        <td>
-                            @if ($Mobil->tipe == 1)
-                                Sedan
-                            @elseif($Mobil->tipe == 2)
-                                MVP
-                            @else
-                                LMVP                                
-                            @endif
-                        </td>
+                        <td>{{$user->name}} Company</td>
                         <td>
                             <a class="btn btn-warning" href="/mobil/{{$Mobil->id}}">Edit</a>
                             <form action="/mobil/{{$Mobil->id}}" method="post" class="d-inline">

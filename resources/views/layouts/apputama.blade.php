@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{url('assets/utama/css/slick.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/style.css') }}">
+    
 </head>
 
 <body>
@@ -287,6 +288,25 @@
                     </div>
                 </div>
                 <div class="row mt-4">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <div class="single-place mb-30">
+                            <center>
+                                <div class="card text-white  mb-3" style="max-width: 18rem;">
+                                    <div class="card-header bg-success"><h3>Trial Mitra</h3></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">Trial Mitra 30 Hari</h4>
+                                        <p class="card-text" style="color: white">Trial</p>
+                                        <p class="card-text">0</p>
+                                        <form action="/layananmitra" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="5">
+                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </center>
+                        </div>
+                    </div>
                     <div class="col-xl-4 col-lg-4 col-md-6">
                         <div class="single-place mb-30">
                             <center>

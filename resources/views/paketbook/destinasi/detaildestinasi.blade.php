@@ -69,7 +69,7 @@
                             </div>
                             <div class="p-2 bd-highlight">
                                 <h3>Harga Perhari</h3>
-                                <h3>Rp {{$destinasi->harga}}</h3>
+                                <h3>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($destinasi->harga)),3)))}}</h3>
                                 <button type="submit" class="btn btn-primiry mt-3">Booking</button>
                             </div>
                             </form>

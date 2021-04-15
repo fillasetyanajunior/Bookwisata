@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\BordingpassMail;
+use App\Mail\KonfirmasiMail;
 use App\Models\DetailRiwayat;
 use App\Models\Riwayat;
 use App\Models\Tipekamar;
@@ -87,16 +88,14 @@ class RiwayatController extends Controller
                                 'waktu_payment' => date('Y-m-d h:i:s', strtotime('+24 hour'))
                             ]);
                     }
-                    
 
+                    Mail::to($cek->email)->send(new KonfirmasiMail($riwayat->id));
+                    
                 } elseif($request->is_active == 3){
 
-                    $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                    $qr = substr(str_shuffle($permitted_chars), 0, 6);
                     Riwayat::where('id', $riwayat->id)
                         ->update([
                             'is_active'     => $request->is_active,
-                            'qr_code'       => $qr,
                             'waktu_payment' => null,
                         ]);
                     Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));

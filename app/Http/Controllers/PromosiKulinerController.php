@@ -35,7 +35,7 @@ class PromosiKulinerController extends Controller
 
     public function store(Kuliner $kuliner, Request $request)
     {
-        $potongan = 100;
+        $potongan = 100000;
         $harga = $kuliner->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;
@@ -80,29 +80,25 @@ class PromosiKulinerController extends Controller
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->get();
-        $id_detail_riwayats = null;
-        foreach ($rwt as $id) {
-            $id_detail_riwayats = $id->id_detail_riwayat;
-        }
-        DetailRiwayat::where('id', $id_detail_riwayats)
+        $rwt = Riwayat::where('id', $riwayat->id)->first();
+        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,
-                'email'     => $request->email
-            ]);
-        Riwayat::where('id', $riwayat->id)
-            ->update([
-                'note' => $request->note
+                'email'     => $request->email,
             ]);
 
-        $id = null;
-        $kuliner = Kuliner::where('user_id', $riwayat->user_id_owner)->get();
-        foreach ($kuliner as $kuliner) {
-            $id = $kuliner->user_id;
-        }
-        if ($id == $riwayat->user_id_owner) {
-            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $id));
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $qr = substr(str_shuffle($permitted_chars), 0, 6);
+        Riwayat::where('id', $riwayat->id)
+            ->update([
+                'qr_code'   => $qr,
+                'note'      => $request->note
+            ]);
+
+        $kuliner = Kuliner::where('user_id', $riwayat->user_id_owner)->first();
+        if ($kuliner->id == $riwayat->user_id_owner) {
+            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $kuliner->id));
         }
         return redirect()->route('showbordingkuliner');
     }

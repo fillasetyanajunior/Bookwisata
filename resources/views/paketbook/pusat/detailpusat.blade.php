@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-xs-6 col-sm-6 text-right">
                                 <h3>Harga Perhari</h3>
-                                <h3>Rp {{$pusat->harga}}</h3>
+                                <h3>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($pusat->harga)),3)))}}</h3>
                                 <button type="submit" class="btn btn-primiry mt-3">Booking</button>
                             </div>
                             </form>

@@ -40,17 +40,20 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Nama Paket</th>
-                        <th scope="col">Provinsi</th>
+                        <th scope="col">Owner Company</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($paket as $Paket)
+                    @php
+                        $user = User::where('id',$Paket->user_id)->first();
+                    @endphp
                     <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Paket->nama}}</td>
-                        <td>{{$Paket->provinsi }} </td>
+                        <td>{{$user->name}} Company</td>
                         <td>
                             <a class="btn btn-warning" href="/paket/{{$Paket->id}}">Edit</a>
                             <form action="/paket/{{$Paket->id}}" method="post" class="d-inline">

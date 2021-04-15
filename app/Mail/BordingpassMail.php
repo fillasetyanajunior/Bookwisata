@@ -31,6 +31,6 @@ class BordingpassMail extends Mailable
      */
     public function build()
     {
-        return $this->view('home.email');
+        return $this->view('email.email');
     }
 }

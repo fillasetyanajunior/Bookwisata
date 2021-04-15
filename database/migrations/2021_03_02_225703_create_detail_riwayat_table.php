@@ -28,7 +28,6 @@ class CreateDetailRiwayatTable extends Migration
             $table->string('hari');
             $table->string('date');
             $table->string('total');
-            $table->timestamps();
         });
     }
 

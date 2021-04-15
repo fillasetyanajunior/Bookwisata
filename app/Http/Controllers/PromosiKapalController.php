@@ -35,7 +35,7 @@ class PromosiKapalController extends Controller
 
     public function store(Kapal $kapal, Request $request)
     {
-        $potongan = 100;
+        $potongan = 100000;
         $harga = $kapal->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;
@@ -80,30 +80,28 @@ class PromosiKapalController extends Controller
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->get();
-        $id_detail_riwayats = null;
-        foreach ($rwt as $id) {
-            $id_detail_riwayats = $id->id_detail_riwayat;
-        }
-        DetailRiwayat::where('id', $id_detail_riwayats)
+        $rwt = Riwayat::where('id', $riwayat->id)->first();
+        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,
-                'email'     => $request->email
-            ]);
-        Riwayat::where('id', $riwayat->id)
-            ->update([
-                'note' => $request->note
+                'email'     => $request->email,
             ]);
 
-        $id = null;
-        $kapal = Kapal::where('user_id', $riwayat->user_id_owner)->get();
-        foreach ($kapal as $kapal) {
-            $id = $kapal->user_id;
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $qr = substr(str_shuffle($permitted_chars), 0, 6);
+        Riwayat::where('id', $riwayat->id)
+            ->update([
+                'qr_code'   => $qr,
+                'note'      => $request->note
+            ]);
+
+        $kapal = Kapal::where('user_id', $riwayat->user_id_owner)->first();
+        if ($kapal->id == $riwayat->user_id_owner) {
+            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $kapal->id));
         }
-        if ($id == $riwayat->user_id_owner) {
-            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $id));
-        }
+        return redirect()->route('showbordingkapal');
+
     }
 
     public function boording(Request $request)

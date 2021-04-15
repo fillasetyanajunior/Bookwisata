@@ -33,7 +33,7 @@
                 {{ session('status') }}
             </div>
         @endif
-            <input type="text" class="form-control my-3 col-2" id="search" placeholder="Search">
+            <input type="text" class="form-control my-3 col-2" id="myInput" placeholder="Search">
             <table class="table bg-info ">
                 <thead>
                     <tr>
@@ -46,11 +46,12 @@
                         <th scope="col">Aksi</th>
                         <th scope="col">Waktu Pembayaran</th>
                         @else
+                        <th scope="col">Aksi</th>
                         <th scope="col">Waktu Pembayaran</th>
                         @endif
                     </tr>
                 </thead>
-                <tbody id="myTable">
+                <tbody id="Table">
                     <?php $i = 1;?>
                     @foreach ($riwayat as $riwayat)
                     <tr>
@@ -65,16 +66,18 @@
                             @elseif($riwayat->is_active == 3)
                                 Confirmed
                             @elseif($riwayat->is_active == 4)
-                                Expired 
+                                Expired
+                            @else
+                                Cencel
                             @endif
                         </td>
                         <td>{{$riwayat->qr_code}}</td>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
-                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3) 
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3 || $riwayat->is_active == 5) 
                                 
                             @else
-                            <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
+                                <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
                             @endif
                         </td>
                         <td>
@@ -82,10 +85,12 @@
                         </td>
                         @else
                         <td>
-                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3) 
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 5) 
                                 
+                            @elseif ($riwayat->is_active == 3)
+                                <a href="pdf/{{$riwayat->id}}" class="btn btn-success">Confirm</a>
                             @else
-                            <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
+                                <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                             @endif
                         </td>
                         <td>

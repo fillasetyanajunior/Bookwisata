@@ -35,7 +35,7 @@ class PromosiGuideController extends Controller
 
     public function store(Guide $guide, Request $request)
     {
-        $potongan = 100;
+        $potongan = 100000;
         $harga = $guide->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;
@@ -80,29 +80,25 @@ class PromosiGuideController extends Controller
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->get();
-        $id_detail_riwayats = null;
-        foreach ($rwt as $id) {
-            $id_detail_riwayats = $id->id_detail_riwayat;
-        }
-        DetailRiwayat::where('id', $id_detail_riwayats)
+        $rwt = Riwayat::where('id', $riwayat->id)->first();
+        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,
-                'email'     => $request->email
-            ]);
-        Riwayat::where('id', $riwayat->id)
-            ->update([
-                'note' => $request->note
+                'email'     => $request->email,
             ]);
 
-        $id = null;
-        $guide = Guide::where('user_id', $riwayat->user_id_owner)->get();
-        foreach ($guide as $guide) {
-            $id = $guide->user_id;
-        }
-        if ($id == $riwayat->user_id_owner) {
-            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $id));
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $qr = substr(str_shuffle($permitted_chars), 0, 6);
+        Riwayat::where('id', $riwayat->id)
+            ->update([
+                'qr_code'   => $qr,
+                'note'      => $request->note
+            ]);
+
+        $guide = Guide::where('user_id', $riwayat->user_id_owner)->first();
+        if ($guide->id == $riwayat->user_id_owner) {
+            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $guide->id));
         }
         return redirect()->route('showbordingguide');
     }
