@@ -30,5 +30,9 @@ class MenuSeeder extends Seeder
             'menu' => 'Promosi',
             'icon' => 'fas fa-bullhorn'
         ]);
+        DB::table('menu')->insert([
+            'menu' => 'Konfirmasi',
+            'icon' => 'fas fa-money-check'
+        ]);
     }
 }

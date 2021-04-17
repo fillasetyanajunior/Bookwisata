@@ -122,5 +122,11 @@ class SubMenuSeeder extends Seeder
             'icon' => 'fas fa-concierge-bell',
             'url' => 'kuliner',
         ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '5',
+            'sub_menu' => 'Konfrimasi Pembayaran',
+            'icon' => 'fas fa-money-check',
+            'url' => 'konfirmasi',
+        ]);
     }
 }

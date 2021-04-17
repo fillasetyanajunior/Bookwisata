@@ -80,6 +80,10 @@
                             <td>{{$qrkode}}</td>
                         </tr>
                         <tr>
+                            <td>Nama Produk</td>
+                            <td>{{$nama}}</td>
+                        </tr>
+                        <tr>
                             <td>Total Pembayaran</td>
                             <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</td>
                         </tr>

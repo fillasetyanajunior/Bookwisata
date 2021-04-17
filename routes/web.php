@@ -12,6 +12,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelConteoller;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KapalController;
+use App\Http\Controllers\KonfirmasiController;
 use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\MobilController;
@@ -144,11 +145,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::put('/bookchartpaket/{riwayat}', [PromosiPaketController::class,'update'])->name('updatepaket');
     
     //Kuliner
-    Route::get('/bordingkuliner', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
+    Route::get('/konfrimasi', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
     Route::post('/bordingkuliner', [PromosiKulinerController::class,'boording'])->name('bordingkuliner');
     Route::get('/bookchartkuliner', [PromosiKulinerController::class,'create'])->middleware('auth')->name('createkuliner');
     Route::post('/bookchartkuliner/kuliner/{kuliner}', [PromosiKulinerController::class,'store'])->name('storekuliner');
     Route::put('/bookchartkuliner/{riwayat}', [PromosiKulinerController::class,'update'])->name('updatekuliner');
+});
+
+Route::middleware(['auth', 'verified','user'])->group(function () {
+    
+    //Konfirmasi
+    Route::get('/konfrmasi', [KonfirmasiController::class,'index'])->name('konfirmasi');
+    Route::get('/konfrmasi/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi');
+    Route::post('/konfrmasi', [KonfirmasiController::class,'store'])->name('store_konfirmasi');
 });
 
 

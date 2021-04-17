@@ -16,6 +16,7 @@ class KonfirmasiMail extends Mailable
     public $qrkode;
     public $waktupayment;
     public $harga;
+    public $nama;
     /**
      * Create a new message instance.
      *
@@ -28,6 +29,7 @@ class KonfirmasiMail extends Mailable
         $this->qrkode = $data->qr_code;
         $this->harga = $detail->total;
         $this->waktupayment = $data->waktu_payment;
+        $this->nama = $detail->nama_pilihan;
     }
 
     /**
