@@ -21,11 +21,11 @@ class KonfirmasiMitra extends Mailable
     public function __construct($kode)
     {
         $data = TransaksiMitra::where('kode_transaksi',$kode)->first();
-        $kodes = $data->kode_transaksi;
-        $harga = $data->harga;
-        $paket = $data->paket_mitra;
-        $waktupayment = $data->waktu_payment;
-        $nama = $data->nama;
+        $this->kodes = $data->kode_transaksi;
+        $this->harga = $data->harga;
+        $this->paket = $data->paket_mitra;
+        $this->waktupayment = $data->waktu_payment;
+        $this->nama = $data->nama;
     }
 
     /**

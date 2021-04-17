@@ -57,8 +57,10 @@
                                 6 Bulan
                             @elseif($transaksi->paket_mitra == 3)
                                 2 Tahun
-                            @else
+                            @elseif($transaksi->paket_mitra == 4)
                                 1 Tahun
+                            @else
+                                Trial 1 Bulan
                             @endif
                         </td>
                         <td>{{$transaksi->waktu_payment}}</td>
