@@ -300,6 +300,7 @@
                                         <form action="/layananmitra" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="5">
+                                            <input type="hidden" name="harga" value="0">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
                                     </div>
