@@ -319,6 +319,7 @@
                                         <form action="/layananmitra" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="1">
+                                            <input type="hidden" name="harga" value="150000">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
                                     </div>
@@ -338,6 +339,7 @@
                                         <form action="/layananmitra" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="2">
+                                            <input type="hidden" name="harga" value="280000">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
                                     </div>
@@ -357,6 +359,7 @@
                                         <form action="/layananmitra" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="3">
+                                            <input type="hidden" name="harga" value="750000">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
                                     </div>
@@ -376,6 +379,7 @@
                                         <form action="/layananmitra" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="4">
+                                            <input type="hidden" name="harga" value="500000">
                                             <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
                                         </form>
                                     </div>

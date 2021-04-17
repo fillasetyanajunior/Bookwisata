@@ -15,12 +15,14 @@ class CreateTransaksiMitraTable extends Migration
     {
         Schema::create('transaksi_mitra', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi');
             $table->string('nama');
             $table->string('email');
             $table->string('nomer');
             $table->string('alamat');
             $table->string('paket_mitra');
-            $table->date('waktu_payment');
+            $table->dateTime('waktu_payment');
+            $table->string('harga');
             $table->timestamps();
         });
     }

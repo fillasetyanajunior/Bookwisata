@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\KonfirmasiMitra;
 use App\Models\TransaksiMitra;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class TransaksiMitraController extends Controller
 {
@@ -38,15 +40,20 @@ class TransaksiMitraController extends Controller
     public function store(Request $request)
     {
         if ($request->alamat != null) {
+            $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $kode = substr(str_shuffle($permitted_chars), 0, 6);
             TransaksiMitra::create([
+                'kode_transaksi'=> $kode,
                 'nama'          => $request->nama,
                 'email'         => $request->email,
                 'nomer'         => $request->nomerhp,
                 'alamat'        => $request->alamat,
                 'paket_mitra'   => $request->paket_mitra,
+                'harga'         => $request->harga,
                 'waktu_payment' => date('Y-m-d h:i:s', strtotime('+24 hour')),
             ]);
-            return redirect('/')->with('status','Pesanan Layanan Mitra Berhasil');
+            Mail::to($request->email)->send(new KonfirmasiMitra($kode));
+            return redirect('/')->with('status','Pesanan Layanan Mitra Berhasil Silhakn Cek Email Anda Untuk Melakukan Pembayaran');
         } else {
             return redirect('/')->with('status', 'Pesanan Layanan Mitra Gagal');
         }

@@ -56,8 +56,10 @@ class ManagementUserController extends Controller
                     $active_mitra = date('Y-m-d', strtotime('+6 month'));
                 } elseif ($mitra->paket_mitra == 3) {
                     $active_mitra = date('Y-m-d', strtotime('+2 year'));
-                } else {
+                } elseif($mitra->paket_mitra == 4) {
                     $active_mitra = date('Y-m-d', strtotime('+1 year'));
+                }else{
+                    $active_mitra = date('Y-m-d', strtotime('+1 month'));
                 }
                 
                 User::where('id',$user->id)
