@@ -8,6 +8,7 @@
             @csrf
             <h1>Data Layanan Mitra</h1>
             <input type="hidden" name="paket_mitra" value="{{$request->id}}">
+            <input type="hidden" name="harga" value="{{$request->harga}}">
             <div class="card mt-2">
                 <div class="card-body">
                     <div class="form-group">
