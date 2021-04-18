@@ -69,8 +69,6 @@ class BusController extends Controller
             ]);
         }
 
-        dd($name);
-
         $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
             'id_provinsi' => $request->provinsi
         ]);
