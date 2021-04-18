@@ -144,36 +144,20 @@ class PusatController extends Controller
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $pusat->nama)
                             ->get();
-            $jumlah = FileUpload::where('nama', $pusat->nama)->count();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('pusat/' . $gambar->foto));
             }
+            FileUpload::where('nama', $pusat->nama)->delete();
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('pusat', $name);
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('pusat', $name);
 
-                    FileUpload::where('nama', $pusat->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
-            } else {
-
-                FileUpload::where('nama', $pusat->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('pusat', $name);
-
-                    FileUpload::create([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
+                FileUpload::create([
+                    'nama' => $request->nama,
+                    'foto' => $name,
+                ]);
             }
 
             Pusat::where('id', $pusat->id)

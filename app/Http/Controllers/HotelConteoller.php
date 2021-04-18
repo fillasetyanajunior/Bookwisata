@@ -149,36 +149,21 @@ class HotelConteoller extends Controller
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $hotel->nama)
                             ->get();
-            $jumlah = FileUpload::where('nama', $hotel->nama)->count();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('hotel/' . $gambar->foto));
             }
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('hotel', $name);
+            FileUpload::where('nama', $hotel->nama)->delete();
 
-                    FileUpload::where('nama', $hotel->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
-            } else {
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('hotel', $name);
 
-                FileUpload::where('nama', $hotel->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('hotel', $name);
-
-                    FileUpload::create([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
+                FileUpload::create([
+                    'nama' => $request->nama,
+                    'foto' => $name,
+                ]);
             }
 
             Hotel::where('id', $hotel->id)

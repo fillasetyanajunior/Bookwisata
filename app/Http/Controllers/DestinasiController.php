@@ -142,36 +142,21 @@ class DestinasiController extends Controller
             $filegambar = DB::table('fileuploads')
                             ->where('destinasi', '=', $destinasi->nama)
                             ->get();
-            $jumlah = FileUpload::where('nama', $destinasi->nama)->count();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('destinasi/' . $gambar->foto));
             }
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('destinasi', $name);
+            FileUpload::where('nama', $destinasi->nama)->delete();
 
-                    FileUpload::where('nama', $destinasi->nama)
-                        ->update([
-                            'nama' => $request->nama,
-                            'foto' => $name,
-                        ]);
-                }
-            } else {
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('destinasi', $name);
 
-                FileUpload::where('nama', $destinasi->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('destinasi', $name);
-
-                    FileUpload::create([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
+                FileUpload::create([
+                    'nama' => $request->nama,
+                    'foto' => $name,
+                ]);
             }
 
             Destinasi::where('id', $destinasi->id)

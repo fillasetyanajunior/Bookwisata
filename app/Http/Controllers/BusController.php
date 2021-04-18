@@ -69,6 +69,8 @@ class BusController extends Controller
             ]);
         }
 
+        dd($name);
+
         $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
             'id_provinsi' => $request->provinsi
         ]);
@@ -153,37 +155,22 @@ class BusController extends Controller
                 $filegambar = DB::table('fileuploads')
                                 ->where('nama', '=', $bus->nama)
                                 ->get();
-                $jumlah = FileUpload::where('nama',$bus->nama)->count();
 
             foreach($filegambar as $gambar)
             {
                 Storage::delete(asset('bus/'. $gambar->foto));
             }
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('bus', $name);
+            FileUpload::where('nama', $bus->nama)->delete();
 
-                    FileUpload::where('nama', $bus->nama)
-                    ->update([
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('bus', $name);
+
+                FileUpload::create([
                         'nama' => $request->nama,
                         'foto' => $name,
                     ]);
-                }
-            } else {
-
-                FileUpload::where('nama', $bus->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('bus', $name);
-
-                    FileUpload::create([
-                            'nama' => $request->nama,
-                            'foto' => $name,
-                        ]);
-                }
             }
 
             Bus::where('id',$bus->id)

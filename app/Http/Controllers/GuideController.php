@@ -143,36 +143,20 @@ class GuideController extends Controller
                             ->where('nama', '=', $guide->nama)
                             ->get();
 
-            $jumlah = FileUpload::where('nama', $guide->nama)->count();
-
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('guide/' . $gambar->foto));
             }
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('guide', $name);
+            FileUpload::where('nama', $guide->nama)->delete();
 
-                    FileUpload::where('nama', $guide->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
-            } else {
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('guide', $name);
 
-                FileUpload::where('nama', $guide->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('guide', $name);
-
-                    FileUpload::create([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
+                FileUpload::create([
+                    'nama' => $request->nama,
+                    'foto' => $name,
+                ]);
             }
 
             Guide::where('id', $guide->id)

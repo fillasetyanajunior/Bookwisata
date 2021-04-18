@@ -152,36 +152,20 @@ class MobilController extends Controller
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $mobil->nama)
                             ->get();
-            $jumlah = FileUpload::where('nama', $mobil->nama)->count();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('mobil/' . $gambar->foto));
             }
+            FileUpload::where('nama', $mobil->nama)->delete();
 
-            if ($jumlah == count($request->file('gambar'))) {
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('mobil', $name);
+            foreach ($request->file('gambar') as $file) {
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+                $file->storeAs('mobil', $name);
 
-                    FileUpload::where('nama', $mobil->nama)
-                    ->update([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
-            } else {
-
-                FileUpload::where('nama', $mobil->nama)->delete();
-
-                foreach ($request->file('gambar') as $file) {
-                    $name = time() . rand(1, 100) . '.' . $file->extension();
-                    $file->storeAs('mobil', $name);
-
-                    FileUpload::create([
-                        'nama' => $request->nama,
-                        'foto' => $name,
-                    ]);
-                }
+                FileUpload::create([
+                    'nama' => $request->nama,
+                    'foto' => $name,
+                ]);
             }
 
             Mobil::where('id', $mobil->id)
