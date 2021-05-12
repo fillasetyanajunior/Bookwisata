@@ -47,13 +47,10 @@
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($paket as $Paket)
-                    @php
-                        $user = User::where('id',$Paket->user_id)->first();
-                    @endphp
-                    <tr>
+                    <tr></tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Paket->nama}}</td>
-                        <td>{{$user->name}} Company</td>
+                        <td>{{$Paket->company}} Company</td>
                         <td>
                             <a class="btn btn-warning" href="/paket/{{$Paket->id}}">Edit</a>
                             <form action="/paket/{{$Paket->id}}" method="post" class="d-inline">
