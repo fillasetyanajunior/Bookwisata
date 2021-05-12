@@ -46,6 +46,7 @@ class MobilController extends Controller
     {
         $validatedData  = $request->validate([
             'nama'          => 'required',
+            'company'       => 'required',
             'provinsi'      => 'required',
             'kabupaten'     => 'required',
             'tipe'          => 'required',
@@ -80,6 +81,7 @@ class MobilController extends Controller
         Mobil::create([
             'user_id'       => request()->user()->id,
             'nama'          => $request->nama,
+            'company'       => $request->company,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'tipe'          => $request->tipe,
@@ -171,6 +173,7 @@ class MobilController extends Controller
             Mobil::where('id', $mobil->id)
                 ->update([
                     'nama'          => $request->nama,
+                    'company'       => $request->company,
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'tipe'          => $request->tipe,
@@ -190,6 +193,7 @@ class MobilController extends Controller
             Mobil::where('id', $mobil->id)
                 ->update([
                     'nama'          => $request->nama,
+                    'company'       => $request->company,
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'tipe'          => $request->tipe,

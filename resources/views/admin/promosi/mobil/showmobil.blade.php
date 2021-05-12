@@ -47,13 +47,10 @@
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($mobil as $Mobil)
-                    @php
-                        $user = User::where('id',$mobil->user_id)->first();
-                    @endphp
                     <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Mobil->nama}}</td>
-                        <td>{{$user->name}} Company</td>
+                        <td>{{$Mobil->company}} Company</td>
                         <td>
                             <a class="btn btn-warning" href="/mobil/{{$Mobil->id}}">Edit</a>
                             <form action="/mobil/{{$Mobil->id}}" method="post" class="d-inline">

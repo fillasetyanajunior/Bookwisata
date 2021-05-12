@@ -46,6 +46,7 @@ class PaketController extends Controller
     {
         $validatedData  = $request->validate([
             'nama'      => 'required',
+            'company'   => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
             'review'    => 'required',
@@ -75,6 +76,7 @@ class PaketController extends Controller
         Paket::create([
             'user_id'       => request()->user()->id,
             'nama'          => $request->nama,
+            'company'       => $request->company,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
@@ -162,6 +164,7 @@ class PaketController extends Controller
             Paket::where('id', $paket->id)
                 ->update([
                     'nama'          => $request->nama,
+                    'company'       => $request->company,
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
@@ -176,6 +179,7 @@ class PaketController extends Controller
             Paket::where('id', $paket->id)
                 ->update([
                     'nama'          => $request->nama,
+                    'company'       => $request->company,
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,

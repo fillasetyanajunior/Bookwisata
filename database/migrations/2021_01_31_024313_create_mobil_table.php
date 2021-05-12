@@ -17,6 +17,7 @@ class CreateMobilTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('nama');
+            $table->string('company');
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('tipe');

@@ -32,9 +32,15 @@
             <form action="/mobil/{{$mobil->id}}" method="POST" enctype="multipart/form-data">
             @method('put')
             @csrf
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama Mobil</label>
-                    <input type="text" class="form-control  @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" value="{{$mobil->nama}}">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="nama" class="form-label">Nama Mobil</label>
+                        <input type="text" class="form-control  @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" value="{{$mobil->nama}}">
+                    </div>
+                    <div class="col mb-3">
+                        <label for="company" class="form-label">Company</label>
+                        <input type="text" class="form-control  @error('company') is-invalid @enderror" id="company" name="company" placeholder="company" value="{{$mobil->company}}">
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col mb-3">
