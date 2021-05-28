@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4">
-            <form action="{{route('store_konfirmasi')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('store_konfirmasi_pembayaran')}}" method="POST" enctype="multipart/form-data">
             @csrf
                 <div class="mb-3">
                     <label for="nama_produk" class="form-label">Nama Produk</label>

@@ -155,9 +155,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 Route::middleware(['auth', 'verified','user'])->group(function () {
     
     //Konfirmasi
-    Route::get('/konfrmasi', [KonfirmasiController::class,'index'])->name('konfirmasi_pembayaran');
-    Route::get('/konfrmasi/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
-    Route::post('/konfrmasi', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
+    Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class,'index'])->name('konfirmasi_pembayaran');
+    Route::get('/konfirmasi_pembayaran/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
+    Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
 });
 
 
