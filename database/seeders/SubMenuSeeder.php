@@ -126,7 +126,7 @@ class SubMenuSeeder extends Seeder
             'menu_id' => '5',
             'sub_menu' => 'Konfrimasi Pembayaran',
             'icon' => 'fas fa-money-check',
-            'url' => 'konfirmasi',
+            'url' => 'konfirmasi_pembyaran',
         ]);
     }
 }
