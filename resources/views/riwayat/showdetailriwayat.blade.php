@@ -98,6 +98,21 @@
                 <label for="durasi" class="form-label">Durasi</label>
                 <input type="text" class="form-control" id="durasi" name="durasi" value="{{$riwayat->durasi}} ">
             </div>
+            <div class="mb-3">
+                @php
+                    if ($riwayat->is_active == 1){
+                        $is_active = 'Waitting';
+                    }else if ($riwayat->is_active == 2) {
+                        $is_active = 'Hold';
+                    }else if ($riwayat->is_active == 3) {
+                        $is_active = 'Confirmed';
+                    }else if ($riwayat->is_active == 5) {
+                        $is_active = 'Cancel';
+                    }
+                    @endphp
+                <label for="is_active" class="form-label">Status Pesanan</label>
+                <input type="text" name="is_active" id="is_active" value="{{$is_active}}">
+            </div>
         </div>
     </div>
 </div>

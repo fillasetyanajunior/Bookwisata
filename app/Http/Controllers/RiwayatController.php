@@ -40,7 +40,7 @@ class RiwayatController extends Controller
         $data['riwayat'] = DB::table('riwayat')
                             ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
                             ->where('riwayat.id_detail_riwayat', $riwayat->id_detail_riwayat)
-                            ->get();
+                            ->first();
         $data['title']  = 'Riwayat';
         return view('riwayat.riwayatkonfirmasi', $data);
     }
