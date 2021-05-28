@@ -18,7 +18,7 @@ class KulinerController extends Controller
      */
     public function index()
     {
-        $data['kuliner']    = Kuliner::all();
+        $data['kuliner']    = Kuliner::where('user_id',request()->user()->id)->get();
         $data['title']      = 'Posting Kuliner';
         return view('admin.promosi.kuliner.showkuliner', $data);
     }

@@ -19,7 +19,7 @@ class HotelConteoller extends Controller
      */
     public function index()
     {
-        $data['hotel'] = Hotel::all();
+        $data['hotel'] = Hotel::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Hotel';
         return view('admin.promosi.hotel.showhotel', $data);
     }

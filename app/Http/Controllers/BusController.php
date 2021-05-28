@@ -18,7 +18,7 @@ class BusController extends Controller
      */
     public function index()
     {
-        $data['bus']    = Bus::all();
+        $data['bus']    = Bus::where('user_id',request()->user()->id)->get();
         $data['title']  = 'Posting Bus';
         return view('admin.promosi.bus.showbus',$data);
     }

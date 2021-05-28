@@ -18,7 +18,7 @@ class PusatController extends Controller
      */
     public function index()
     {
-        $data['pusat'] = Pusat::all();
+        $data['pusat'] = Pusat::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Pusat Oleh-Oleh';
         return view('admin.promosi.pusat.showpusat', $data);
     }

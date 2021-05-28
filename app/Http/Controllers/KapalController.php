@@ -18,7 +18,7 @@ class KapalController extends Controller
      */
     public function index()
     {
-        $data['kapal'] = Kapal::all();
+        $data['kapal'] = Kapal::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Kapal Pesiar';
         return view('admin.promosi.kapal.showkapal', $data);
     }

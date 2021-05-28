@@ -85,8 +85,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('/layananmitra/create', [TransaksiMitraController::class, 'store']);
 
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
-    Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
-    Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
+
+    Route::get('detailriwayat/{riwayat}', [RiwayatController::class,'show']);
     
     //Bus
     Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');
@@ -267,6 +267,8 @@ Route::group(['middleware' => ['auth','verified','mitra']], function () {
     Route::put('/guide/{guide}', [GuideController::class,'update'])->name('update_guide');
     Route::delete('/guide/{guide}', [GuideController::class,'destroy'])->name('destroy_guide');
 
+    Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
+    Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
 
     Route::post('/kabupaten',[ResponseApiController::class, 'kabupaten']);
 });  

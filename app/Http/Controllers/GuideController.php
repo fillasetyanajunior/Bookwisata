@@ -18,7 +18,7 @@ class GuideController extends Controller
      */
     public function index()
     {
-        $data['guide'] = Guide::all();
+        $data['guide'] = Guide::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Tour Guide';
         return view('admin.promosi.guide.showguide', $data);
     }

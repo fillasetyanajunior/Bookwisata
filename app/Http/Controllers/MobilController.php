@@ -18,7 +18,7 @@ class MobilController extends Controller
      */
     public function index()
     {
-        $data['mobil'] = Mobil::all();
+        $data['mobil'] = Mobil::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Mobil';
         return view('admin.promosi.mobil.showmobil', $data);
     }

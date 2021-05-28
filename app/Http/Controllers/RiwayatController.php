@@ -117,7 +117,7 @@ class RiwayatController extends Controller
     {
         $data['title']      = 'Detail Transaksi';
         $data['riwayat']    = DetailRiwayat::where('id',$riwayat->id_detail_riwayat)->first();
-        return view('riwayat.showdetailriwayat',$data);
+        return view('riwayat.showdetailriwayat',$data,$riwayat);
     }
     
 }

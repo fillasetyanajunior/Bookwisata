@@ -56,9 +56,9 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="time_payment" class="form-label">Konfirmasi</label>
+                    <label for="time_payment" class="form-label">Waktu Pembayaran</label>
                     <select class="form-select form-control" aria-label="Default select example" id="time_payment" name="time_payment">
-                        <option value="">Select Konfirmasi</option>
+                        <option value="">Select Waktu</option>
                         <option value="1">4 Jam</option>
                         <option value="2">12 Jam</option>
                         <option value="3">24 Jam</option>

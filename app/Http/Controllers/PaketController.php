@@ -18,7 +18,7 @@ class PaketController extends Controller
      */
     public function index()
     {
-        $data['paket'] = Paket::all();
+        $data['paket'] = Paket::where('user_id',request()->user()->id)->get();
         $data['title'] = 'Posting Paket Wisata';
         return view('admin.promosi.paket.showpaket', $data);
     }

@@ -18,7 +18,7 @@ class DestinasiController extends Controller
      */
     public function index()
     {
-        $data['destinasi']  = Destinasi::all();
+        $data['destinasi']  = Destinasi::where('user_id',request()->user()->id)->get();
         $data['title']      = 'Posting Destinasi';
         return view('admin.promosi.destinasi.showdestinasi', $data);
     }
