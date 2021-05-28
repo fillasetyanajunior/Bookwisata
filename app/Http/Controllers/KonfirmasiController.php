@@ -16,7 +16,7 @@ class KonfirmasiController extends Controller
     {
         $request->validate([
             'nama_produk'       => 'required',
-            'qrkode'            => 'required',
+            'qr_kode'           => 'required',
             'filekofrimasi'     => 'required',
         ]);
 

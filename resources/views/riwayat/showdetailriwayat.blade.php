@@ -113,6 +113,10 @@
                 <label for="is_active" class="form-label">Status Pesanan</label>
                 <input type="text" name="is_active" id="is_active" value="{{$is_active}}">
             </div>
+            <div class="mb-3">
+                <label for="note">Note Customer</label>
+                <textarea class="form-control" id="note" rows="3">{{$riwayat->note}}</textarea>
+            </div>
         </div>
     </div>
 </div>
