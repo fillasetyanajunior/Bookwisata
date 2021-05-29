@@ -35,7 +35,7 @@
             @endif
 
             @if (request()->user()->role == 3)
-                <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary d-inline">Konfrimasi</a>
+                <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary">Konfrimasi</a>
             @else
 
             @endif

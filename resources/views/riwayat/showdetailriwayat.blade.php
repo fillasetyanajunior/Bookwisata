@@ -29,74 +29,82 @@
         <div class="col-sm-11 mx-4 my-4">
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="{{$riwayat->nama}} ">
+                <input type="text" class="form-control namadetailriwayat" id="nama " name="nama " value="{{$riwayat_detail->nama}}">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{$riwayat->email}} ">
+                <input type="text" class="form-control emaildetailriwayat" id="email " name="email" value="{{$riwayat_detail->email}} ">
             </div>
             <div class="mb-3">
                 <label for="nomerhp" class="form-label">Nomer Hp</label>
-                <input type="text" class="form-control" id="nomerhp" name="nomerhp" value="{{$riwayat->nomerhp}} ">
+                <input type="text" class="form-control nomerhpdetailriwayat" id="nomerhp " name="nomerhp" value="{{$riwayat_detail->nomerhp}} ">
             </div>
             <div class="mb-3">
                 <label for="nama_pilihan" class="form-label">Nama Pilihan</label>
-                <input type="text" class="form-control" id="nama_pilihan" name="nama_pilihan" value="{{$riwayat->nama_pilihan}} ">
+                <input type="text" class="form-control pilihandetailriwayat" id="nama_pilihan " name="nama_pilihan" value="{{$riwayat_detail->nama_pilihan}} ">
             </div>
             <div class="mb-3">
                 @php
-                    @if($riwayat->tipe == 31)
-                        $tipe = 'Small Bus';
-                    @elseif($riwayat->tipe == 32)
+                $tipe = null;
+                    if($riwayat_detail->tipe == 31){
+                    $tipe = 'Small Bus';
+                    }
+                    elseif($riwayat_detail->tipe == 32){
                         $tipe = 'Medium Bus';
-                    @elseif($riwayat->tipe == 33)
+                    }
+                    elseif($riwayat_detail->tipe == 33){
                         $tipe = 'Big Bus';
-                    @elseif($riwayat->tipe == 21)
+                    }
+                    elseif($riwayat_detail->tipe == 21){
                         $tipe = 'Sedan';
-                    @elseif($riwayat->tipe == 22)
+                    }
+                    elseif($riwayat_detail->tipe == 22){
                         $tipe = 'MVP';
-                    @elseif($riwayat->tipe == 23)
+                    }
+                    elseif($riwayat_detail->tipe == 23){
                         $tipe = 'LMVP';
-                    @elseif($riwayat->tipe == '-')
-                        $tipe = $riwayat->tipe;
-                    @else
-                        @foreach ($tipe as $item)
-                            @if ($item->id == $riwayat->tipe)
+                    }
+                    elseif($riwayat_detail->tipe == '-'){
+                        $tipe = $riwayat_detail->tipe;
+                    }
+                    else{
+                        foreach ($tipes as $item){
+                            if ($item->id == $riwayat_detail->tipe){
                                 $tipe = $item->tipe;
-                            @endif
-                        @endforeach
-                    @endif
+                            }
+                        }
+                    }
                 @endphp
                 <label for="tipe" class="form-label">Tipe</label>
-                <input type="text" class="form-control" id="tipe" name="tipe" value="{{$tipe}} ">
+                <input type="text" class="form-control tipedetailriwayat" id="tipe " name="tipe" value="{{$tipe}} ">
             </div>
             <div class="mb-3">
                 <label for="jumlah_sit" class="form-label">Jumlah Sit</label>
-                <input type="text" class="form-control" id="jumlah_sit" name="jumlah_sit" value="{{$riwayat->jumlah_sit}} ">
+                <input type="text" class="form-control jumlahsitdetailriwayat" id="jumlah_sit " name="jumlah_sit" value="{{$riwayat_detail->jumlah_sit}} ">
             </div>
             <div class="mb-3">
                 <label for="harga" class="form-label">Harga</label>
-                <input type="text" class="form-control" id="harga" name="harga" value="{{$riwayat->harga}} ">
+                <input type="text" class="form-control hargadetailriwayat" id="harga " name="harga" value="{{$riwayat_detail->harga}} ">
             </div>
             <div class="mb-3">
                 <label for="jumlahpesanan" class="form-label">Jumlah Pesanan</label>
-                <input type="text" class="form-control" id="jumlahpesanan" name="jumlahpesanan" value="{{$riwayat->jumlahpesanan}} ">
+                <input type="text" class="form-control jumlahpesanandetailriwayat" id="jumlahpesanan " name="jumlahpesanan" value="{{$riwayat_detail->jumlahpesanan}} ">
             </div>
             <div class="mb-3">
                 <label for="potongan" class="form-label">Potongan</label>
-                <input type="text" class="form-control" id="potongan" name="potongan" value="{{$riwayat->potongan}} ">
+                <input type="text" class="form-control potongandetailriwayat" id="potongan " name="potongan" value="{{$riwayat_detail->potongan}} ">
             </div>
             <div class="mb-3">
                 <label for="hari" class="form-label">Hari</label>
-                <input type="text" class="form-control" id="hari" name="hari" value="{{$riwayat->hari}} ">
+                <input type="text" class="form-control haridetailriwayat" id="hari " name="hari" value="{{$riwayat_detail->hari}} ">
             </div>
             <div class="mb-3">
                 <label for="total" class="form-label">Total</label>
-                <input type="text" class="form-control" id="total" name="total" value="{{$riwayat->total}} ">
+                <input type="text" class="form-control totaldetailriwayat" id="total " name="total" value="{{$riwayat_detail->total}} ">
             </div>
             <div class="mb-3">
                 <label for="durasi" class="form-label">Durasi</label>
-                <input type="text" class="form-control" id="durasi" name="durasi" value="{{$riwayat->durasi}} ">
+                <input type="text" class="form-control durasidetailriwayat" id="durasi " name="durasi" value="{{$riwayat_detail->durasi}} ">
             </div>
             <div class="mb-3">
                 @php
@@ -111,11 +119,11 @@
                     }
                     @endphp
                 <label for="is_active" class="form-label">Status Pesanan</label>
-                <input type="text" name="is_active" id="is_active" value="{{$is_active}}">
+                <input type="text" class="form-control isactivedetailriwayat" name="is_active " id="is_active " value="{{$is_active}}">
             </div>
             <div class="mb-3">
                 <label for="note">Note Customer</label>
-                <textarea class="form-control" id="note" rows="3">{{$riwayat->note}}</textarea>
+                <textarea class="form-control notedetailriwayat" id="note " rows="3">{{$riwayat->note}}</textarea>
             </div>
         </div>
     </div>

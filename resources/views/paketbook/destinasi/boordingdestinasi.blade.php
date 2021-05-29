@@ -7,7 +7,7 @@
         <div class="card-header text-white bg-info">
             Bordingpass
         </div>
-        <div class="card-body table-responsive text-white" style="font-size: 18px;">
+        <div class="card-body table-responsive" style="font-size: 18px;">
             <table class="table table-borderless">
                 <thead>
                     <tr>
@@ -40,7 +40,6 @@
             </table>
             <div class="text-center mt-5">
                     Jangan Lupa Cetak Bordingpass yang kami kirim lewat email Dan Tunjukan Kepada Kami
-                </div>
             </div>
         </div>
         <div class="card-footer text-white bg-info">

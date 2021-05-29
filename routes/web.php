@@ -86,7 +86,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
 
-    Route::get('detailriwayat/{riwayat}', [RiwayatController::class,'show']);
+    
     
     //Bus
     Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');
@@ -158,6 +158,9 @@ Route::middleware(['auth', 'verified','user'])->group(function () {
     Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class,'index'])->name('konfirmasi_pembayaran');
     Route::get('/konfirmasi_pembayaran/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
     Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
+
+    //Detail Riwayat
+    Route::get('detailriwayat/{riwayat}', [RiwayatController::class,'show']);
 });
 
 

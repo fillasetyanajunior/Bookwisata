@@ -30,7 +30,7 @@ class RiwayatController extends Controller
                                 ->where('riwayat.user_nama_customer', request()->user()->name)
                                 ->get();
         }
-        $data['tipe']   = Tipekamar::all();
+        
         $data['title']  = 'Riwayat';
         return view('riwayat.riwayat',$data);
     }
@@ -42,6 +42,7 @@ class RiwayatController extends Controller
                             ->where('riwayat.id_detail_riwayat', $riwayat->id_detail_riwayat)
                             ->first();
         $data['title']  = 'Riwayat';
+        $data['tipes']   = Tipekamar::all();
         return view('riwayat.riwayatkonfirmasi', $data);
     }
 
@@ -115,9 +116,10 @@ class RiwayatController extends Controller
 
     public function show(Riwayat $riwayat)
     {
-        $data['title']      = 'Detail Transaksi';
-        $data['riwayat']    = DetailRiwayat::where('id',$riwayat->id_detail_riwayat)->first();
-        return view('riwayat.showdetailriwayat',$data,$riwayat);
+        $data['tipes']              = Tipekamar::all();
+        $data['title']              = 'Detail Transaksi';
+        $data['riwayat_detail']     = DetailRiwayat::where('id',$riwayat->id_detail_riwayat)->first();
+        return view('riwayat.showdetailriwayat',$data,compact('riwayat'));
     }
     
 }

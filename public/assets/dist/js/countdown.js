@@ -1,13 +1,41 @@
 $(document).ready(function () {
 
-    $(document).ready(function () {
+    $(".namadetailriwayat").attr("disabled",true)
+    $(".emaildetailriwayat").attr("disabled",true)
+    $(".nomerhpdetailriwayat").attr("disabled",true)
+    $(".pilihandetailriwayat").attr("disabled",true)
+    $(".tipedetailriwayat").attr("disabled",true)
+    $(".jumlahsitdetailriwayat").attr("disabled",true)
+    $(".hargadetailriwayat").attr("disabled",true)
+    $(".jumlahpesanandetailriwayat").attr("disabled",true)
+    $(".potongandetailriwayat").attr("disabled",true)
+    $(".haridetailriwayat").attr("disabled",true)
+    $(".totaldetailriwayat").attr("disabled",true)
+    $(".durasidetailriwayat").attr("disabled",true)
+    $(".isactivedetailriwayat").attr("disabled",true)
+    $(".notedetailriwayat").attr("disabled",true)
+
+    $(".namakonfirmasi").attr("disabled",true)
+    $(".emailkonfirmasi").attr("disabled",true)
+    $(".nomerhpkonfirmasi").attr("disabled",true)
+    $(".pilihankonfirmasi").attr("disabled",true)
+    $(".tipekonfirmasi").attr("disabled",true)
+    $(".jumlahsitkonfirmasi").attr("disabled",true)
+    $(".hargakonfirmasi").attr("disabled",true)
+    $(".jumlahpesanankonfirmasi").attr("disabled",true)
+    $(".potongankonfirmasi").attr("disabled",true)
+    $(".harikonfirmasi").attr("disabled",true)
+    $(".totalkonfirmasi").attr("disabled",true)
+    $(".durasikonfirmasi").attr("disabled",true)
+    $(".notekonfirmasi").attr("disabled",true)
+
+
         $("#myInput").on("keyup", function () {
             var value = $(this).val().toLowerCase();
             $("#Table tr").filter(function () {
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
-    });
     
     var counter = $(".time").attr("content");
     var _id = $(".time").attr("itemid")
@@ -34,6 +62,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    
     
     // var arr = location.pathname;
 
