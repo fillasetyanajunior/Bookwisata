@@ -94,7 +94,7 @@
                             @endif
                         </td>
                         <td>
-                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}>{{$riwayat->waktu_payment}}"></p>
+                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}">{{$riwayat->waktu_payment}}</p>
                         </td>
                         @endif
                         
