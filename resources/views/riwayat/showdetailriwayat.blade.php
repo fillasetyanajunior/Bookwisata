@@ -29,7 +29,7 @@
         <div class="col-sm-11 mx-4 my-4">
             <div class="mb-3">
                 <label for="company" class="form-label">Company</label>
-                <input type="text" class="form-control companykonfirmasi" id="company " name="company " value="{{$riwayat->company}}">
+                <input type="text" class="form-control companydetailriwayat" id="company " name="company " value="{{$riwayat->company}}">
             </div>
             <div class="mb-3">
                 <label for="nama" class="form-label">Nama</label>
