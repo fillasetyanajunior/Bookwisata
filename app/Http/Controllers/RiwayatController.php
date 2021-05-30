@@ -100,6 +100,7 @@ class RiwayatController extends Controller
                             'waktu_payment' => null,
                         ]);
                     Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
+                    Mail::to(request()->user()->email)->send(new BordingpassMail($riwayat->id,request()->user()->name));
                 } else {
                     Riwayat::where('id', $riwayat->id)
                             ->update([

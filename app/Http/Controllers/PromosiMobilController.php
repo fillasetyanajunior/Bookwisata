@@ -60,6 +60,7 @@ class PromosiMobilController extends Controller
         Riwayat::create([
             'user_nama_customer'    => request()->user()->name,
             'user_id_owner'         => $request->hidden,
+            'company'               => $mobil->company,
             'id_detail_riwayat'     => $detail_riwayat->id,
             'is_active'             => 1
         ]);

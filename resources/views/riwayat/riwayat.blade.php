@@ -74,8 +74,10 @@
                         <td>{{$riwayat->qr_code}}</td>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
-                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 3 || $riwayat->is_active == 5) 
-                                
+                            @if ($riwayat->is_active == 4 || $riwayat->is_active == 5) 
+                            
+                            @elseif ($riwayat->is_active == 3)
+                                <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                             @else
                                 <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>
                             @endif
@@ -88,10 +90,9 @@
                             @if ($riwayat->is_active == 4 || $riwayat->is_active == 5) 
                                 
                             @elseif ($riwayat->is_active == 3)
-                                <a href="pdf/{{$riwayat->id}}" class="btn btn-success">Confirm</a>
-                            @else
-                                <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
+                                <a href="pdf/{{$riwayat->id}}" class="btn btn-success d-inline">Confirm</a>
                             @endif
+                            <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                         </td>
                         <td>
                             <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}">{{$riwayat->waktu_payment}}</p>

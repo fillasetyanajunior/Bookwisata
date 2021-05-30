@@ -37,6 +37,7 @@
                         <label for="note">Note</label>
                         <textarea class="form-control" id="note" name="note" rows="4"></textarea>
                     </div>
+                    
                 </div>
             </div>
             <div class="card text-white  mb-3 mt-3">

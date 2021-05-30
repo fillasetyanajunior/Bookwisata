@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Tanggal Pemesanan</th>
-                        <td>: {{$data->date}}</td>
+                        <td>: {{date('d-F-Y',strtotime($data->date))}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -63,11 +63,11 @@
                 <tbody>
                     <tr>
                         <th scope="row">Harga</th>
-                        <td>{{$data->harga}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($data->harga)),3)))}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Total</th>
-                        <td>{{$data->total}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($data->total)),3)))}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -5,7 +5,7 @@
     <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" class="card-img-top mb-5" alt="...">
     <div class="card mb-3">
         <div class="card-header text-white bg-info">
-            Detail Pesanan
+            Booking Detail
         </div>
         <div class="card-body table-responsive" style="font-size: 18px;">
             <table class="table table-borderless">
@@ -39,7 +39,7 @@
                 </tbody>
             </table>
             <div class="text-center mt-5">
-                Jangan Lupa Cek Detail Produk yang kami kirim lewat email Dan Tunjukan Kepada kami
+                Jangan Lupa Cek Booking Detail yang kami kirim lewat email Dan Tunjukan Kepada kami
             </div>
         </div>
         <div class="card-footer text-white bg-info">

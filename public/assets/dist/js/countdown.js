@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    $(".companydetailriwayat").attr("disabled",true)
     $(".namadetailriwayat").attr("disabled",true)
     $(".emaildetailriwayat").attr("disabled",true)
     $(".nomerhpdetailriwayat").attr("disabled",true)
@@ -15,6 +16,7 @@ $(document).ready(function () {
     $(".isactivedetailriwayat").attr("disabled",true)
     $(".notedetailriwayat").attr("disabled",true)
 
+    $(".companykonfirmasi").attr("disabled",true)
     $(".namakonfirmasi").attr("disabled",true)
     $(".emailkonfirmasi").attr("disabled",true)
     $(".nomerhpkonfirmasi").attr("disabled",true)
