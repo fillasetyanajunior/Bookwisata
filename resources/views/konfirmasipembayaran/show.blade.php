@@ -35,7 +35,7 @@
             @endif
 
             @if (request()->user()->role == 3)
-                <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary">Konfrimasi</a>
+                <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary my-3">Konfrimasi</a>
             @else
 
             @endif
@@ -58,7 +58,7 @@
                     @foreach ($konfirmasi as $konfirmasi)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$konfirmasi->nama_produk}} </td>
+                        <td>{{$konfirmasi->nama}} </td>
                         <td>{{$konfirmasi->qrcode}} </td>
                         @if (request()->user()->role == 1)
                         <td>

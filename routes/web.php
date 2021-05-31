@@ -56,6 +56,7 @@ Route::get('/coba',function (){
     return view('email.konfirmasi');
 });
 
+Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 Route::get('/',[UtamaController::class,'index']);
 Route::post('/',[UtamaController::class,'Pencarian']);
 
@@ -151,6 +152,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //Detail Riwayat
     Route::get('detailriwayat/{riwayat}', [RiwayatController::class,'show']);
+
+    //Profile
+    Route::get('/myprofile', [HomeController::class, 'Myprofile'])->name('myprofile');
+    Route::post('/myprofile/{user}', [HomeController::class, 'UpdateMyProfile']);
 });
 
 Route::middleware(['auth', 'verified','user'])->group(function () {
@@ -160,11 +165,6 @@ Route::middleware(['auth', 'verified','user'])->group(function () {
     Route::get('/konfirmasi_pembayaran/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
     Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
 });
-
-
-Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
-Route::get('/myprofile', [HomeController::class, 'Myprofile'])->name('myprofile');
-Route::post('/myprofile/{user}', [HomeController::class, 'UpdateMyProfile']);
 
 Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     
@@ -202,7 +202,10 @@ Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     Route::post('/managementuser/{user}', [ManagementUserController::class, 'update'])->name('update_managementuser');
 
     Route::get('/showlayananmitra', [TransaksiMitraController::class,'index'])->name('layananmitra');
+
+    Route::get('/konfirmasi_pembayaran/{konfirmasi}', [KonfirmasiController::class,'showValidasi']);
 });
+
 Route::group(['middleware' => ['auth','verified','mitra']], function () {
     
     Route::get('/bus',[BusController::class,'index'])->name('bus');

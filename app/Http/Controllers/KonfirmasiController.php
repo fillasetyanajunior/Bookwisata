@@ -17,7 +17,7 @@ class KonfirmasiController extends Controller
         $request->validate([
             'nama_produk'       => 'required',
             'qr_kode'           => 'required',
-            'filekofrimasi'     => 'required',
+            'filekonfirmasi'    => 'required',
         ]);
 
         $file = $request->file('filekonfirmasi');
@@ -26,12 +26,12 @@ class KonfirmasiController extends Controller
         $file->storeAs('konfirmasi',$name);
 
         Konfirmasi::create([
-            'id_user'  => request()->user()->id,
-            'nama'  => $request->nama_produk,
-            'qrcode'  => $request->qr_kode,
-            'filekonfirmasi'  => $name,
+            'id_user'           => request()->user()->id,
+            'nama'              => $request->nama_produk,
+            'qrcode'            => $request->qr_kode,
+            'filekonfirmasi'    => $name,
         ]);
-        return redirect('konfirmasi')->with('status','Konfirmasi Telah Dikirim Tolong Tunggu Beberapa Menit Untuk Mengeceknya');
+        return redirect('konfirmasi_pembayaran')->with('status','Konfirmasi Telah Dikirim Tolong Tunggu Beberapa Menit Untuk Mengeceknya');
     }
     public function index()
     {
@@ -42,5 +42,10 @@ class KonfirmasiController extends Controller
             $data['konfirmasi'] = Konfirmasi::where('id_user',request()->user()->id)->get();
         }
         return view('konfirmasipembayaran.show', $data);
+    }
+    public function showValidasi(Konfirmasi $konfirmasi)
+    {
+        $data['title'] = 'Validasi Pembayaran';
+        return view('konfirmasipembayaran.validasipembayaran',$data,compact('konfirmasi'));
     }
 }

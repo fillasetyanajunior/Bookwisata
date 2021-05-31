@@ -72,7 +72,7 @@
             </div>
             <div class="card-body">
                 <h2>Terima Kasih Telah Memesan Layanan Kami </h2>
-                <p>Berikut adalah detail pesanan anda lakukan pembayaran dan silahkan melakukan pembayaran sebelum time limite berakhir</p>
+                <p>Berikut adalah detail pesanan anda. Silahkan melakukan pembayaran sebelum time limite berakhir.</p>
                 <table class="table">
                     <tbody>
                         <tr>

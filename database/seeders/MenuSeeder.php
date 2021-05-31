@@ -23,7 +23,7 @@ class MenuSeeder extends Seeder
             'icon' => 'fas fa-layer-group'
         ]);
         DB::table('menu')->insert([
-            'menu' => 'Management User',
+            'menu' => 'Management',
             'icon' => 'fas fa-folder'
         ]);
         DB::table('menu')->insert([

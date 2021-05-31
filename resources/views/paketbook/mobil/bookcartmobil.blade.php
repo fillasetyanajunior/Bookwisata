@@ -34,15 +34,16 @@
                         <small id="namalengkap" class="form-text text-muted">Isi Nama pemesanan sesuai dengan KTP/SIM/PASPOR (tanpa ada gelar atau jabatan)</small>
                     </div>
                     <div class="form-group mt-4">
-                        <label for="note">Note</label>
+                        <label for="note">Note/ Program Detail</label>
                         <textarea class="form-control" id="note" name="note" rows="4"></textarea>
                     </div>
+                    
                 </div>
             </div>
             <div class="card text-white  mb-3 mt-3">
                 <div class="card-header bg-primary">Important Notice</div>
                 <div class="card-body">
-                    <p class="card-text">Semoga Senang dengan pelayanan kami.</p>
+                    <p class="card-text">Mohon dipastikan kembali jika pemesanan anda sudah benar</p>
                 </div>
             </div>
             <div class="card">
@@ -114,7 +115,7 @@
                         <tbody>
                         <tr>
                             <td colspan="2">Durasi</td>
-                            <td>{{$riwayat->durasi}} Jam/ {{$riwayat->hari}} hari</td>
+                            <td>{{$riwayat->hari}} hari</td>
                         </tr>
                         <tr>
                             <td colspan="2">Tanggal</td>
