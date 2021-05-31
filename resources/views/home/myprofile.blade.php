@@ -50,8 +50,8 @@
                 </div>
                 @if (Auth::user()->role == 2)    
                 <div class="mb-3">
-                    <label for="active_mitra" class="form-label">Active Mitra</label>
-                    <input type="text" class="form-control" id="active_mitra" name="active_mitra" value="{{$user->active_mitra}}" disabled>
+                    <label for="active_mitra" class="form-label">Active Mitra</label>+
+                    <input type="text" class="form-control" id="active_mitra" name="active_mitra" value="{{date('d-F-Y',strtotime($user->active_mitra))}}" disabled>
                 </div>
                 <div class="mb-3">
                     <label for="kode_mitra" class="form-label">Kode Mitra</label>

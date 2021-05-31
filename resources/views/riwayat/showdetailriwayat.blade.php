@@ -112,7 +112,7 @@
             </div>
             <div class="mb-3">
                 <label for="date" class="form-label">Tanggal Pemakaian</label>
-                <input type="text" class="form-control datedetailriwayat" id="date " name="date" value="{{$riwayat_detail->date}} ">
+                <input type="text" class="form-control datedetailriwayat" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat_detail->date))}} ">
             </div>
             <div class="mb-3">
                 @php

@@ -34,7 +34,7 @@
                     <tr>
                         <td>{{$lasted->email}}</td>
                         <td>{{$lasted->nomerhp}}</td>
-                        <td>{{$lasted->date}}</td>
+                        <td>{{date('d-F-Y',strtotime($lasted->date))}}</td>
                     </tr>
                 </tbody>
             </table>

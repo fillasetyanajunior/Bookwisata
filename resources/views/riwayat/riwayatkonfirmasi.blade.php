@@ -114,7 +114,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="date" class="form-label">Tanggal Pemakaian</label>
-                    <input type="text" class="form-control datekonfirmasi" id="date " name="date" value="{{$riwayat->date}} ">
+                    <input type="text" class="form-control datekonfirmasi" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat->date))}} ">
                 </div>
                 <div class="mb-3">
                     <label for="is_active" class="form-label">Status Pesanan</label>

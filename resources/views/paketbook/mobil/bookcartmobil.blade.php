@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">Tanggal</td>
-                            <td>{{$riwayat->date}}</td>
+                            <td>{{date('d-F-Y',strtotime($riwayat->date))}}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Jumlah Pemesanan</td>
