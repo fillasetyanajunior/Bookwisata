@@ -113,6 +113,10 @@
                     <input type="text" class="form-control durasikonfirmasi" id="durasi " name="durasi" value="{{$riwayat->durasi}} ">
                 </div>
                 <div class="mb-3">
+                    <label for="date" class="form-label">Tanggal Pemakaian</label>
+                    <input type="text" class="form-control datekonfirmasi" id="date " name="date" value="{{$riwayat->date}} ">
+                </div>
+                <div class="mb-3">
                     <label for="is_active" class="form-label">Status Pesanan</label>
                     <select class="form-select form-control" aria-label="Default select example" id="is_active" name="is_active">
                         <option value="">Select Status</option>

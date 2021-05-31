@@ -111,6 +111,10 @@
                 <input type="text" class="form-control durasidetailriwayat" id="durasi " name="durasi" value="{{$riwayat_detail->durasi}} ">
             </div>
             <div class="mb-3">
+                <label for="date" class="form-label">Tanggal Pemakaian</label>
+                <input type="text" class="form-control datedetailriwayat" id="date " name="date" value="{{$riwayat_detail->date}} ">
+            </div>
+            <div class="mb-3">
                 @php
                     if ($riwayat->is_active == 1){
                         $is_active = 'Waitting';
