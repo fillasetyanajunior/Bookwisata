@@ -109,10 +109,6 @@
                     <input type="text" class="form-control totalkonfirmasi" id="total " name="total" value="{{$riwayat->total}} ">
                 </div>
                 <div class="mb-3">
-                    <label for="durasi" class="form-label">Durasi</label>
-                    <input type="text" class="form-control durasikonfirmasi" id="durasi " name="durasi" value="{{$riwayat->durasi}} ">
-                </div>
-                <div class="mb-3">
                     <label for="date" class="form-label">Tanggal Pemakaian</label>
                     <input type="text" class="form-control datekonfirmasi" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat->date))}} ">
                 </div>

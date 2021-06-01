@@ -99,8 +99,9 @@ class RiwayatController extends Controller
                             'is_active'     => $request->is_active,
                             'waktu_payment' => null,
                         ]);
+
                     Mail::to($cek->email)->send(new BordingpassMail($riwayat->id,$cek->nama));
-                    Mail::to(request()->user()->email)->send(new BordingpassMail($riwayat->id,request()->user()->name));
+                    
                 } else {
                     Riwayat::where('id', $riwayat->id)
                             ->update([

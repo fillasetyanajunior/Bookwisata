@@ -77,6 +77,7 @@
                             @if ($riwayat->is_active == 4 || $riwayat->is_active == 5) 
                             
                             @elseif ($riwayat->is_active == 3)
+                                <a href="pdf/{{$riwayat->id}}" class="btn btn-success d-inline">Confirm</a>
                                 <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                             @else
                                 <a href="/konfirmasi/{{$riwayat->id}}" class="btn btn-primary">Konfirmasi</a>

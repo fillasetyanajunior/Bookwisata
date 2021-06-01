@@ -44,7 +44,7 @@
         </div>
         <div class="card-footer text-white bg-info">
             <div class="text-center">
-                {{$lasted->date}}
+                {{date('d-F-Y',strtotime($lasted->date))}}
             </div>
         </div>
     </div>

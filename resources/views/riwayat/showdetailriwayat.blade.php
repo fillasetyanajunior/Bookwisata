@@ -107,10 +107,6 @@
                 <input type="text" class="form-control totaldetailriwayat" id="total " name="total" value="{{$riwayat_detail->total}} ">
             </div>
             <div class="mb-3">
-                <label for="durasi" class="form-label">Durasi</label>
-                <input type="text" class="form-control durasidetailriwayat" id="durasi " name="durasi" value="{{$riwayat_detail->durasi}} ">
-            </div>
-            <div class="mb-3">
                 <label for="date" class="form-label">Tanggal Pemakaian</label>
                 <input type="text" class="form-control datedetailriwayat" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat_detail->date))}} ">
             </div>

@@ -12,7 +12,6 @@ $(document).ready(function () {
     $(".potongandetailriwayat").attr("disabled",true)
     $(".haridetailriwayat").attr("disabled",true)
     $(".totaldetailriwayat").attr("disabled",true)
-    $(".durasidetailriwayat").attr("disabled",true)
     $(".datedetailriwayat").attr("disabled",true)
     $(".isactivedetailriwayat").attr("disabled",true)
     $(".notedetailriwayat").attr("disabled",true)
@@ -29,7 +28,6 @@ $(document).ready(function () {
     $(".potongankonfirmasi").attr("disabled",true)
     $(".harikonfirmasi").attr("disabled",true)
     $(".totalkonfirmasi").attr("disabled",true)
-    $(".durasikonfirmasi").attr("disabled",true)
     $(".datekonfirmasi").attr("disabled",true)
     $(".notekonfirmasi").attr("disabled",true)
 
