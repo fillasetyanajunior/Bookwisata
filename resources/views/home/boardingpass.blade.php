@@ -47,7 +47,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Jurasi</th>
-                        <td>: {{$riwayat->jurasi}} Jam</td>
+                        <td>: {{$riwayat->durasi}} Jam</td>
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Hari </th>
