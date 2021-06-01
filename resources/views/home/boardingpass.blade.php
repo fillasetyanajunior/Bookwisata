@@ -18,7 +18,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-around mt-3">
             <table class="table table-borderless">
                 <tbody>
                     <tr>
@@ -60,7 +60,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-around mt-2">
             <table class="table">
                 <thead class="table-dark">
                     <tr>
