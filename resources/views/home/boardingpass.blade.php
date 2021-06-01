@@ -71,7 +71,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">Harga</th>
-                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}&nbsp;Hari</td>
                     </tr>
                     <tr>
                         <th scope="row">PPN %</th>
