@@ -53,7 +53,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/pdf/{id}',[PdfController::class, 'PdfGenerate']);
 
 Route::get('/coba',function (){
-    return view('email.konfirmasi');
+    return view('email.coba');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');

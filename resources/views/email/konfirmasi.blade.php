@@ -1,206 +1,237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-    <style>
-        .container {
-            width: 100%;
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-        .card {
-            position: relative;
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #fff;
-            background-clip: border-box;
-            border: 1px solid rgba(0, 0, 0, 0.125);
-            border-radius: 0.25rem;
-        }
-        .card-body {
-            -ms-flex: 1 1 auto;
-            flex: 1 1 auto;
-            min-height: 1px;
-            padding: 1.25rem;
-        }
-        .my-3{
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-        .row {
-            display: -ms-flexbox;
-            display: flex;
-            -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-            margin-right: -15px;
-            margin-left: -15px;
-        }
-        .card-header {
-            padding: 0.75rem 1.25rem;
-            margin-bottom: 0;
-            background-color: rgba(0, 0, 0, 0.03);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-        }
-        .table {
-            width: 100%;
-            margin-bottom: 1rem;
-            color: #212529;
-        }
-        table {
-            border-collapse: collapse;
-        }
-        .table th,
-        .table td {
-            padding: 0.75rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
-
-    </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <title>Konfirmasi Pembayaran</title>
+<meta charset="utf-8">
+<title></title>
 </head>
-<body>
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <center>Checkout Complate</center> 
-            </div>
-            <div class="card-body">
-                <h2>Terima Kasih Telah Memesan Layanan Kami </h2>
-                <p>Berikut adalah detail pesanan anda. Silahkan melakukan pembayaran sebelum time limite berakhir.</p>
-                <br>
-                <p>Bank Transfer :</p>
-                <br>
-                <p> Bank Permata (Virtual Account)</p>
-                <p>A/C  8545580000530237</p>
-                </p> Bookwisata Indonesia</p>
-                <table class="table">
+<body style="font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color:#f0f2ea; margin:0; padding:0; color:#333333;">
+
+<table width="100%" bgcolor="#ffffff" cellpadding="0" cellspacing="0" border="0">
+    <tbody>
+        <tr>
+            <td style="padding:40px 0;">
+                <!-- begin main block -->
+                <table cellpadding="0" cellspacing="0" width="608" border="0" align="center">
                     <tbody>
                         <tr>
-                            <td>Kode Pemesanan</td>
-                            <td>{{$qrkode}}</td>
-                        </tr>
-                        <tr>
-                            <td>Nama Produk</td>
-                            <td>{{$nama}}</td>
-                        </tr>
-                        <tr>
-                            <td>Total Pembayaran</td>
-                            <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</td>
-                        </tr>
-                        <tr>
-                            <td>Status Pembayaran</td>
-                            <td>Waitting Paymeny</td>
-                        </tr>
-                        <tr>
-                            <td>Batas Pembayaran</td>
-                            <td>{{$waktupayment}}</td>
+                            <td>
+                                <a href="{{url('/')}}" style="display:block; width:407px; height:100px; margin:0 auto 30px;">
+                                    <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="407" height="100" alt="Pixelbuddha" style="display:block; border:0; margin:0;">
+                                </a>
+                                {{-- <p style="margin:0 0 36px; text-align:center; font-size:14px; line-height:20px; text-transform:uppercase; color:#626658;">
+                                    what is the most fascinating thing about summer?
+                                </p> --}}
+                                <!-- begin wrapper -->
+                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td width="8" height="4" colspan="2" style="background:url({{url("assets/email/shadow-top-left.png")}}) no-repeat 100% 100%;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td height="4" style="background:url({{url("assets//email/shadow-top-center.png")}}) repeat-x 0 100%;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="8" height="4" colspan="2" style="background:url({{url("assets//email/shadow-top-right.png")}}) no-repeat 0 100%;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td width="4" height="4" style="background:url({{url("assets//email/shadow-left-top.png")}}) no-repeat 100% 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td colspan="3" rowspan="3" bgcolor="#f0f2ea" style="padding:0 0 30px;">
+                                                <!-- begin content -->
+                                                <img src="{{url('assets/utama/testmonial/bg1.jpg')}}" width="600" height="400" alt="summer‘s coming trimm your sheeps" style="display:block; border:0; margin:0 0 44px; background:#eeeeee;">
+                                                <p style="margin:0 30px 33px; text-align:center; text-transform:uppercase; font-size:24px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    Checkout Complate
+                                                </p>
+                                                <p style="margin:0 30px 33px; text-align:left; text-transform:capitalize; font-size:20px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    Terima Kasih Telah Memesan Layanan Kami 
+                                                </p>
+                                                <p style="margin:0 30px 25px; text-align:left; text-transform:capitalize; font-size:14px; line-height:30px; color:#484a42;">
+                                                    Berikut adalah detail pesanan anda. Silahkan melakukan pembayaran sebelum time limite berakhir.
+                                                </p>
+                                                <p style="margin:0 30px 20px; text-align:left; text-transform:capitalize; font-size:14px; color:#484a42;">
+                                                    Bank Transfer :
+                                                </p>
+                                                <p style="margin:0 30px 10px; text-align:left; text-transform:capitalize; font-size:14px; color:#484a42;">
+                                                    Bank Permata (Virtual Account)
+                                                </p>
+                                                <p style="margin:0 30px 10px; text-align:left; text-transform:capitalize; font-size:14px; color:#484a42;">
+                                                    A/C  8545580000530237
+                                                </p>
+                                                <p style="margin:0 30px 10px; text-align:left; text-transform:capitalize; font-size:14px; color:#484a42;">
+                                                     Bookwisata Indonesia
+                                                </p>
+                                                <br>
+                                                <table style="margin:0 30px 33px; width: 90%;margin-bottom: 1rem;color: #212529; border-collapse: collapse;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333; ">Kode Pemesanan</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333;">{{$qrkode}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333; ">Nama Produk</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333; ">Total Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333;">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333; ">Status Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333;">Waitting Paymeny</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333; ">Batas Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:12px; color:#333333;">{{$waktupayment}}</p>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <p style="margin:0 30px 33px; text-align:left; text-transform:capitalize; font-size:14px; line-height:30px; color:#484a42;">
+                                                    Setalah melakukan pembayaran segera kirim konfirmasi pembayaran di dashboard konfirmasi.
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 29px;">&nbsp;</p>
+                                                <p style="margin:0 30px 33px; text-align:center; text-transform:uppercase; font-size:24px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    Metode Pembayaran
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 10px;">&nbsp;</p>
+                                                <p style="margin:0 30px 10px; text-align:center; text-transform:uppercase; font-size:18px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    ATM Permata
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
+                                                <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
+                                                    <li>Silahkan pilih menu Transaksi Lainnya. Setelah itu Klik menu Transfer lalu klik menu Rek NSB lain Permata.</li>
+                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) dan pilih Benar.</li>
+                                                    <li>Masukan Jumlah nominal yang ingin anda transfer. Setalah itu Pilih Benar.</li>
+                                                    <li>Lalu pilih rekening Tunggu Sebentar hingga muncul konfirmasi pembayaran. Kemudian pilih Ya.</li>
+                                                </ul>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 10px;">&nbsp;</p>
+                                                <p style="margin:0 30px 10px; text-align:center; text-transform:uppercase; font-size:18px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    Internet Bangking Permata
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
+                                                <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
+                                                    <li>Silahkan login internet bangking kemudian pilih Menu Pembayaran.</li>
+                                                    <li>Lalu pilih sub menu Pembayaran Tagihan dan klik Virtual Account</li>
+                                                    <li>Silahkan pilih rekening anda lalu masukan nomer rekening dengan nomer Virtual Account (8545580000530237) lalu klik Lanjut.</li>
+                                                    <li>Masukan Jumlah nominal yang ingin anda transfer. Kemudian klik Submit.</li>
+                                                    <li>Tunggu sebentar hingga anda memperoleh SMS notifikasi yang berisi sebuah Kode. Setelah itu masukkan Kode tersebut.</li>
+                                                    <li>Proses transfer internet banking telah selesai.</li>
+                                                </ul>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 10px;">&nbsp;</p>
+                                                <p style="margin:0 30px 10px; text-align:center; text-transform:uppercase; font-size:18px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    Mobile Banking Permata
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
+                                                <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
+                                                    <li>Silahkan login mobile bangking yang dimiliki Permata Bank.</li>
+                                                    <li>Lalu klik Menu Pembayaran Tagihan dan pilih Menu Virtual Account.</li>
+                                                    <li>Kemudian pilih Tagihan Anda dan pilih Daftar Tgihan Baru.</li>
+                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) sebagai Nomer Tagihan. Apabila selesai silahkan klik Konfirmasi.</li>
+                                                    <li>Masukan Nama Pengingat setelah itu klik Lanjut. Apabila selesai silahkan klik Konfirmasi.</li>
+                                                    <li>Kemudian masukan Jumlah nominal yang ingin anda transfer. Apabila selesai silahkan klik Konfirmasi.</li>
+                                                    <li>Masukan Response Code dan klik Konfirmasi apabilatelah selesai</li>
+                                                    <li>Proses transfer telah selesai</li>
+                                                </ul>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 10px;">&nbsp;</p>
+                                                <p style="margin:0 30px 10px; text-align:center; text-transform:uppercase; font-size:18px; line-height:30px; font-weight:bold; color:#484a42;">
+                                                    ATM Bersama / Prima
+                                                </p>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
+                                                <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
+                                                    <li>Masukan kartu ATM dan PIN anda pada mesin ATM.</li>
+                                                    <li>Pilih menu TRANSFER > TRANSFER KE BANK LAIN > TRANSFER ONLINE.</li>
+                                                    <li>Masukan kode Bank Permata : <b>013</b></li>
+                                                    <li>Masukan nomer Virtual Account Anda (8545580000530237) pada kolom nomer rekening tujuan.</li>
+                                                    <li>Kemudian masukan Jumlah nominal yang ingin anda transfer</li>
+                                                    <li>Ikuti instruksi untuk menyelesaikan transaksi.</li>
+                                                </ul>
+                                                <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
+                                                <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                                                    <tbody>
+                                                        <tr valign="top">
+                                                            <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                                            <td>
+                                                                <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">Bookwisata Indonesia</p>
+                                                                <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
+                                                                    Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 <br>
+                                                                    Help &amp; customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
+                                                                    Website: <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.Bookwisata.com</a>
+                                                                </p>
+                                                            </td>
+                                                            <td width="150"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                                            <td width="120">
+                                                                <a href="https://www.facebook.com/pixelbuddha" style="float:left; width:24px; height:24px; margin:6px 8px 10px 0;">
+                                                                    <img src="{{url("assets/email/facebook.png")}}" width="24" height="24" alt="facebook" style="display:block; margin:0; border:0; background:#eeeeee;">
+                                                                </a>
+                                                                <a href="https://twitter.com/PixelBuddha" style="float:left; width:24px; height:24px; margin:6px 8px 10px 0;">
+                                                                    <img src="{{url("assets/email/twitter.png")}}" width="24" height="24" alt="twitter" style="display:block; margin:0; border:0; background:#eeeeee;">
+                                                                </a>
+                                                                <a href="http://blog.pixelbuddha.net/" style="float:left; width:24px; height:24px; margin:6px 8px 10px 0;;">
+                                                                    <img src="{{url("assets/email/tumblr.png")}}" width="24" height="24" alt="tumblr" style="display:block; margin:0; border:0; background:#eeeeee;">
+                                                                </a>
+                                                                <a href="{{url('/')}}rss" style="float:left; width:24px; height:24px; margin:6px 0 10px 0;">
+                                                                    <img src="{{url("assets/email/rss.png")}}" width="24" height="24" alt="rss" style="display:block; margin:0; border:0; background:#eeeeee;">
+                                                                </a>
+                                                                <p style="margin:0; font-weight:bold; clear:both; font-size:12px; line-height:22px;">
+                                                                    <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none;">Visit website</a><br>
+                                                                    <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none;">Mobile version</a>
+                                                                </p>
+                                                            </td>
+                                                            <td width="30"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- end content --> 
+                                            </td>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-right-top.png")}}) no-repeat 0 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td width="4" style="background:url({{url("assets/email/shadow-left-center.png")}}) repeat-y 100% 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="4" style="background:url({{url("assets/email/shadow-right-center.png")}}) repeat-y 0 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                        </tr>
+                                        
+                                        <tr> 
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-left-bottom.png")}}) repeat-y 100% 100%;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-right-bottom.png")}}) repeat-y 0 100%;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                        </tr>
+                                 
+                                        <tr>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-bottom-corner-left.png")}}) no-repeat 100% 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-bottom-left.png")}}) no-repeat 100% 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td height="4" style="background:url({{url("assets/email/shadow-bottom-center.png")}}) repeat-x 0 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-bottom-right.png")}}) no-repeat 0 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                            <td width="4" height="4" style="background:url({{url("assets/email/shadow-bottom-corner-right.png")}}) no-repeat 0 0;"><p style="margin:0; font-size:1px; line-height:1px;">&nbsp;</p></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- end wrapper-->
+                                <p style="margin:0; padding:34px 0 0; text-align:center; font-size:11px; line-height:13px; color:#333333;">
+                                    Don‘t want to recieve further emails? You can unsibscribe <a href="{{url('/')}}" style="color:#333333; text-decoration:underline;">here</a>
+                                </p>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                <p>Setalah melakukan pembayaran segera kirim konfirmasi pembayaran di dashboard konfirmasi</p>
-            </div>
-            <div class="card-header">
-                Metode Pembayaran
-            </div>
-            <div class="card-body">
-                <div class="accordion" id="accordionExample">
-                    <div class="card my-3">
-                        <div class="card-header" id="headingOne">
-                        <h2 class="mb-0">
-                            <a class="genric-btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            ATM Permata
-                            </a>
-                        </h2>
-                        </div>
-    
-                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <ul>
-                                <li>- Silahkan pilih menu Transaksi Lainnya. Setelah itu Klik menu Transfer lalu klik menu Rek NSB lain Permata.</li>
-                                <li>- Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) dan pilih Benar.</li>
-                                <li>- Masukan Jumlah nominal yang ingin anda transfer. Setalah itu Pilih Benar.</li>
-                                <li>- Lalu pilih rekening Tunggu Sebentar hingga muncul konfirmasi pembayaran. Kemudian pilih Ya.</li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card my-3 ">
-                        <div class="card-header" id="headingTwo">
-                        <h2 class="mb-0">
-                            <a class="genric-btn" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Internet Bangking Permata
-                            </a>
-                        </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <ul>
-                                <li>- Silahkan login internet bangking kemudian pilih Menu Pembayaran.</li>
-                                <li>- Lalu pilih sub menu Pembayaran Tagihan dan klik Virtual Account</li>
-                                <li>- Silahkan pilih rekening anda lalu masukan nomer rekening dengan nomer Virtual Account (8545580000530237) lalu klik Lanjut.</li>
-                                <li>- Masukan Jumlah nominal yang ingin anda transfer. Kemudian klik Submit.</li>
-                                <li>- Tunggu sebentar hingga anda memperoleh SMS notifikasi yang berisi sebuah Kode. Setelah itu masukkan Kode tersebut.</li>
-                                <li>- Proses transfer internet banking telah selesai.</li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-header" id="headingThree">
-                        <h2 class="mb-0">
-                            <a class="genric-btn" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Mobile Banking Permata
-                            </a>
-                        </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <ul>
-                                <li>- Silahkan login mobile bangking yang dimiliki Permata Bank.</li>
-                                <li>- Lalu klik Menu Pembayaran Tagihan dan pilih Menu Virtual Account.</li>
-                                <li>- Kemudian pilih Tagihan Anda dan pilih Daftar Tgihan Baru.</li>
-                                <li>- Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) sebagai Nomer Tagihan. Apabila selesai silahkan klik Konfirmasi.</li>
-                                <li>- Masukan Nama Pengingat setelah itu klik Lanjut. Apabila selesai silahkan klik Konfirmasi.</li>
-                                <li>- Kemudian masukan Jumlah nominal yang ingin anda transfer. Apabila selesai silahkan klik Konfirmasi.</li>
-                                <li>- Masukan Response Code dan klik Konfirmasi apabilatelah selesai</li>
-                                <li>- Proses transfer telah selesai</li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card my-3">
-                        <div class="card-header" id="headingFour">
-                        <h2 class="mb-0">
-                            <a class="genric-btn" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            ATM Bersama / Prima
-                            </a>
-                        </h2>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <ul>
-                                <li>- Masukan kartu ATM dan PIN anda pada mesin ATM.</li>
-                                <li>- Pilih menu TRANSFER > TRANSFER KE BANK LAIN > TRANSFER ONLINE.</li>
-                                <li>- Masukan kode Bank Permata : <b>013</b></li>
-                                <li>- Masukan nomer Virtual Account Anda (8545580000530237) pada kolom nomer rekening tujuan.</li>
-                                <li>- Kemudian masukan Jumlah nominal yang ingin anda transfer</li>
-                                <li>- Ikuti instruksi untuk menyelesaikan transaksi.</li>
-                            </ul>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                <!-- end main block -->
+            </td>
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>
