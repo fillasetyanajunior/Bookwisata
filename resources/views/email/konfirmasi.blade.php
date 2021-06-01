@@ -73,6 +73,12 @@
             <div class="card-body">
                 <h2>Terima Kasih Telah Memesan Layanan Kami </h2>
                 <p>Berikut adalah detail pesanan anda. Silahkan melakukan pembayaran sebelum time limite berakhir.</p>
+                <br>
+                <p>Bank Transfer :</p>
+                <br>
+                <p> Bank Permata (Virtual Account)</p>
+                <p>A/C  8545580000530237</p>
+                </p> Bookwisata Indonesia</p>
                 <table class="table">
                     <tbody>
                         <tr>
