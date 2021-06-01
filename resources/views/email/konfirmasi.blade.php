@@ -80,7 +80,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Nama Company</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{$company}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -88,7 +88,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Tanggal</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{$tanggal}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -96,7 +96,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Durasi</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{$durasi}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -104,7 +104,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Nomer Hp</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{$nomer}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -112,7 +112,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Email</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{$email}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
