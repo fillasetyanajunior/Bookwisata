@@ -88,7 +88,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Tanggal</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$tanggal}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{date('d-F-Y',strtotime($tanggal))}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -136,7 +136,7 @@
                                                                 <p style="font-size:12px; color:#333333; ">Batas Pembayaran</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$waktupayment}}</p>
+                                                                <p style="font-size:12px; color:#333333;">{{date('d-F-Y h:i:s', strtotime($waktupayment))}}</p>
                                                             </td>
                                                         </tr>
                                                     </tbody>
