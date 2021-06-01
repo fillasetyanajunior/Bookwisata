@@ -10,10 +10,10 @@
             <table class="table table-borderless">
                 <tbody>
                     <tr>
-                        <th scope="row">Kepada Mr/Mr's {{$data->nama}}</th>
+                        <th scope="row">Kepada Mr/Mr's {{$riwayat->nama}}</th>
                     </tr>
                     <tr>
-                        <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($data->qr_code)) !!} "></th>
+                        <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($riwayat->qr_code)) !!} "></th>
                     </tr>
                 </tbody>
             </table>
@@ -22,32 +22,40 @@
             <table class="table table-borderless">
                 <tbody>
                     <tr>
+                        <th scope="row">Nama Company</th>
+                        <td>: {{$riwayat->company}}</td>
+                    </tr>
+                    <tr>
                         <th scope="row">Nama Lengkap</th>
-                        <td>: {{$data->nama}}</td>
+                        <td>: {{$riwayat->nama}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Email</th>
-                        <td>: {{$data->email}}</td>
+                        <td>: {{$riwayat->email}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Nomer Hp</th>
-                        <td>: {{$data->nomerhp}}</td>
+                        <td>: {{$riwayat->nomerhp}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Pesanan</th>
-                        <td>: {{$data->nama_pilihan}}</td>
+                        <td>: {{$riwayat->nama_pilihan}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Pesanan</th>
-                        <td>: {{$data->jumlahpesanan}} Pesanan</td>
+                        <td>: {{$riwayat->jumlahpesanan}} Pesanan</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jurasi</th>
+                        <td>: {{$riwayat->jurasi}} Jam</td>
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Hari </th>
-                        <td>: {{$data->hari}} Hari</td>
+                        <td>: {{$riwayat->hari}} Hari</td>
                     </tr>
                     <tr>
                         <th scope="row">Tanggal Pemesanan</th>
-                        <td>: {{date('d-F-Y',strtotime($data->date))}}</td>
+                        <td>: {{date('d-F-Y',strtotime($riwayat->date))}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -63,11 +71,15 @@
                 <tbody>
                     <tr>
                         <th scope="row">Harga</th>
-                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($data->harga)),3)))}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">PPN %</th>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                     </tr>
                     <tr>
                         <th scope="row">Total</th>
-                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($data->total)),3)))}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->total)),3)))}}</td>
                     </tr>
                 </tbody>
             </table>
