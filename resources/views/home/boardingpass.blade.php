@@ -6,11 +6,11 @@
 </head>
 <body>
     <center>
-        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="400px">
+        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="300px">
     </center>
     <div class="container">
         <div class="d-flex justify-content-around">
-            <table class="table table-borderless">
+            <table class="table table-borderless"></table>
                 <tbody>
                     <tr>
                         <th scope="row">Kepada Mr/Mr's {{$riwayat->nama}}</th>
