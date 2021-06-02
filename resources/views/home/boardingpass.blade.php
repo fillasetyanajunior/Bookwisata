@@ -66,7 +66,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Note / Programme Detail~</th>
-                        <td>: {{$riwayat->note))}}</td>
+                        <td>: {{$riwayat->note}}</td>
                     </tr>
                 </tbody>
             </table>
