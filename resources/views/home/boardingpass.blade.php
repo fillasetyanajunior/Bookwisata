@@ -5,7 +5,7 @@
     <title>Boardingpass</title>
 </head>
 <body>
-    <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="300px">
+    <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="300px" class="d-flex justify-content-center">
     <div class="container">
         <div class="d-flex justify-content-around">
             <table class="table table-borderless">
