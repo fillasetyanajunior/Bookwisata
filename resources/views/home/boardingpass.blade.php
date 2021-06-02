@@ -65,7 +65,7 @@
                         <td>: {{date('d-F-Y',strtotime($riwayat->date))}}</td>
                     </tr>
                     <tr>
-                        <th scope="row">Note / Programme Detail~</th>
+                        <th scope="row">Note/Programme Detail</th>
                         <td>: {{$riwayat->note}}</td>
                     </tr>
                 </tbody>
