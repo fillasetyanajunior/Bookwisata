@@ -23,7 +23,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">Status</th>
-                        <td>: CONFIRMED</td>
+                        <td>: Confirmed</td>
                     </tr>
                     <tr>
                         <th scope="row">Nama Company</th>
@@ -90,6 +90,8 @@
         </div>
         <div class="d-flex justify-content-around mt-2">
             <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">Bookwisata Indonesia</p>
+        </div>
+        <div class="d-flex justify-content-around mt-2">
             <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
                 Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 <br>
                 Help &amp; customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
