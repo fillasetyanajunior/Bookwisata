@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-around mt-3">
             <table class="table table-borderless">
                 <tbody>
                     <tr>
@@ -18,9 +18,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-3">
+        <div class="d-flex justify-content-around mt-2">
             <table class="table table-borderless">
                 <tbody>
+                    <tr>
+                        <th scope="row">Status</th>
+                        <td>: CONFIRMED</td>
+                    </tr>
                     <tr>
                         <th scope="row">Nama Company</th>
                         <td>: {{$riwayat->company}}</td>
@@ -54,7 +58,7 @@
                         <td>: {{$riwayat->hari}} Hari</td>
                     </tr>
                     <tr>
-                        <th scope="row">Tanggal Pemesanan</th>
+                        <th scope="row">Tanggal Pemakaian</th>
                         <td>: {{date('d-F-Y',strtotime($riwayat->date))}}</td>
                     </tr>
                 </tbody>
@@ -83,6 +87,14 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-around mt-2">
+            <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">Bookwisata Indonesia</p>
+            <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
+                Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 <br>
+                Help &amp; customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
+                Website: <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.Bookwisata.com</a>
+            </p>
         </div>
     </div>
 </body>
