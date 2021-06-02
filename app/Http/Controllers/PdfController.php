@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
 
-;
-
 class PdfController extends Controller
 {
     public function PdfGenerate($id)
