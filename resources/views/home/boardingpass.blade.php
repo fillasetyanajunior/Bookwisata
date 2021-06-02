@@ -6,7 +6,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="d-flex justify-content-around mt-3">
+        <div class="d-flex justify-content-around">
             <table class="table table-borderless">
                 <tbody>
                     <tr>
