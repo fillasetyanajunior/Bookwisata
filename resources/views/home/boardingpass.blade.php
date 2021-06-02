@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around" style="line-height:16px;">
+        <div class="d-flex justify-content-around" style="line-height:30px;">
             <table class="table">
                 <thead class="table-dark">
                     <tr>
