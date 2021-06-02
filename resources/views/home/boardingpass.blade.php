@@ -64,6 +64,10 @@
                         <th scope="row">Tanggal Pemakaian</th>
                         <td>: {{date('d-F-Y',strtotime($riwayat->date))}}</td>
                     </tr>
+                    <tr>
+                        <th scope="row">Note / Programme Detail~</th>
+                        <td>: {{$riwayat->notep))}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
