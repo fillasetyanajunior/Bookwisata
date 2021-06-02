@@ -7,6 +7,9 @@
 <body>
     <div class="container">
         <div class="d-flex justify-content-around">
+            <img src="{{url('assets/utama/img/logo/Logo.jpg')}}">
+        </div>
+        <div class="d-flex justify-content-around">
             <table class="table table-borderless">
                 <tbody>
                     <tr>
