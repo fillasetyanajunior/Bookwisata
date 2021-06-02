@@ -96,8 +96,7 @@
         </div>
         <div class="d-flex justify-content-around">
             <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
-                Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 <br>
-                Help &amp; customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
+                Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
                 Website: <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.Bookwisata.com</a>
             </p>
         </div>
