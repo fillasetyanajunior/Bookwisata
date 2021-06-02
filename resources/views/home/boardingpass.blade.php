@@ -6,7 +6,7 @@
 </head>
 <body>
     <center>
-        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="300px">
+        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="400px">
     </center>
     <div class="container">
         <div class="d-flex justify-content-around">
