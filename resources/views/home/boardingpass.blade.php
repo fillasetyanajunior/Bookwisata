@@ -6,9 +6,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="d-flex justify-content-around">
-            <img src="{{url('assets/utama/img/logo/Logo.jpg')}}">
-        </div>
+        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}">
         <div class="d-flex justify-content-around">
             <table class="table table-borderless">
                 <tbody>
@@ -67,7 +65,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-2">
+        <div class="d-flex justify-content-around mt-5">
             <table class="table">
                 <thead class="table-dark">
                     <tr>
