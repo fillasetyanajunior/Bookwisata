@@ -5,8 +5,8 @@
     <title>Boardingpass</title>
 </head>
 <body>
+    <img src="{{url('assets/utama/img/logo/Logo.jpg')}}">
     <div class="container">
-        <img src="{{url('assets/utama/img/logo/Logo.jpg')}}">
         <div class="d-flex justify-content-around">
             <table class="table table-borderless">
                 <tbody>
@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-5">
+        <div class="d-flex justify-content-around mt-4">
             <table class="table">
                 <thead class="table-dark">
                     <tr>
