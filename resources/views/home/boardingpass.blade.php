@@ -65,7 +65,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-around mt-4">
+        <div class="d-flex justify-content-around my-4">
             <table class="table">
                 <thead class="table-dark">
                     <tr>
