@@ -10,7 +10,7 @@
     </center>
     <div class="container">
         <div class="d-flex justify-content-around">
-            <table class="table table-borderless"></table>
+            <table class="table table-borderless">
                 <tbody>
                     <tr>
                         <th scope="row">Kepada Mr/Mr's {{$riwayat->nama}}</th>
@@ -81,7 +81,7 @@
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}&nbsp;Hari</td>
                     </tr>
                     <tr>
-                        <th scope="row">Tax & Service</th>
+                        <th scope="row">PPN %</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                     </tr>
                     <tr>
