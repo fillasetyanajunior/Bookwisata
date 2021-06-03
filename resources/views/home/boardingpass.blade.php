@@ -53,10 +53,6 @@
                         <td>: {{$riwayat->jumlahpesanan}} Pesanan</td>
                     </tr>
                     <tr>
-                        <th scope="row">Jurasi</th>
-                        <td>: {{$riwayat->durasi}} Jam</td>
-                    </tr>
-                    <tr>
                         <th scope="row">Jumlah Hari </th>
                         <td>: {{$riwayat->hari}} Hari</td>
                     </tr>

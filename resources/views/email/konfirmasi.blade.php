@@ -61,82 +61,90 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Kode Pemesanan</p>
+                                                                <p style="font-size:16px; color:#333333; ">Kode Pemesanan</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$qrkode}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Nama Produk</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size:16px; color:#333333;">{{$qrkode}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Nama Company</p>
+                                                                <p style="font-size:16px; color:#333333; ">Nama Produk</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$company}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Tanggal</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{date('d-F-Y',strtotime($tanggal))}}</p>
+                                                                <p style="font-size:16px; color:#333333;">{{$nama}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Durasi</p>
+                                                                <p style="font-size:16px; color:#333333; ">Nama Company</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$durasi}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Nomer Hp</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nomer}}</p>
+                                                                <p style="font-size:16px; color:#333333;">{{$company}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Email</p>
+                                                                <p style="font-size:16px; color:#333333; ">Tanggal</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$email}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Total Pembayaran</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</p>
+                                                                <p style="font-size:16px; color:#333333;">{{date('d-F-Y',strtotime($tanggal))}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Status Pembayaran</p>
+                                                                <p style="font-size:16px; color:#333333; ">Durasi</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">Waitting Paymeny</p>
+                                                                <p style="font-size:16px; color:#333333;">{{$durasi}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Batas Pembayaran</p>
+                                                                <p style="font-size:16px; color:#333333; ">Nomer Hp</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{date('d-F-Y h:i:s', strtotime($waktupayment))}}</p>
+                                                                <p style="font-size:16px; color:#333333;">{{$nomer}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333; ">Email</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333;">{{$email}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333; ">Total Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333;">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333; ">Status Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333;">Waiting Payment</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333; ">Batas Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333;">{{date('d-F-Y h:i:s', strtotime($waktupayment))}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333; ">Note/Programme Detail</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size:16px; color:#333333;">{{$note}}</p>
                                                             </td>
                                                         </tr>
                                                     </tbody>

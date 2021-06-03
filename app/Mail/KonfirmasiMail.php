@@ -22,6 +22,7 @@ class KonfirmasiMail extends Mailable
     public $durasi;
     public $nomer;
     public $email;
+    public $note;
     /**
      * Create a new message instance.
      *
@@ -40,6 +41,7 @@ class KonfirmasiMail extends Mailable
         $this->durasi       = $detail->durasi;
         $this->nomer        = $detail->nomerhp;
         $this->email        = $detail->email;
+        $this->note         = $detail->note;
     }
 
     /**

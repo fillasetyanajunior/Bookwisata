@@ -61,26 +61,26 @@
                                                     <tbody>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Kode Pemesanan</p>
+                                                                <p style="font-size: 16px; color:#333333; ">Kode Pemesanan</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$qrkode}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Nama</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$nama}}</p>
+                                                                <p style="font-size: 16px; color:#333333;">{{$qrkode}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Layanan Mitra</p>
+                                                                <p style="font-size: 16px; color:#333333; ">Nama</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">
+                                                                <p style="font-size: 16px; color:#333333;">{{$nama}}</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size: 16px; color:#333333; ">Layanan Mitra</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size: 16px; color:#333333;">
                                                                     @if ($paket == 1)
                                                                         Layanan 3 Bulan
                                                                     @elseif($paket == 2)
@@ -97,26 +97,26 @@
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Total Pembayaran</p>
+                                                                <p style="font-size: 16px; color:#333333; ">Total Pembayaran</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Status Pembayaran</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">Waitting Paymeny</p>
+                                                                <p style="font-size: 16px; color:#333333;">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($harga)),3)))}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333; ">Batas Pembayaran</p>
+                                                                <p style="font-size: 16px; color:#333333; ">Status Pembayaran</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:12px; color:#333333;">{{$waktupayment}}</p>
+                                                                <p style="font-size: 16px; color:#333333;">Waiting Payment</p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size: 16px; color:#333333; ">Batas Pembayaran</p>
+                                                            </td>
+                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
+                                                                <p style="font-size: 16px; color:#333333;">{{$waktupayment}}</p>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -135,7 +135,7 @@
                                                 <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
                                                 <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
                                                     <li>Silahkan pilih menu Transaksi Lainnya. Setelah itu Klik menu Transfer lalu klik menu Rek NSB lain Permata.</li>
-                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) dan pilih Benar.</li>
+                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Bookwisata Indonesia (8545580000530237) dan pilih Benar.</li>
                                                     <li>Masukan Jumlah nominal yang ingin anda transfer. Setalah itu Pilih Benar.</li>
                                                     <li>Lalu pilih rekening Tunggu Sebentar hingga muncul konfirmasi pembayaran. Kemudian pilih Ya.</li>
                                                 </ul>
@@ -147,7 +147,7 @@
                                                 <ul style="font-family: 'Times New Roman', Times, serif; font-size: 18px">
                                                     <li>Silahkan login internet bangking kemudian pilih Menu Pembayaran.</li>
                                                     <li>Lalu pilih sub menu Pembayaran Tagihan dan klik Virtual Account</li>
-                                                    <li>Silahkan pilih rekening anda lalu masukan nomer rekening dengan nomer Virtual Account (8545580000530237) lalu klik Lanjut.</li>
+                                                    <li>Silahkan pilih rekening anda lalu masukan nomer rekening dengan nomer Virtual Account Bookwisata Indonesia (8545580000530237) lalu klik Lanjut.</li>
                                                     <li>Masukan Jumlah nominal yang ingin anda transfer. Kemudian klik Submit.</li>
                                                     <li>Tunggu sebentar hingga anda memperoleh SMS notifikasi yang berisi sebuah Kode. Setelah itu masukkan Kode tersebut.</li>
                                                     <li>Proses transfer internet banking telah selesai.</li>
@@ -161,7 +161,7 @@
                                                     <li>Silahkan login mobile bangking yang dimiliki Permata Bank.</li>
                                                     <li>Lalu klik Menu Pembayaran Tagihan dan pilih Menu Virtual Account.</li>
                                                     <li>Kemudian pilih Tagihan Anda dan pilih Daftar Tgihan Baru.</li>
-                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Anda (8545580000530237) sebagai Nomer Tagihan. Apabila selesai silahkan klik Konfirmasi.</li>
+                                                    <li>Masukan nomer rekening dengan nomer Virtual Account Bookwisata Indonesia (8545580000530237) sebagai Nomer Tagihan. Apabila selesai silahkan klik Konfirmasi.</li>
                                                     <li>Masukan Nama Pengingat setelah itu klik Lanjut. Apabila selesai silahkan klik Konfirmasi.</li>
                                                     <li>Kemudian masukan Jumlah nominal yang ingin anda transfer. Apabila selesai silahkan klik Konfirmasi.</li>
                                                     <li>Masukan Response Code dan klik Konfirmasi apabilatelah selesai</li>
@@ -176,7 +176,7 @@
                                                     <li>Masukan kartu ATM dan PIN anda pada mesin ATM.</li>
                                                     <li>Pilih menu TRANSFER > TRANSFER KE BANK LAIN > TRANSFER ONLINE.</li>
                                                     <li>Masukan kode Bank Permata : <b>013</b></li>
-                                                    <li>Masukan nomer Virtual Account Anda (8545580000530237) pada kolom nomer rekening tujuan.</li>
+                                                    <li>Masukan nomer Virtual Account Bookwisata Indonesia (8545580000530237) pada kolom nomer rekening tujuan.</li>
                                                     <li>Kemudian masukan Jumlah nominal yang ingin anda transfer</li>
                                                     <li>Ikuti instruksi untuk menyelesaikan transaksi.</li>
                                                 </ul>
