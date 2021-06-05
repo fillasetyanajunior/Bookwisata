@@ -70,6 +70,27 @@
                         elseif($riwayat->tipe == 23){
                             $tipe = 'LMVP';
                         }
+                        elseif($riwayat->tipe == 41){
+                            $tipe = 'Bundling';
+                        }
+                        elseif($riwayat->tipe == 42){
+                            $tipe = 'Non Bundling';
+                        }
+                        elseif($riwayat->tipe == 51){
+                         $tipe = 'Gunung';
+                        }
+                        elseif($riwayat->tipe == 52){
+                            $tipe = 'Lipat';
+                        }
+                        elseif($riwayat->tipe == 53){
+                            $tipe = 'Balap';
+                        }
+                        elseif($riwayat->tipe == 61){
+                            $tipe = 'Bundling';
+                        }
+                        elseif($riwayat->tipe == 62){
+                            $tipe = 'Non Bundling';
+                        }
                         elseif($riwayat->tipe == '-'){
                             $tipe = $riwayat->tipe;
                         }

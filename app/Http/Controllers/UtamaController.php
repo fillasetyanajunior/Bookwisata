@@ -12,6 +12,9 @@ use App\Models\Kuliner;
 use App\Models\Mobil;
 use App\Models\Paket;
 use App\Models\Pusat;
+use App\Models\Tour;
+use App\Models\Sepeda;
+use App\Models\Camp;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,6 +33,9 @@ class UtamaController extends Controller
         $data['guide']      = Guide::paginate(3);
         $data['kapal']      = Kapal::paginate(3);
         $data['paket']      = Paket::paginate(3);
+        $data['sepeda']     = Sepeda::paginate(3);   
+        $data['camp']       = Camp::paginate(3);   
+        $data['tour']       = Tour::paginate(3);   
         $data['info']       = Informasi::paginate(3);   
         return view('home.utama',$data);
     }
@@ -78,6 +84,21 @@ class UtamaController extends Controller
         $paket = Paket::orderBy('nama')->paginate(30);
         return view('catagories.paket',compact('paket'));
     }
+    public function ListOfTour()
+    {
+        $tour = Tour::orderBy('nama')->paginate(30);
+        return view('catagories.tour',compact('tour'));
+    }
+    public function ListOfSepeda()
+    {
+        $sepeda = Sepeda::orderBy('nama')->paginate(30);
+        return view('catagories.sepeda',compact('sepeda'));
+    }
+    public function ListOfCamp()
+    {
+        $camp = Camp::orderBy('nama')->paginate(30);
+        return view('catagories.camp',compact('camp'));
+    }
 
     public function Pencarian(Request $request)
     {
@@ -91,6 +112,9 @@ class UtamaController extends Controller
             $kapal      = DB::table('kapal')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
             $guide      = DB::table('guide')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
             $paket      = DB::table('paket')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
+            $camp       = DB::table('camp')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
+            $tour       = DB::table('tour')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
+            $sepeda     = DB::table('sepeda')->where('nama', 'like', "%" . $request->pencarian . "%")->first();
             if (null != $hotel) {
                 $data['nama'] = 'hotel';
                 return view('home.pencarian',['data' => $hotel],$data);
@@ -118,6 +142,15 @@ class UtamaController extends Controller
             } else if (null != $kapal) {
                 $data['nama'] = 'kapal';
                 return view('home.pencarian', ['data' => $kapal], $data);
+            } else if (null != $camp) {
+                $data['nama'] = 'camp';
+                return view('home.pencarian', ['data' => $camp], $data);
+            } else if (null != $sepeda) {
+                $data['nama'] = 'sepeda';
+                return view('home.pencarian', ['data' => $sepeda], $data);
+            } else if (null != $tour) {
+                $data['nama'] = 'tour';
+                return view('home.pencarian', ['data' => $tour], $data);
             } else {
                 $data['buss']        = DB::table('bus')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
                 $data['mobils']      = DB::table('mobil')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
@@ -128,6 +161,9 @@ class UtamaController extends Controller
                 $data['kapals']      = DB::table('kapal')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
                 $data['guides']      = DB::table('guide')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
                 $data['pakets']      = DB::table('paket')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
+                $data['camps']       = DB::table('camp')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
+                $data['sepedas']     = DB::table('sepeda')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
+                $data['tours']       = DB::table('tour')->where('kota_search', 'like', "%" . $request->pencarian . "%")->get();
                 return view('home.pencariankota', $data);
             }
         } else {

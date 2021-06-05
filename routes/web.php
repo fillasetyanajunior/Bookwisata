@@ -5,19 +5,20 @@ use App\Http\Controllers\ResponseApiController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SubMenuController;
 use App\Http\Controllers\AccessMenuController;
+use App\Http\Controllers\ManagementUserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BusController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\GuideController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HotelConteoller;
-use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KapalController;
-use App\Http\Controllers\KonfirmasiController;
 use App\Http\Controllers\KulinerController;
-use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PaketController;
-use App\Http\Controllers\PdfController;
+use App\Http\Controllers\PusatController;
+use App\Http\Controllers\CampController;
+use App\Http\Controllers\SepedaController;
+use App\Http\Controllers\TourController;
 use App\Http\Controllers\PromosiBusController;
 use App\Http\Controllers\PromosiDestinasiController;
 use App\Http\Controllers\PromosiGuideController;
@@ -27,7 +28,12 @@ use App\Http\Controllers\PromosiKulinerController;
 use App\Http\Controllers\PromosiMobilController;
 use App\Http\Controllers\PromosiPaketController;
 use App\Http\Controllers\PromosiPusatController;
-use App\Http\Controllers\PusatController;
+use App\Http\Controllers\PromosiTourController;
+use App\Http\Controllers\PromosiCampController;
+use App\Http\Controllers\PromosiSepedaController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\KonfirmasiController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\TransaksiMitraController;
@@ -69,6 +75,9 @@ Route::get('/listofhotel',[UtamaController::class, 'ListOfHotel'])->name('listof
 Route::get('/listofkapal',[UtamaController::class, 'ListOfKapal'])->name('listofkapal');
 Route::get('/listofguide',[UtamaController::class, 'ListOfGuide'])->name('listofguide');
 Route::get('/listofpaket',[UtamaController::class, 'ListOfPaket'])->name('listofpaket');
+Route::get('/listoftour',[UtamaController::class, 'ListOfTour'])->name('listoftour');
+Route::get('/listofsepeda',[UtamaController::class, 'ListOfSepeda'])->name('listofsepeda');
+Route::get('/listofcamp',[UtamaController::class, 'ListOfCamp'])->name('listofcamp');
 
 Route::get('/detailbus/{bus}', [PromosiBusController::class,'show'])->name('detailbus');
 Route::get('/detailmobil/{mobil}', [PromosiMobilController::class,'show'])->name('detailmobil');
@@ -79,6 +88,9 @@ Route::get('/detailhotel/{hotel}', [PromosiHotelController::class,'show'])->name
 Route::get('/detailkapal/{kapal}', [PromosiKapalController::class,'show'])->name('detailkapal');
 Route::get('/detailpaket/{paket}', [PromosiPaketController::class,'show'])->name('detailpaket');
 Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])->name('detailkuliner');
+Route::get('/detailtour/{tour}', [PromosiTourController::class,'show'])->name('detailtour');
+Route::get('/detailsepeda/{sepeda}', [PromosiSepedaController::class,'show'])->name('detailsepeda');
+Route::get('/detailCamp/{Camp}', [PromosiCampController::class,'show'])->name('detailcamp');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     
@@ -144,11 +156,32 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::put('/bookchartpaket/{riwayat}', [PromosiPaketController::class,'update'])->name('updatepaket');
     
     //Kuliner
-    Route::get('/konfrimasi', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
+    Route::get('/boardingkuliner', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
     Route::post('/bordingkuliner', [PromosiKulinerController::class,'boording'])->name('bordingkuliner');
     Route::get('/bookchartkuliner', [PromosiKulinerController::class,'create'])->middleware('auth')->name('createkuliner');
     Route::post('/bookchartkuliner/kuliner/{kuliner}', [PromosiKulinerController::class,'store'])->name('storekuliner');
     Route::put('/bookchartkuliner/{riwayat}', [PromosiKulinerController::class,'update'])->name('updatekuliner');
+    
+    //Camp
+    Route::get('/boardingcamp', [PromosiCampController::class,'index'])->name('showbordingcamp');
+    Route::post('/bordingcamp', [PromosiCampController::class,'boording'])->name('bordingcamp');
+    Route::get('/bookchartcamp', [PromosiCampController::class,'create'])->middleware('auth')->name('createcamp');
+    Route::post('/bookchartcamp/camp/{camp}', [PromosiCampController::class,'store'])->name('storecamp');
+    Route::put('/bookchartcamp/{riwayat}', [PromosiCampController::class,'update'])->name('updatecamp');
+    
+    //Tour
+    Route::get('/boardingtour', [PromosiTourController::class,'index'])->name('showbordingtour');
+    Route::post('/bordingtour', [PromosiTourController::class,'boording'])->name('bordingtour');
+    Route::get('/bookcharttour', [PromosiTourController::class,'create'])->middleware('auth')->name('createtour');
+    Route::post('/bookcharttour/tour/{tour}', [PromosiTourController::class,'store'])->name('storetour');
+    Route::put('/bookcharttour/{riwayat}', [PromosiTourController::class,'update'])->name('updatetour');
+    
+    //Sepeda
+    Route::get('/boardingsepeda', [PromosiSepedaController::class,'index'])->name('showbordingsepeda');
+    Route::post('/bordingsepeda', [PromosiSepedaController::class,'boording'])->name('bordingsepeda');
+    Route::get('/bookchartsepeda', [PromosiSepedaController::class,'create'])->middleware('auth')->name('createsepeda');
+    Route::post('/bookchartsepeda/sepeda/{sepeda}', [PromosiSepedaController::class,'store'])->name('storesepeda');
+    Route::put('/bookchartsepeda/{riwayat}', [PromosiSepedaController::class,'update'])->name('updatesepeda');
 
     //Detail Riwayat
     Route::get('detailriwayat/{riwayat}', [RiwayatController::class,'show']);
@@ -270,6 +303,27 @@ Route::group(['middleware' => ['auth','verified','mitra']], function () {
     Route::get('/guide/{guide}', [GuideController::class,'edit'])->name('edit_guide');
     Route::put('/guide/{guide}', [GuideController::class,'update'])->name('update_guide');
     Route::delete('/guide/{guide}', [GuideController::class,'destroy'])->name('destroy_guide');
+    
+    Route::get('/tour',[TourController::class,'index'])->name('tour');
+    Route::get('/tour/create',[TourController::class,'create'])->name('create_tour');
+    Route::post('/tour', [TourController::class,'store'])->name('store_tour');
+    Route::get('/tour/{tour}', [TourController::class,'edit'])->name('edit_tour');
+    Route::put('/tour/{tour}', [TourController::class,'update'])->name('update_tour');
+    Route::delete('/tour/{tour}', [TourController::class,'destroy'])->name('destroy_tour');
+
+    Route::get('/sepeda',[SepedaController::class,'index'])->name('sepeda');
+    Route::get('/sepeda/create',[SepedaController::class,'create'])->name('create_sepeda');
+    Route::post('/sepeda', [SepedaController::class,'store'])->name('store_sepeda');
+    Route::get('/sepeda/{sepeda}', [SepedaController::class,'edit'])->name('edit_sepeda');
+    Route::put('/sepeda/{sepeda}', [SepedaController::class,'update'])->name('update_sepeda');
+    Route::delete('/sepeda/{sepeda}', [SepedaController::class,'destroy'])->name('destroy_sepeda');
+
+    Route::get('/camp',[CampController::class,'index'])->name('camp');
+    Route::get('/camp/create',[CampController::class,'create'])->name('create_camp');
+    Route::post('/camp', [CampController::class,'store'])->name('store_camp');
+    Route::get('/camp/{camp}', [CampController::class,'edit'])->name('edit_camp');
+    Route::put('/camp/{camp}', [CampController::class,'update'])->name('update_camp');
+    Route::delete('/camp/{camp}', [CampController::class,'destroy'])->name('destroy_camp');
 
     Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
     Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');

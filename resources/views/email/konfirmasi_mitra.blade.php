@@ -116,7 +116,7 @@
                                                                 <p style="font-size: 16px; color:#333333; ">Batas Pembayaran</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size: 16px; color:#333333;">{{$waktupayment}}</p>
+                                                                <p style="font-size: 16px; color:#333333;">{{date('d-F-Y H:i:s', strtotime($waktupayment))}}</p>
                                                             </td>
                                                         </tr>
                                                     </tbody>

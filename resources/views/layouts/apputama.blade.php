@@ -92,6 +92,9 @@
                                                     <li><a href="{{ route('listofmobil') }}">Mobil</a></li>
                                                     <li><a href="{{ route('listofbus') }}">Bus Pariwisata</a></li>
                                                     <li><a href="{{ route('listofkapal') }}">Kapal Pesiar</a></li>
+                                                    <li><a href="{{ route('listofsepeda') }}">Rental Sepeda motor & Gowes</a></li>
+                                                    <li><a href="{{ route('listofcamp') }}">Perlengkapan Camping & Outdoor</a></li>
+                                                    <li><a href="{{ route('listoftour') }}">Perlengkapan Tour</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>

@@ -118,6 +118,24 @@ class SubMenuSeeder extends Seeder
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '4',
+            'sub_menu' => 'Promosi Perlengkapan Camping & Outdor',
+            'icon' => 'fas fa-campground',
+            'url' => 'camp',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '4',
+            'sub_menu' => 'Promosi Perlengkapan Tour',
+            'icon' => 'fas fa-suitcase-rolling',
+            'url' => 'tour',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '4',
+            'sub_menu' => 'Promosi Rental Sepeda Motor & Gowes',
+            'icon' => 'fas fa-motorcycle',
+            'url' => 'sepeda',
+        ]);
+        DB::table('sub_menu')->insert([
+            'menu_id' => '4',
             'sub_menu' => 'Promosi Kuliner',
             'icon' => 'fas fa-concierge-bell',
             'url' => 'kuliner',

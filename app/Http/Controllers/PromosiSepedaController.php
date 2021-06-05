@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
-use App\Models\Kapal;
+use App\Models\Sepeda;
 use App\Models\Riwayat;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PromosiKapalController extends Controller
+
+class PromosiSepedaController extends Controller
 {
     public function index()
     {
@@ -19,7 +20,7 @@ class PromosiKapalController extends Controller
                             ->limit('1')
                             ->orderBy('created_at', 'DESC')
                             ->get();
-        return view('paketbook.kapal.boordingkapal', $data);
+        return view('paketbook.sepeda.boordingsepeda', $data);
     }
 
     public function create()
@@ -30,13 +31,13 @@ class PromosiKapalController extends Controller
                             ->limit('1')
                             ->orderBy('created_at', 'DESC')
                             ->get();
-        return view('paketbook.kapal.bookcartkapal', $data);
+        return view('paketbook.sepeda.bookcartsepeda', $data);
     }
 
-    public function store(Kapal $kapal, Request $request)
+    public function store(Sepeda $sepeda, Request $request)
     {
         $potongan = 100000;
-        $harga = $kapal->harga;
+        $harga = $sepeda->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;
         $durasi = 24 * $hari;
@@ -46,8 +47,8 @@ class PromosiKapalController extends Controller
             'nama'                  => "",
             'email'                 => "",
             'nomerhp'               => "",
-            'nama_pilihan'          => $kapal->nama,
-            'tipe'                  => '-',
+            'nama_pilihan'          => $sepeda->nama,
+            'tipe'                  => $sepeda->tipe,
             'jumlah_sit'            => '-',
             'harga'                 => $harga,
             'jumlahpesanan'         => $pesanan,
@@ -60,16 +61,16 @@ class PromosiKapalController extends Controller
         Riwayat::create([
             'user_nama_customer'    => request()->user()->name,
             'user_id_owner'         => $request->hidden,
-            'company'               => '-',
+            'company'               => $sepeda->company,
             'id_detail_riwayat'     => $detail_riwayat->id,
             'is_active'             => 1
         ]);
-        return redirect()->route('createkapal');
+        return redirect()->route('createsepeda');
     }
 
-    public function show(Kapal $kapal)
+    public function show(Sepeda $sepeda)
     {
-        return view('paketbook.kapal.detailkapal', compact('kapal'));
+        return view('paketbook.sepeda.detailsepeda', compact('sepeda'));
     }
 
     public function update(Request $request, Riwayat $riwayat)
@@ -97,18 +98,17 @@ class PromosiKapalController extends Controller
                 'note'      => $request->note
             ]);
 
-        $kapal = Kapal::where('user_id', $riwayat->user_id_owner)->first();
-        if ($kapal->id == $riwayat->user_id_owner) {
-            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $kapal->id));
+        $sepeda = Sepeda::where('user_id', $riwayat->user_id_owner)->first();
+        if ($sepeda->id == $riwayat->user_id_owner) {
+            event(new MyEvent($request->namalengkap . 'Memesan' . $riwayat->nama_pilihan, $sepeda->id));
         }
-        return redirect()->route('showbordingkapal');
-
+        return redirect()->route('showbordingsepeda');
     }
 
     public function boording(Request $request)
     {
         $total = $request->jumlah_rating + $request->rating;
-        Kapal::where('nama', $request->nama)
+        Sepeda::where('nama', $request->nama)
             ->update([
                 'rating' => $total
             ]);

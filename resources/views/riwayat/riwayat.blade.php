@@ -84,7 +84,7 @@
                             @endif
                         </td>
                         <td>
-                            <p>{{$riwayat->waktu_payment}}</p>
+                            <p class="time" id="waktu" limit="{{$limit}}" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}">{{date('d-F-Y H:i:s',strtotime($riwayat->waktu_payment))}} WIB</p>
                         </td>
                         @else
                         <td>
@@ -96,7 +96,7 @@
                             <a href="/detailriwayat/{{$riwayat->id}}" class="btn btn-primary">Detail</a>
                         </td>
                         <td>
-                            <p class="time" id="waktu" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}">{{$riwayat->waktu_payment}}</p>
+                            <p class="time" id="waktu" limit="{{$limit}}" content="{{$riwayat->waktu_payment}}" itemid="{{$riwayat->id}}">{{date('d-F-Y H:i:s',strtotime($riwayat->waktu_payment))}} WIB</p>
                         </td>
                         @endif
                         

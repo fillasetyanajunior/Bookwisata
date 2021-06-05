@@ -32,17 +32,20 @@ $(document).ready(function () {
     $(".notekonfirmasi").attr("disabled",true)
 
 
-        $("#myInput").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#Table tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
+    $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#Table tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
+    });
     
     var counter = $(".time").attr("content");
+    var limit = $(".time").attr("limit");
     var _id = $(".time").attr("itemid")
     
-    if (date('Y-m-d h:i:s' == counter)) {
+    console.log(limit)
+
+    if (limit >= counter) {
         ubah();
     } else {
         

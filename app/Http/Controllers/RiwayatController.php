@@ -10,6 +10,7 @@ use App\Models\Tipekamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
 
 class RiwayatController extends Controller
 {
@@ -30,7 +31,7 @@ class RiwayatController extends Controller
                                 ->where('riwayat.user_nama_customer', request()->user()->name)
                                 ->get();
         }
-        
+        $data['limit']  = date('Y-m-d H:i:s');
         $data['title']  = 'Riwayat';
         return view('riwayat.riwayat',$data);
     }
@@ -74,19 +75,19 @@ class RiwayatController extends Controller
                         Riwayat::where('id',$riwayat->id)
                                 ->update([
                                     'is_active'     => $request->is_active,
-                                    'waktu_payment' => date('Y-m-d h:i:s', strtotime('+4 hour'))
+                                    'waktu_payment' => date('Y-m-d H:i:s', strtotime('+4 hours'))
                                 ]);
                     } else if ($request->time_payment == 2) {
                         Riwayat::where('id',$riwayat->id)
                                 ->update([
                                     'is_active'     => $request->is_active,
-                                    'waktu_payment' => date('Y-m-d h:i:s', strtotime('+12 hour'))
+                                    'waktu_payment' => date('Y-m-d H:i:s', strtotime('+12 hours'))
                                 ]);
                     }else{
                         Riwayat::where('id', $riwayat->id)
                             ->update([
                                 'is_active'     => $request->is_active,
-                                'waktu_payment' => date('Y-m-d h:i:s', strtotime('+24 hour'))
+                                'waktu_payment' => date('Y-m-d H:i:s', strtotime('+24 hours'))
                             ]);
                     }
 
