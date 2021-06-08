@@ -7,7 +7,7 @@
                 <div class="card mt-3 mb-3 col-10">
                     <div class="card-header">
                         <h1> {{$mobil->nama}}</h1>
-                        <h1> {{$mobil->company}}</h1>
+                        <h5> {{$mobil->company}}</h5>
                     </div>
                     @php
                     $foto = DB::table('mobil')

@@ -7,13 +7,6 @@
                 <div class="card mt-3 mb-3 col-10">
                     <div class="card-header">
                         <h1> {{$hotel->nama}}</h1>
-                        <h3>
-                            @foreach ($tipe as $tipe)
-                                @if ($tipe->id == $hotel->tipe)
-                                    {{$tipe->tipe}}
-                                @endif
-                            @endforeach
-                        </h3>
                     </div>
                     @php
                     $foto = DB::table('hotel')

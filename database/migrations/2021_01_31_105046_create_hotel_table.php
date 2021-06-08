@@ -23,7 +23,8 @@ class CreateHotelTable extends Migration
             $table->string('bad');
             $table->string('rating');
             $table->text('review');
-            $table->string('harga'); 
+            $table->string('harga');
+            $table->string('kota_search');
             $table->timestamps();
         });
     }

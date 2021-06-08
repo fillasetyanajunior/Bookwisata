@@ -29,7 +29,7 @@
     <div class="d-flex justify-content-center">
       <div class="col-sm-11 mx-4">
             <form action="{{route('store_kapal')}}" method="POST" enctype="multipart/form-data">
-              @csrf
+                @csrf
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Kapal Pesiar</label>
                     <input type="text" class="form-control  @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" value="{{old('nama')}}">

@@ -23,6 +23,7 @@ class CreateDestinasiTable extends Migration
             $table->string('rating');
             $table->text('review');
             $table->string('harga');
+            $table->string('kota_search');
             $table->timestamps();
         });
     }

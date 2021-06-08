@@ -127,6 +127,9 @@ class KapalController extends Controller
         $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
             'id_provinsi' => $request->provinsi
         ]);
+
+        $kota = null;
+
         foreach ($url['kota_kabupaten'] as $kab) {
             if ($kab['id'] == $request->kabupaten) {
                 $kota = $kab['nama'];
