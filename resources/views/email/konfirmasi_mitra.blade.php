@@ -64,7 +64,7 @@
                                                                 <p style="font-size: 16px; color:#333333; ">Kode Pemesanan</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size: 16px; color:#333333;">{{$qrkode}}</p>
+                                                                <p style="font-size: 16px; color:#333333;">{{$kodes}}</p>
                                                             </td>
                                                         </tr>
                                                         <tr>
