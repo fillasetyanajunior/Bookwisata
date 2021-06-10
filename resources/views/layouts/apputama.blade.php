@@ -120,12 +120,12 @@
         <div class="slider-area ">
             <!-- Mobile Menu -->
             <div class="slider-active">
-                <div class="single-slider hero-overly  slider-height d-flex align-items-center" data-background="{{url('assets/utama/img/hero/h1_hero.jpg') }}">
+                <div class="single-slider hero-overly  slider-height d-flex align-items-center" data-background="{{url('assets/utama/img/hero/h1_hero.jpg')}}">
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-9 col-lg-9 col-md-9">
                                 <div class="hero__caption">
-                                    <h1>Find Where You want To Go</h1>
+                                    <h1></h1>
                                 </div>
                             </div>
                         </div>
@@ -158,18 +158,20 @@
         <!-- slider Area End-->
 
         @yield('main')
-            <!-- Video Start Arera -->
+        <!-- Video Start Arera -->
         <div class="video-area video-bg pt-200 pb-200"  data-background="{{url('assets/utama/img/service/video-bg.jpg')}}">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="video-caption text-center">
-                            <div class="video-icon">
+                            {{-- <div class="video-icon">
                                 <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU" tabindex="0"><i class="fas fa-play"></i></a>
-                            </div>
-                            <p class="pera1">Love where you re going in the perfect time</p>
-                            <p class="pera2">Tripo is a World Leading Online</p>
-                            <p class="pera3"> Tour Booking Platform</p>
+                            </div> --}}
+                            <p class="pera2"></p>
+                            <p class="pera1" style="font-size: 16pt">
+                                
+                            </p>
+                            <p class="pera3"></p>
                         </div>
                     </div>
                 </div>
@@ -177,7 +179,7 @@
         </div>
         <!-- Video Start End -->
         <!-- Support Company Start-->
-        <div class="support-company-area support-padding fix">
+        {{-- <div class="support-company-area support-padding fix">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-xl-6 col-lg-6">
@@ -221,11 +223,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Support Company End-->
         <!-- Testimonial Start  -->
         <!-- Testimonial Start  -->
-        <div class="testimonial-area testimonial-padding" data-background="{{url('assets/utama/img/testmonial/testimonial_bg.jpg')}}">
+        {{-- <div class="testimonial-area testimonial-padding" data-background="{{url('assets/utama/img/testmonial/testimonial_bg.jpg')}}">
             <div class="container ">
                 <div class="row d-flex justify-content-center">
                     <div class="col-xl-11 col-lg-11 col-md-9">
@@ -236,8 +238,7 @@
                                 <div class="testimonial-caption ">
                                     <div class="testimonial-top-cap">
                                         <img src="{{url('assets/utama/img/icon/testimonial.png')}}" alt="">
-                                        <p>Logisti Group is a representative logistics operator providing full range of ser
-                                            of customs clearance and transportation worl.</p>
+                                        <p></p>
                                     </div>
                                     <!-- founder -->
                                     <div class="testimonial-founder d-flex align-items-center justify-content-center">
@@ -257,8 +258,7 @@
                                 <div class="testimonial-caption ">
                                     <div class="testimonial-top-cap">
                                         <img src="{{ url('assets/utama/img/icon/testimonial.png')}}" alt="">
-                                        <p>Logisti Group is a representative logistics operator providing full range of ser
-                                            of customs clearance and transportation worl.</p>
+                                        <p></p>
                                     </div>
                                     <!-- founder -->
                                     <div class="testimonial-founder d-flex align-items-center justify-content-center">
@@ -276,10 +276,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Testimonial End -->
         <!-- Blog Area Start -->
-        <div class="home-blog-area section-padding2">
+        <div class="home-blog-area my-5">
             <div class="container">
                 <!-- Section Tittle -->
                 <div class="row">

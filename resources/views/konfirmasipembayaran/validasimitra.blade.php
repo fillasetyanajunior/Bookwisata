@@ -30,16 +30,16 @@
         <div class="col-sm-11 mx-4">
             <div class="mb-3">
                 <label for="nama_produk" class="form-label">Nama Produk</label>
-                <input type="text" class="form-control" id="nama_produk" name="nama_produk"  value="{{$konfirmasi->nama}}">
+                <input type="text" class="form-control" id="nama_produk" name="nama_produk"  value="{{$konfirmasipembayaran->nama}}">
             </div>
             <div class="mb-3">
                 <label for="qr_kode" class="form-label">Kode Transaksi</label>
-                <input type="text" class="form-control" id="qr_kode" name="qr_kode" value="{{$konfirmasi->qrcode}}">
+                <input type="text" class="form-control" id="qr_kode" name="qr_kode" value="{{$konfirmasipembayaran->kode}}">
             </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">File Konfrimasi</label>
             </div>
-            <form action="/konfirmasi_download/pembayaran/{{$konfirmasi->id}}" method="post">
+            <form action="/konfirmasi_download/mitra/{{$konfirmasipembayaran->id}}" method="post">
                 @csrf
                 <button type="submit" class="btn btn-primary">Download</button>
             </form>

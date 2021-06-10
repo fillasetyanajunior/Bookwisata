@@ -42,6 +42,14 @@
                     <label for="formFile" class="form-label">File Konfrimasi</label>
                     <input class="form-control  @error('filekonfirmasi') is-invalid @enderror" type="file" id="formFile" name="filekonfirmasi" >
                 </div>
+                <div class="mb-3">
+                    <label for="pilihan_konfirmasi" class="form-label">Pilihan Konfrimasi Pembayaran</label>
+                    <select class="form-control" id="pilihan_konfirmasi" name="pilihan_konfirmasi">
+                        <option value="">Pilihan</option>
+                        <option value="1">Pembayaran Pesanan</option>
+                        <option value="2">Pembayaran Mitra</option>
+                    </select>
+                </div>
                 <button type="submit" name="submit" class="btn btn-primary mb-5">Submit</button>
             </form>
         </div>

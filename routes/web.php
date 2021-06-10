@@ -189,12 +189,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     //Profile
     Route::get('/myprofile', [HomeController::class, 'Myprofile'])->name('myprofile');
     Route::post('/myprofile/{user}', [HomeController::class, 'UpdateMyProfile']);
+
+    //Konfirmasi
+    Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class,'index'])->name('konfirmasi_pembayaran');
 });
 
 Route::middleware(['auth', 'verified','user'])->group(function () {
     
-    //Konfirmasi
-    Route::get('/konfirmasi_pembayaran', [KonfirmasiController::class,'index'])->name('konfirmasi_pembayaran');
     Route::get('/konfirmasi_pembayaran/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
     Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
 });
@@ -237,6 +238,9 @@ Route::group(['middleware' => ['auth', 'verified','admin']], function () {
     Route::get('/showlayananmitra', [TransaksiMitraController::class,'index'])->name('layananmitra');
 
     Route::get('/konfirmasi_pembayaran/{konfirmasi}', [KonfirmasiController::class,'showValidasi']);
+    Route::get('/konfirmasi_mitra/{konfirmasipembayaran}', [KonfirmasiController::class,'showValidasiMitra']);
+    Route::post('/konfirmasi_download/mitra/{konfirmasipembayaran}', [KonfirmasiController::class,'downloadMitra']);
+    Route::post('/konfirmasi_download/pembayaran/{konfirmasi}', [KonfirmasiController::class,'downloadPembayaran']);
 });
 
 Route::group(['middleware' => ['auth','verified','mitra']], function () {

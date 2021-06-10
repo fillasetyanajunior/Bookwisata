@@ -31,6 +31,20 @@ $(document).ready(function () {
     $(".datekonfirmasi").attr("disabled",true)
     $(".notekonfirmasi").attr("disabled",true)
 
+    //Pilihan Pembayaran
+    $(".konfirmasimitra").hide()
+    
+    $(".pilihankonfrimasi").on('change',function () {
+        var konfirmasi = $(".pilihankonfrimasi").val()
+        console.log(konfirmasi)
+        if (konfirmasi == 1) {
+            $(".konfirmasipembayaran").show()
+            $(".konfirmasimitra").hide()
+        } else {
+            $(".konfirmasipembayaran").hide()
+            $(".konfirmasimitra").show()
+        }
+    })
 
     $("#myInput").on("keyup", function () {
         var value = $(this).val().toLowerCase();
