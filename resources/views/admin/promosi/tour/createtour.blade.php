@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-center">
       <div class="col-sm-11 mx-4">
-            <form action="{{route('store_camp')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('store_tour')}}" method="POST" enctype="multipart/form-data">
               @csrf
                 <div class="row">
                     <div class="col mb-3">

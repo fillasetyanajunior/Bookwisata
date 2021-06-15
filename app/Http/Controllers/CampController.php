@@ -18,8 +18,8 @@ class CampController extends Controller
      */
     public function index()
     {
-        $data['camp'] = Camp::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Posting Perlengkapan Camping & Outdoor';
+        $data['camp']  = Camp::where('user_id',request()->user()->id)->get();
+        $data['title'] = 'Promosi Alat Camping & Outdoor';
         return view('admin.promosi.camp.showcamp', $data);
     }
 
@@ -30,7 +30,7 @@ class CampController extends Controller
      */
     public function create()
     {
-        $data['title']  = 'Create Posting Perlengkapan Camping & Outdoor';
+        $data['title']  = 'Create Promosi Alat Camping & Outdoor';
         $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
         $response       = $url['provinsi'];
         return view('admin.promosi.camp.createcamp', compact('response'), $data);
@@ -109,7 +109,7 @@ class CampController extends Controller
      */
     public function edit(Camp $camp)
     {
-        $data['title']      = 'Update Posting Perlengkapan Camping & Outdoor';
+        $data['title']      = 'Update Promosi Alat Camping & Outdoor';
         $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
         $data['response']   = $url['provinsi'];
         return view('admin.promosi.camp.updatecamp', compact('camp'), $data);

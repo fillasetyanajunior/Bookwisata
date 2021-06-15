@@ -120,7 +120,7 @@
         <div class="slider-area ">
             <!-- Mobile Menu -->
             <div class="slider-active">
-                <div class="single-slider hero-overly  slider-height d-flex align-items-center" data-background="{{url('assets/utama/img/hero/h1_hero.jpg')}}">
+                <div class="single-slider hero-overly slider-height d-flex align-items-center" data-background="{{url('assets/utama/img/hero/h1_hero.jpg')}}">
                     <div class="container">
                         <div class="row">
                             <div class="col-xl-9 col-lg-9 col-md-9">
@@ -263,7 +263,7 @@
                                     <!-- founder -->
                                     <div class="testimonial-founder d-flex align-items-center justify-content-center">
                                         <div class="founder-img">
-                                            <img src="{{url('assets/utama/img/testmonial/Homepage_testi.png')}}" alt="">
+                                            <img src="{{url('assets/utama/img/testmonial/Homepage_testi.png')}}" alt="" white>
                                         </div>
                                         <div class="founder-text">
                                             <span>Jessya Inn</span>

@@ -90,7 +90,7 @@ Route::get('/detailpaket/{paket}', [PromosiPaketController::class,'show'])->name
 Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])->name('detailkuliner');
 Route::get('/detailtour/{tour}', [PromosiTourController::class,'show'])->name('detailtour');
 Route::get('/detailsepeda/{sepeda}', [PromosiSepedaController::class,'show'])->name('detailsepeda');
-Route::get('/detailCamp/{Camp}', [PromosiCampController::class,'show'])->name('detailcamp');
+Route::get('/detailcamp/{camp}', [PromosiCampController::class,'show'])->name('detailcamp');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     

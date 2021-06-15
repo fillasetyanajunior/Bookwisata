@@ -56,7 +56,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Rental Mobil</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Car</h3>
                     </div>
                 </div>
             </div>
@@ -108,8 +108,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
-                        <span>Bookwista | Bus Pariwisata</span>
-                        <h3>Favourite Places</h3>
+                        <span>Bookwisata | Bus Pariwisata</span>
+                        <h3>Favourite Tourist Bus</h3>
                     </div>
                 </div>
             </div>
@@ -162,7 +162,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Paket wisata</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Tour</h3>
                     </div>
                 </div>
             </div>
@@ -217,7 +217,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Cruises</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Cruise</h3>
                     </div>
                 </div>
             </div>
@@ -272,7 +272,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Hotel/Penginapan</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Hotel</h3>
                     </div>
                 </div>
             </div>
@@ -327,7 +327,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Tour Guide Indonesia</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Tour Guide</h3>
                     </div>
                 </div>
             </div>
@@ -437,7 +437,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Destinasi Wisata Indonesia</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Destinasi</h3>
                     </div>
                 </div>
             </div>
@@ -492,7 +492,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Pusat oleh-oleh</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Shopping</h3>
                     </div>
                 </div>
             </div>
@@ -547,7 +547,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Rental Sepeda motor & Gowes</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Camping & Outdoor</h3>
                     </div>
                 </div>
             </div>
@@ -602,7 +602,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Perlengkapan Camping & Outdoor</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Tour Equipment</h3>
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Perlengkapan Tour</span>
-                        <h3>Favourite Places</h3>
+                        <h3>Favourite Motorbike Rental</h3>
                     </div>
                 </div>
             </div>

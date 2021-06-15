@@ -118,7 +118,7 @@ class SubMenuSeeder extends Seeder
         ]);
         DB::table('sub_menu')->insert([
             'menu_id' => '4',
-            'sub_menu' => 'Promosi Perlengkapan Camping & Outdor',
+            'sub_menu' => 'Promosi Alat Camping & Outdoor',
             'icon' => 'fas fa-campground',
             'url' => 'camp',
         ]);
