@@ -59,12 +59,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/pdf/{id}',[PdfController::class, 'PdfGenerate']);
 
 Route::get('/coba',function (){
-    return view('email.coba');
+    return view('home.lowongankerja');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
 Route::get('/',[UtamaController::class,'index']);
 Route::post('/',[UtamaController::class,'Pencarian']);
+
+Route::get('/daftarlayananmitra', [UtamaController::class,'LayananMitra'])->name('daftarlayananmitra');
+Route::get('/faq', [UtamaController::class,'Faq'])->name('faq');
+Route::get('/contact', [UtamaController::class,'Contact'])->name('contact');
+Route::get('/lowongankerja', [UtamaController::class,'LowonganKerja'])->name('lowongankerja');
 
 Route::get('/listofbus',[UtamaController::class, 'ListOfBus'])->name('listofbus');
 Route::get('/listofmobil',[UtamaController::class, 'ListOfMobil'])->name('listofmobil');

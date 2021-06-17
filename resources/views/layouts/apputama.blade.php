@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{url('assets/utama/css/slick.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/style.css') }}">
+    <link rel="stylesheet" href="{{url('assets/utama/css/responsive.css') }}">
     
 </head>
 
@@ -159,14 +160,14 @@
 
         @yield('main')
         <!-- Video Start Arera -->
-        <div class="video-area video-bg pt-200 pb-200"  data-background="{{url('assets/utama/img/service/video-bg.jpg')}}">
+        {{-- <div class="video-area video-bg pt-200 pb-200" data-background="{{url('assets/utama/img/service/video-bg.jpg')}}">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="video-caption text-center">
-                            {{-- <div class="video-icon">
+                            <div class="video-icon">
                                 <a class="popup-video" href="https://www.youtube.com/watch?v=1aP-TXUpNoU" tabindex="0"><i class="fas fa-play"></i></a>
-                            </div> --}}
+                            </div>
                             <p class="pera2"></p>
                             <p class="pera1" style="font-size: 16pt">
                                 
@@ -176,7 +177,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Video Start End -->
         <!-- Support Company Start-->
         {{-- <div class="support-company-area support-padding fix">
@@ -278,123 +279,6 @@
             </div>
         </div> --}}
         <!-- Testimonial End -->
-        <!-- Blog Area Start -->
-        <div class="home-blog-area my-5">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle text-center">
-                            <span>Bookwisata</span>
-                            <h3>Layanan Mitra</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <center>
-                                <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                    <div class="card-header bg-success"><h3>Trial Mitra</h3></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Trial Mitra 30 Hari</h4>
-                                        <p class="card-text" style="color: white">Trial</p>
-                                        <p class="card-text">0</p>
-                                        <form action="/layananmitra" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="5">
-                                            <input type="hidden" name="harga" value="0">
-                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <center>
-                                <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                    <div class="card-header bg-success"><h3>Termurah</h3></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Layanan 3 Bulan</h4>
-                                        <p class="card-text" style="color: white">pemula</p>
-                                        <p class="card-text">150.000.-/3 Bulan</p>
-                                        <form action="/layananmitra" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="1">
-                                            <input type="hidden" name="harga" value="150000">
-                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <center>
-                                <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                    <div class="card-header bg-success"><h3>Diskon 30%</h3></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Layanan 6 Bulan</h4>
-                                        <p class="card-text"><s>400.000.-</s></p>
-                                        <p class="card-text">280.000.-/6 Bulan</p>
-                                        <form action="/layananmitra" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="2">
-                                            <input type="hidden" name="harga" value="280000">
-                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <center>
-                                <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                    <div class="card-header bg-success"><h3>Diskon 75%</h3></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Layanan 2 Tahun</h4>
-                                        <p class="card-text"><s>1.000.000.-</s></p>
-                                        <p class="card-text">750.000.-/6 Bulan</p>
-                                        <form action="/layananmitra" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="3">
-                                            <input type="hidden" name="harga" value="750000">
-                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="single-place mb-30">
-                            <center>
-                                <div class="card text-white  mb-3" style="max-width: 18rem;">
-                                    <div class="card-header bg-success"><h3>Diskon 50%</h3></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Layanan 1 Tahun</h4>
-                                        <p class="card-text"><s>1.000.000.-</s></p>
-                                        <p class="card-text">500.000.-/Bln</p>
-                                        <form action="/layananmitra" method="post">
-                                            @csrf
-                                            <input type="hidden" name="id" value="4">
-                                            <input type="hidden" name="harga" value="500000">
-                                            <button type="submit" class="btn btn-primary">Pilih Sekarang</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </center>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Blog Area End -->
     </main>
           <footer>
             <!-- Footer Start-->
@@ -423,12 +307,12 @@
                                 <div class="footer-tittle">
                                     <h4>Customer Support</h4>
                                     <ul>
-                                        <li><a href="/login">Login</a></li>
-                                        <li><a href="#">Layana Promosi Usaha</a></li>
+                                        <li><a href="{{route('login')}}">Login</a></li>
+                                        <li><a href="{{route('daftarlayananmitra')}}">Layana Promosi Usaha</a></li>
                                         <li><a href="#">Cara Booking</a></li>
-                                        <li><a href="#">FAQ</a></li>
-                                        <li><a href="#">Contact</a></li>
-                                        <li><a href="#">Lowongan Kerja</a></li>
+                                        <li><a href="{{route('faq')}}">FAQ</a></li>
+                                        <li><a href="{{route('contact')}}">Contact</a></li>
+                                        <li><a href="{{route('lowongankerja')}}">Lowongan Kerja</a></li>
                                     </ul>
                                 </div>
                             </div>

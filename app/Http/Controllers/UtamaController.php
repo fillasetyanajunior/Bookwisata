@@ -170,4 +170,20 @@ class UtamaController extends Controller
             return redirect('/')->with('status', 'Pilihan Anda Tidak Ada');
         }
     }
+    public function LayananMitra()
+    {
+        return view('home.mitra');
+    }
+    public function Faq()
+    {
+        return view('home.faq');
+    }
+    public function Contact()
+    {
+        return view('home.contact');
+    }
+    public function LowonganKerja()
+    {
+        return view('home.lowongankerja');
+    }
 }

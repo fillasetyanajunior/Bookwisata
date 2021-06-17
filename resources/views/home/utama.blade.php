@@ -547,7 +547,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Rental Sepeda motor & Gowes</span>
-                        <h3>Favourite Camping & Outdoor</h3>
+                        <h3>Favourite Motorbike Rental</h3>
                     </div>
                 </div>
             </div>
@@ -601,8 +601,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
-                        <span>Bookwisata | Perlengkapan Camping & Outdoor</span>
-                        <h3>Favourite Tour Equipment</h3>
+                        <span>Bookwisata | Alat Camping & Outdoor</span>
+                        <h3>Favourite Camping & Outdoor</h3>
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
                         <span>Bookwisata | Perlengkapan Tour</span>
-                        <h3>Favourite Motorbike Rental</h3>
+                        <h3>Favourite Tour Equipment</h3>
                     </div>
                 </div>
             </div>
