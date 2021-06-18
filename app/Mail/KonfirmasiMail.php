@@ -33,7 +33,6 @@ class KonfirmasiMail extends Mailable
         $data               = Riwayat::where('id',$id)->first();
         $detail             = DetailRiwayat::where('id',$data->id_detail_riwayat)->first();
         $this->qrkode       = $data->qr_code;
-        $this->harga        = $detail->total;
         $this->waktupayment = $data->waktu_payment;
         $this->nama         = $detail->nama_pilihan;
         $this->company      = $data->company;
@@ -42,6 +41,15 @@ class KonfirmasiMail extends Mailable
         $this->nomer        = $detail->nomerhp;
         $this->email        = $detail->email;
         $this->note         = $detail->note;
+
+        if ($data->event == null) {
+            $this->harga = $detail->total + $data->cost; 
+        }elseif ($data->cost == null ) {
+            $this->harga = $detail->total - $data->event;
+        } else {
+            $this->harga = $detail->total;
+        }
+        
     }
 
     /**

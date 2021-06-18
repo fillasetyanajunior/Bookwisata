@@ -116,7 +116,7 @@
                 <input type="text" class="form-control jumlahpesanandetailriwayat" id="jumlahpesanan " name="jumlahpesanan" value="{{$riwayat_detail->jumlahpesanan}} ">
             </div>
             <div class="mb-3">
-                <label for="potongan" class="form-label">Potongan</label>
+                <label for="potongan" class="form-label">Admin</label>
                 <input type="text" class="form-control potongandetailriwayat" id="potongan " name="potongan" value="{{$riwayat_detail->potongan}} ">
             </div>
             <div class="mb-3">
@@ -130,6 +130,10 @@
             <div class="mb-3">
                 <label for="date" class="form-label">Tanggal Pemakaian</label>
                 <input type="text" class="form-control datedetailriwayat" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat_detail->date))}} ">
+            </div>
+             <div class="mb-3">
+                <label for="note">Note Customer</label>
+                <textarea class="form-control notedetailriwayat" id="note " rows="3">{{$riwayat->note}}</textarea>
             </div>
             <div class="mb-3">
                 @php
@@ -146,9 +150,13 @@
                 <label for="is_active" class="form-label">Status Pesanan</label>
                 <input type="text" class="form-control isactivedetailriwayat" name="is_active " id="is_active " value="{{$is_active}}">
             </div>
+           <div class="mb-3">
+                <label for="cost" class="form-label">Cost</label>
+                <input type="text" class="form-control costdetailriwayat" id="cost " name="cost" value="{{$riwayat->cost}}">
+            </div>
             <div class="mb-3">
-                <label for="note">Note Customer</label>
-                <textarea class="form-control notedetailriwayat" id="note " rows="3">{{$riwayat->note}}</textarea>
+                <label for="event" class="form-label">Diskon</label>
+                <input type="text" class="form-control eventdetailriwayat" id="event " name="event" value="{{$riwayat->event}}">
             </div>
         </div>
     </div>

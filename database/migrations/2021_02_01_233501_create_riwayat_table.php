@@ -23,6 +23,8 @@ class CreateRiwayatTable extends Migration
             $table->dateTime('waktu_payment')->nullable();
             $table->string('qr_code')->nullable();
             $table->text('note')->nullable();
+            $table->integer('cost')->nullable();
+            $table->integer('event')->nullable();
             $table->timestamps();
         });
     }

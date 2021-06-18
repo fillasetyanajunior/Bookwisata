@@ -1,5 +1,6 @@
 @extends('layouts.apputama')
 @section('main')
+<x-pencarian></x-pencarian>
     <!-- Our Services Start -->
     <div class="our-services servic-padding">
         <div class="container">

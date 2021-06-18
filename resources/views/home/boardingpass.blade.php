@@ -84,6 +84,19 @@
                         <th scope="row">PPN %</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                     </tr>
+                    @php
+                        if ($riwayat->cost == null) {
+                            $tambahan = $riwayat->event;
+                        } elseif ($riwayat->event == null) {
+                            $tambahan  = $riwayat->cost;
+                        } else{
+                            $tambahan = 0;
+                        }
+                    @endphp
+                    <tr>
+                        <th scope="row">Cost/Diskon</th>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($tambahan)),3)))}}</td>
+                    </tr>
                     <tr>
                         <th scope="row">Total</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->total)),3)))}}</td>

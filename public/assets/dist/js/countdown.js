@@ -31,6 +31,23 @@ $(document).ready(function () {
     $(".datekonfirmasi").attr("disabled",true)
     $(".notekonfirmasi").attr("disabled",true)
 
+    $('.cost').hide()
+    $('.event').hide()
+    $('#cost').click(function(){
+            if ($(this).is(':checked')){
+                $('.cost').show()
+            }else{
+                $('.cost').hide()
+            }
+        });
+    $('#event').click(function(){
+            if ($(this).is(':checked')){
+                $('.event').show()
+            }else{
+                $('.event').hide()
+            }
+        });
+
     //Pilihan Pembayaran
     $(".konfirmasimitra").hide()
     

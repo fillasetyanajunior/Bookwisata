@@ -118,7 +118,7 @@
                     <input type="text" class="form-control jumlahpesanankonfirmasi" id="jumlahpesanan " name="jumlahpesanan" value="{{$riwayat->jumlahpesanan}} ">
                 </div>
                 <div class="mb-3">
-                    <label for="potongan" class="form-label">Potongan</label>
+                    <label for="potongan" class="form-label">Admin</label>
                     <input type="text" class="form-control potongankonfirmasi" id="potongan " name="potongan" value="{{$riwayat->potongan}} ">
                 </div>
                 <div class="mb-3">
@@ -132,6 +132,10 @@
                 <div class="mb-3">
                     <label for="date" class="form-label">Tanggal Pemakaian</label>
                     <input type="text" class="form-control datekonfirmasi" id="date " name="date" value="{{date('d-F-Y',strtotime($riwayat->date))}} ">
+                </div>
+                 <div class="mb-3">
+                    <label for="note">Note Customer</label>
+                    <textarea class="form-control notekonfirmasi" id="note" rows="3">{{$riwayat->note}}</textarea>
                 </div>
                 <div class="mb-3">
                     <label for="is_active" class="form-label">Status Pesanan</label>
@@ -152,11 +156,23 @@
                         <option value="3">24 Jam</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <label for="note">Note Customer</label>
-                    <textarea class="form-control notekonfirmasi" id="note" rows="3">{{$riwayat->note}}</textarea>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="cost" value="option1">
+                    <label class="form-check-label" for="cost">Cost</label>
                 </div>
-                <button type="submit" class="btn btn-primary" name="submit">Konfirmasi</button>
+                <div class="form-check form-check">
+                    <input class="form-check-input" type="checkbox" id="event" value="option2">
+                    <label class="form-check-label" for="event">Diskon</label>
+                </div>
+                <div class="mb-3 cost">
+                    <label for="cost" class="form-label">Cost</label>
+                    <input type="text" class="form-control" id="cost " name="cost">
+                </div>
+                <div class="mb-3 event">
+                    <label for="event" class="form-label">Diskon</label>
+                    <input type="text" class="form-control" id="event " name="event">
+                </div>
+                <button type="submit" class="btn btn-primary my-3" name="submit">Konfirmasi</button>
             </form>
         </div>
     </div>

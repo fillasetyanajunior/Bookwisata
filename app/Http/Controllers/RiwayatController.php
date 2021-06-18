@@ -71,26 +71,33 @@ class RiwayatController extends Controller
             }else{
                 if ($request->is_active == 2) {
                     
+                     $waktu_payment = null;
                     if ($request->time_payment == 1) {
-                        Riwayat::where('id',$riwayat->id)
-                                ->update([
-                                    'is_active'     => $request->is_active,
-                                    'waktu_payment' => date('Y-m-d H:i:s', strtotime('+4 hours'))
-                                ]);
+                         $waktu_payment = date('Y-m-d H:i:s', strtotime('+4 hours'));
                     } else if ($request->time_payment == 2) {
-                        Riwayat::where('id',$riwayat->id)
-                                ->update([
-                                    'is_active'     => $request->is_active,
-                                    'waktu_payment' => date('Y-m-d H:i:s', strtotime('+12 hours'))
-                                ]);
+                         $waktu_payment = date('Y-m-d H:i:s', strtotime('+12 hours'));
                     }else{
-                        Riwayat::where('id', $riwayat->id)
-                            ->update([
-                                'is_active'     => $request->is_active,
-                                'waktu_payment' => date('Y-m-d H:i:s', strtotime('+24 hours'))
-                            ]);
+                        $waktu_payment = date('Y-m-d H:i:s', strtotime('+24 hours'));
                     }
 
+                    if ($request->cost == null) {
+                        $event = $request->event;
+                        $cost  = null;
+                    } elseif ($request->event == null) {
+                        $event = null;
+                        $cost  = $request->cost;
+                    } else{
+                        $event = null;
+                        $cost  = null;
+                    }
+                    
+                    Riwayat::where('id',$riwayat->id)
+                            ->update([
+                                'is_active'     => $request->is_active,
+                                'waktu_payment' => $waktu_payment,
+                                'cost'          => $cost,
+                                'event'         => $event,
+                            ]);
                     Mail::to($cek->email)->send(new KonfirmasiMail($riwayat->id));
                     
                 } elseif($request->is_active == 3){
