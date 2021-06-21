@@ -39,7 +39,7 @@ class PromosiHotelController extends Controller
 
     public function store(Hotel $hotel, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $hotel->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

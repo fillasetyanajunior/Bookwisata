@@ -35,7 +35,7 @@ class PromosiMobilController extends Controller
 
     public function store(Mobil $mobil, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $mobil->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

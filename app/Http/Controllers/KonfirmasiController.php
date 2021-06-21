@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Konfirmasi;
 use App\Models\KonfirmasiPembayaran;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
@@ -29,8 +30,11 @@ class KonfirmasiController extends Controller
         $name = time() . rand(1,100) . '.' . $file->extension();
         $file->storeAs('konfirmasi',$name);
 
+        $id_owner = Riwayat::where('qr_code',$request->qr_kode)->first();
+
         if ($request->pilihan_konfirmasi == 1) {
             Konfirmasi::create([
+                'id_owner'          => $id_owner->user_id_owner,
                 'id_user'           => request()->user()->id,
                 'nama'              => $request->nama_produk,
                 'qrcode'            => $request->qr_kode,
@@ -44,7 +48,7 @@ class KonfirmasiController extends Controller
                 'filekonfirmasi'    => $name,
             ]);
         }
-        return redirect('konfirmasi_pembayaran')->with('status','Konfirmasi Telah Dikirim Tolong Tunggu Beberapa Menit Untuk Mengeceknya');
+        return redirect('konfirmasi_pembayaran')->with('status','Konfirmasi Telah Dikirim Mohon Tunggu Beberapa Menit Untuk Mengeceknya');
     }
     public function index()
     {
@@ -54,6 +58,7 @@ class KonfirmasiController extends Controller
             $data['mitra'] = KonfirmasiPembayaran::all();
         }elseif(request()->user()->role == 2){
             $data['konfirmasi'] = Konfirmasi::where('id_user',request()->user()->id)->get();
+            $data['konfirmasi_unit'] = Konfirmasi::where('id_owner',request()->user()->id)->get();
             $data['mitra'] = KonfirmasiPembayaran::where('id_user',request()->user()->id)->get();
         }else{
             $data['konfirmasi'] = Konfirmasi::where('id_user',request()->user()->id)->get();

@@ -35,7 +35,7 @@ class PromosiPaketController extends Controller
 
     public function store(Paket $paket, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $paket->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

@@ -40,7 +40,7 @@ class KonfirmasiMail extends Mailable
         $this->durasi       = $detail->durasi;
         $this->nomer        = $detail->nomerhp;
         $this->email        = $detail->email;
-        $this->note         = $detail->note;
+        $this->note         = $data->note;
 
         if ($data->event == null) {
             $this->harga = $detail->total + $data->cost; 

@@ -151,7 +151,7 @@
                 <input type="text" class="form-control isactivedetailriwayat" name="is_active " id="is_active " value="{{$is_active}}">
             </div>
            <div class="mb-3">
-                <label for="cost" class="form-label">Cost</label>
+                <label for="cost" class="form-label">Tambahan Biaya</label>
                 <input type="text" class="form-control costdetailriwayat" id="cost " name="cost" value="{{$riwayat->cost}}">
             </div>
             <div class="mb-3">

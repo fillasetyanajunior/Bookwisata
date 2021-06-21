@@ -35,7 +35,7 @@ class PromosiKulinerController extends Controller
 
     public function store(Kuliner $kuliner, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $kuliner->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

@@ -15,6 +15,7 @@ class CreateKonfirmasisTable extends Migration
     {
         Schema::create('konfirmasis', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_owner');
             $table->integer('id_user');
             $table->string('nama');
             $table->string('qrcode');

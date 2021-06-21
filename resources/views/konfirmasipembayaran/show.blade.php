@@ -43,6 +43,9 @@
             <select class="form-control pilihankonfrimasi d-inline my-3 col-2">
                 <option value="1">Pembayaran Pesanan</option>
                 <option value="2">Pembayaran Mitra</option>
+                @if (request()->user()->role == 2)
+                <option value="3">Pembayaran Unit</option>
+                @endif
             </select>
 
             <table class="table bg-info konfirmasipembayaran">
@@ -51,7 +54,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama Produk</th>
                         <th scope="col">Kode Transaksi</th>
-                        @if (request()->user()->role == 1)
+                        @if (request()->user()->role == 1 || request()->user()->role == 2)
                             <th scope="col">Aksi</th>
                         @endif
                     </tr>
@@ -63,7 +66,7 @@
                         <th scope="row">{{$i}}</th>
                         <td>{{$konfirmasi->nama}} </td>
                         <td>{{$konfirmasi->qrcode}} </td>
-                        @if (request()->user()->role == 1)
+                        @if (request()->user()->role == 1 || request()->user()->role == 2)
                         <td>
                             <a class="btn btn-success" href="/konfirmasi_pembayaran/{{$konfirmasi->id}}">View</a>
                         </td>
@@ -73,6 +76,36 @@
                     @endforeach
                 </tbody>
             </table>
+            @if (request()->user()->role == 2)
+            <table class="table bg-info konfirmasipembayaranunit">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Produk</th>
+                        <th scope="col">Kode Transaksi</th>
+                        @if (request()->user()->role == 1 || request()->user()->role == 2)
+                            <th scope="col">Aksi</th>
+                        @endif
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i=1;?>
+                    @foreach ($konfirmasi_unit as $konfirmasi_unit)
+                    <tr>
+                        <th scope="row">{{$i}}</th>
+                        <td>{{$konfirmasi_unit->nama}} </td>
+                        <td>{{$konfirmasi_unit->qrcode}} </td>
+                        @if (request()->user()->role == 1 || request()->user()->role == 2)
+                        <td>
+                            <a class="btn btn-success" href="/konfirmasi_pembayaran/{{$konfirmasi_unit->id}}">View</a>
+                        </td>
+                        @endif
+                    </tr>
+                    <?php $i++;?>
+                    @endforeach
+                </tbody>
+            </table>
+            @endif
             <table class="table bg-info konfirmasimitra">
                 <thead>
                     <tr>

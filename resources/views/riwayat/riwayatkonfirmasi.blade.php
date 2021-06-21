@@ -165,7 +165,7 @@
                     <label class="form-check-label" for="event">Diskon</label>
                 </div>
                 <div class="mb-3 cost">
-                    <label for="cost" class="form-label">Cost</label>
+                    <label for="cost" class="form-label">Tambahan Biaya</label>
                     <input type="text" class="form-control" id="cost " name="cost">
                 </div>
                 <div class="mb-3 event">

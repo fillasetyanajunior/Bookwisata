@@ -35,7 +35,7 @@ class PromosiBusController extends Controller
     
     public function store(Bus $bus, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $bus->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

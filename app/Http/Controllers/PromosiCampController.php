@@ -35,7 +35,7 @@ class PromosiCampController extends Controller
 
     public function store(Camp $camp, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $camp->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

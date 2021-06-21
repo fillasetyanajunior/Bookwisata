@@ -35,7 +35,7 @@ class PromosiGuideController extends Controller
 
     public function store(Guide $guide, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $guide->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

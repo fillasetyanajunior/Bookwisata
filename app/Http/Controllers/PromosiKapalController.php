@@ -35,7 +35,7 @@ class PromosiKapalController extends Controller
 
     public function store(Kapal $kapal, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $kapal->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

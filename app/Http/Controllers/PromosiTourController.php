@@ -35,7 +35,7 @@ class PromosiTourController extends Controller
 
     public function store(Tour $tour, Request $request)
     {
-        $potongan = 100000;
+        $potongan = 25000;
         $harga = $tour->harga;
         $hari = $request->hari;
         $pesanan = $request->pesanan;

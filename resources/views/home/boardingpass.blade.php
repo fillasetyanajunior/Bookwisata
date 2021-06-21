@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Pesanan</th>
-                        <td>: {{$riwayat->jumlahpesanan}} Pesanan</td>
+                        <td>: {{$riwayat->jumlahpesanan}} Unit</td>
                     </tr>
                     <tr>
                         <th scope="row">Jumlah Hari </th>
@@ -81,14 +81,14 @@
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}&nbsp;Hari</td>
                     </tr>
                     <tr>
-                        <th scope="row">PPN %</th>
+                        <th scope="row">Admin %</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                     </tr>
                     @php
                         if ($riwayat->cost == null) {
-                            $tambahan = $riwayat->event;
+                            $tambahan = ('-' . $riwayat->event);
                         } elseif ($riwayat->event == null) {
-                            $tambahan  = $riwayat->cost;
+                            $tambahan = ('+' . $riwayat->cost);
                         } else{
                             $tambahan = 0;
                         }
@@ -97,9 +97,18 @@
                         <th scope="row">Cost/Diskon</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($tambahan)),3)))}}</td>
                     </tr>
+                    @php
+                        if ($riwayat->cost == null) {
+                            $total = $riwayat->total - $tambahan;
+                        } elseif ($riwayat->event == null) {
+                            $total = $riwayat->total + $tambahan;
+                        } else{
+                            $total = 0;
+                        }
+                    @endphp
                     <tr>
                         <th scope="row">Total</th>
-                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->total)),3)))}}</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($total)),3)))}}</td>
                     </tr>
                 </tbody>
             </table>

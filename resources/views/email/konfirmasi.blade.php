@@ -93,14 +93,6 @@
                                                         </tr>
                                                         <tr>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:16px; color:#333333; ">Durasi</p>
-                                                            </td>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
-                                                                <p style="font-size:16px; color:#333333;">{{$durasi}}</p>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">
                                                                 <p style="font-size:16px; color:#333333; ">Nomer Hp</p>
                                                             </td>
                                                             <td style="padding: 0.75rem;vertical-align: top;border-top: 1px solid #dee2e6;">

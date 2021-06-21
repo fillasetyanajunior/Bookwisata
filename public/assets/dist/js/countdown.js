@@ -50,6 +50,7 @@ $(document).ready(function () {
 
     //Pilihan Pembayaran
     $(".konfirmasimitra").hide()
+    $(".konfirmasipembayaranunit").hide()
     
     $(".pilihankonfrimasi").on('change',function () {
         var konfirmasi = $(".pilihankonfrimasi").val()
@@ -57,9 +58,15 @@ $(document).ready(function () {
         if (konfirmasi == 1) {
             $(".konfirmasipembayaran").show()
             $(".konfirmasimitra").hide()
-        } else {
+            $(".konfirmasipembayaranunit").hide()
+        }else if (konfirmasi == 2) {
             $(".konfirmasipembayaran").hide()
             $(".konfirmasimitra").show()
+            $(".konfirmasipembayaranunit").hide()
+        } else {
+            $(".konfirmasipembayaran").hide()
+            $(".konfirmasimitra").hide()
+            $(".konfirmasipembayaranunit").show()
         }
     })
 
