@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Konfirmasi;
 use App\Models\KonfirmasiPembayaran;
+use App\Mail\KonfirmasiPembayaranMail;
 use App\Models\Riwayat;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Mail;
 
 class KonfirmasiController extends Controller
 {
@@ -33,13 +36,16 @@ class KonfirmasiController extends Controller
         $id_owner = Riwayat::where('qr_code',$request->qr_kode)->first();
 
         if ($request->pilihan_konfirmasi == 1) {
-            Konfirmasi::create([
+            $id = Konfirmasi::create([
                 'id_owner'          => $id_owner->user_id_owner,
                 'id_user'           => request()->user()->id,
                 'nama'              => $request->nama_produk,
                 'qrcode'            => $request->qr_kode,
                 'filekonfirmasi'    => $name,
             ]);
+            
+            $email = User::where('id',$id_owner->user_id_owner)->first();
+            Mail::to($email->email)->send(new KonfirmasiPembayaranMail($id->id));
         }else{
             KonfirmasiPembayaran::create([
                 'id_user'           => request()->user()->id,
