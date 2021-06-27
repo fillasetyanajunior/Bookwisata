@@ -721,7 +721,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="single-place mb-30">
                         <div class="place-img">
-                            <img src="{{asset('informasi/' . $info->foto)}}" alt="" height="250px">
+                            <img src="{{asset('informasi/' . $info->file)}}" alt="" height="250px">
                         </div>
                         <div class="place-cap">
                             <div class="place-cap-top">
