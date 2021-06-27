@@ -32,7 +32,7 @@
                 @csrf
                <div class="mb-3">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="titleinformasi" value="{{$informasi->titleinformasi}}">
+                    <input type="text" class="form-control" id="title" name="titleinformasi" value="{{$informasi->title}}">
                 </div>
                 <div class="mb-3">
                     <label for="informasi">Isi Informasi</label>
