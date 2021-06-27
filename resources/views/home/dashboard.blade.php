@@ -35,6 +35,7 @@
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
+                            <img src="{{asset('informasi/' . $informasi->file)}}" alt="" width="370px">
                             <h4>{{$informasi->title}}</h4>
 
                             <p>{{$informasi->informasi}}</p>

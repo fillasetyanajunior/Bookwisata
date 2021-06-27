@@ -36,7 +36,7 @@ class UtamaController extends Controller
         $data['sepeda']     = Sepeda::paginate(3);   
         $data['camp']       = Camp::paginate(3);   
         $data['tour']       = Tour::paginate(3);   
-        $data['info']       = Informasi::paginate(3);   
+        $data['info']       = Informasi::orderBy('updated_at','desc')->where('pilihinformasi', 1)->paginate(3);   
         return view('home.utama',$data);
     }
     public function ListOfBus()

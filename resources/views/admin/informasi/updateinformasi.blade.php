@@ -39,6 +39,14 @@
                     <label for="informasi">Isi Informasi</label>
                     <textarea class="form-control" id="informasi" rows="3" name="informasi">{{$informasi->informasi}}</textarea>
                 </div>
+                <div class="form-group">
+                    <label for="pilihinformasi">Pilih Informasi</label>
+                    <select class="form-control" id="pilihinformasi" name="pilihinformasi">
+                    <option value="">Pilih Informasi</option>
+                    <option value="1" @if ($informasi->pilihinformasi == 1) selected @endif>Informasi Umum</option>
+                    <option value="2" @if ($informasi->pilihinformasi == 2) selected @endif>Informasi Khusus</option>
+                    </select>
+                </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input check" id="check">
                     <label class="form-check-label" for="check">Foto</label>

@@ -38,6 +38,14 @@
                     <label for="informasi">Isi Informasi</label>
                     <textarea class="form-control @error('informasi') is-invalid @enderror" id="informasi" rows="3" name="informasi"></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="pilihinformasi">Pilih Informasi</label>
+                    <select class="form-control" id="pilihinformasi" name="pilihinformasi">
+                    <option value="">Pilih Informasi</option>
+                    <option value="1">Informasi Umum</option>
+                    <option value="2">Informasi Khusus</option>
+                    </select>
+                </div>
                 <div class="mb-3">
                     <label for="file">Foto</label>
                     <input type="file" class="form-control-file" id="file" name="file">

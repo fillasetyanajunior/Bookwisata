@@ -52,6 +52,7 @@ class InformasiController extends Controller
         Informasi::create([
             'title'             => $request->title,
             'informasi'         => $request->informasi,
+            'pilihinformasi'    => $request->pilihinformasi,
             'file'              => $name,
         ]);
         return redirect()->route('informasi')->with('status','Tambah Informasi Berhasil');
@@ -100,6 +101,7 @@ class InformasiController extends Controller
                     ->update([
                     'title'             => $request->title,
                     'informasi'         => $request->informasi,
+                    'pilihinformasi'    => $request->pilihinformasi,
                     'file'              => $request->file,
             ]);
         } else {   
@@ -107,6 +109,7 @@ class InformasiController extends Controller
                     ->update([
                     'title'             => $request->title,
                     'informasi'         => $request->informasi,
+                    'pilihinformasi'    => $request->pilihinformasi,
             ]);
         }
         
