@@ -717,23 +717,23 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($informasi as $informasi)
+                @foreach ($info as $info)
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="single-place mb-30">
                         <div class="place-img">
-                            <img src="{{asset('informasi/' . $informasi->foto)}}" alt="" height="250px">
+                            <img src="{{asset('informasi/' . $info->foto)}}" alt="" height="250px">
                         </div>
                         <div class="place-cap">
                             <div class="place-cap-top">
-                                <h3><a href="#">{{$informasi->title}} </a></h3>
-                                <h4>{{Str::limit($informasi->informasi,200)}}</h4>
+                                <h3><a href="#">{{$info->title}} </a></h3>
+                                <h4>{{Str::limit($info->informasi,200)}}</h4>
                             </div>
                             <div class="place-cap-bottom">
                                 <ul>
-                                    <li><i class="far fa-clock"></i>{{ $informasi->updated_at}}</li>
+                                    <li><i class="far fa-clock"></i>{{ $info->updated_at}}</li>
                                 </ul>
                             </div>
-                            <a href="/detailinformasi/{{$informasi->id}}" class="btn btn-primiry mt-3">Baca Selengkapnya</a>
+                            <a href="/detailinformasi/{{$info->id}}" class="btn btn-primiry mt-3">Baca Selengkapnya</a>
                         </div>
                     </div>
                 </div>
