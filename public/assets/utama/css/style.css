@@ -5854,7 +5854,7 @@ del {
 }
 
 .slider-height {
-    min-height: 250px;
+    min-height: 450px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover
@@ -5862,19 +5862,19 @@ del {
 
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
     .slider-height {
-        min-height: 200px
+        min-height: 250px
     }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     .slider-height {
-        min-height: 200px
+        min-height: 250px
     }
 }
 
 @media (max-width: 767px) {
     .slider-height {
-        min-height: 200px
+        min-height: 250px
     }
 }
 
