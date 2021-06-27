@@ -31,6 +31,15 @@ $(document).ready(function () {
     $(".datekonfirmasi").attr("disabled",true)
     $(".notekonfirmasi").attr("disabled",true)
 
+    $('.fileinformasi').hide()
+    $('#check').click(function () {
+        if ($(this).is(':checked')) {
+            $('.fileinformasi').show()
+        } else {
+            $('.fileinformasi').hide()
+        }
+    });
+
     $('.cost').hide()
     $('.event').hide()
     $('#cost').click(function(){

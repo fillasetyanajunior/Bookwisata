@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4 my-4">
-            <form action="/informasi/{{$infromasi->id}}" method="POST" enctype="multipart/form-data">
+            <form action="/informasi/{{$informasi->id}}" method="POST" enctype="multipart/form-data">
                 @csrf
                <div class="mb-3">
                     <label for="title">Title</label>
@@ -39,7 +39,7 @@
                     <textarea class="form-control" id="informasi" rows="3" name="informasi">{{$informasi->informasi}}</textarea>
                 </div>
                 <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="check">
+                    <input type="checkbox" class="form-check-input check" id="check">
                     <label class="form-check-label" for="check">Foto</label>
                 </div>
                 <div class="mb-3 fileinformasi">

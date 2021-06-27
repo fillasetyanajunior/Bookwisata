@@ -49,7 +49,7 @@
                     @foreach ($informasi as $informasis)
                     <tr>
                         <th scope="row">{{$i}}</th>
-                        <td>{{$informasis->titleinformasi}}</td>
+                        <td>{{$informasis->title}}</td>
                         <td>{{Str::limit($informasis->informasi, 300)}}</td>
                         <td>
                             <a class="btn btn-warning" href="/informasi/{{$informasis->id}}">Edit</a>
