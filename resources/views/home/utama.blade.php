@@ -726,7 +726,7 @@
                         <div class="place-cap">
                             <div class="place-cap-top">
                                 <h3><a href="#">{{$info->title}} </a></h3>
-                                <h4>{{Str::limit($info->informasi,200)}}</h4>
+                                <p></p>{{Str::limit($info->informasi,200)}}</p>
                             </div>
                             <div class="place-cap-bottom">
                                 <ul>
