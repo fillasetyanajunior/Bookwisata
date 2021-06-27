@@ -65,7 +65,7 @@ class InformasiController extends Controller
      */
     public function show(Informasi $informasi)
     {
-        //
+        return view('home.detailinformasi',compact('informasi'));
     }
 
     /**
@@ -89,7 +89,7 @@ class InformasiController extends Controller
      */
     public function update(Request $request, Informasi $informasi)
     {
-        if ($request->hashfile('file')) {
+        if ($request->hasfile('file')) {
 
             Storage::delete('informasi/'.$informasi->file);
             $file = $request->file;

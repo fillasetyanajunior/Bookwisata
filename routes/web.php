@@ -96,6 +96,7 @@ Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])
 Route::get('/detailtour/{tour}', [PromosiTourController::class,'show'])->name('detailtour');
 Route::get('/detailsepeda/{sepeda}', [PromosiSepedaController::class,'show'])->name('detailsepeda');
 Route::get('/detailcamp/{camp}', [PromosiCampController::class,'show'])->name('detailcamp');
+Route::get('/detailinformasi/{informasi}',[InformasiController::class,'show'])->name('detailinformasi');
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     

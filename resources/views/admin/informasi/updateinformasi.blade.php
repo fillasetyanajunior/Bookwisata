@@ -29,10 +29,11 @@
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4 my-4">
             <form action="/informasi/{{$informasi->id}}" method="POST" enctype="multipart/form-data">
+                @method('put')
                 @csrf
                <div class="mb-3">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="titleinformasi" value="{{$informasi->title}}">
+                    <input type="text" class="form-control" id="title" name="title" value="{{$informasi->title}}">
                 </div>
                 <div class="mb-3">
                     <label for="informasi">Isi Informasi</label>
