@@ -59,6 +59,7 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <img src="{{asset('konfirmasi/' . $gambar)}}" alt="" width="600px">
                                                 <p style="margin:0; border-top:2px solid #e5e5e5; font-size:5px; line-height:5px; margin:0 30px 20px;">&nbsp;</p>
                                                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                                                     <tbody>

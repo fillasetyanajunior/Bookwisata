@@ -28,7 +28,7 @@
 
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4 my-4">
-            <form action="{{route('store_informasi')}}" method="POST">
+            <form action="{{route('store_informasi')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
                     <label for="title">Title</label>
@@ -37,6 +37,10 @@
                 <div class="mb-3">
                     <label for="informasi">Isi Informasi</label>
                     <textarea class="form-control @error('informasi') is-invalid @enderror" id="informasi" rows="3" name="informasi"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="file">Foto</label>
+                    <input type="file" class="form-control-file" id="file" name="file">
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit">Sumbit</button>
             </form>

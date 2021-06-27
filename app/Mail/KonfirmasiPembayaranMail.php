@@ -12,7 +12,7 @@ class KonfirmasiPembayaranMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $namaproduk,$kodetransaksi;
+    public $namaproduk,$kodetransaksi,$gambar;
     /**
      * Create a new message instance.
      *
@@ -21,8 +21,9 @@ class KonfirmasiPembayaranMail extends Mailable
     public function __construct($id)
     {
         $data = Konfirmasi::where('id',$id)->first();
-        $this->namaproduk      = $data->nama;
-        $this->kodetransaksi   = $data->qrcode;
+        $this->namaproduk       = $data->nama;
+        $this->kodetransaksi    = $data->qrcode;
+        $this->gambar           = $data->filekonfirmasi;
     }
 
     /**

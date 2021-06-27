@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Informasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class InformasiController extends Controller
 {
@@ -41,11 +42,17 @@ class InformasiController extends Controller
         $request->validate([
             'title'             => 'required',
             'informasi'         => 'required',
+            'file'              => 'required',
         ]);
+
+        $file = $request->file;
+        $name = time() . rand(1, 100) . '.' . $file->extension();
+        $file->storeAs('informasi', $name);
 
         Informasi::create([
             'title'             => $request->title,
             'informasi'         => $request->informasi,
+            'file'              => $name,
         ]);
         return redirect()->route('informasi')->with('status','Tambah Informasi Berhasil');
     }
@@ -82,11 +89,27 @@ class InformasiController extends Controller
      */
     public function update(Request $request, Informasi $informasi)
     {
-        Informasi::where('id',$informasi->id)
-                ->update([
-                'title'             => $request->title,
-                'informasi'         => $request->informasi,
-        ]);
+        if ($request->hashfile('file')) {
+
+            Storage::delete('informasi/'.$informasi->file);
+            $file = $request->file;
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('informasi', $name);
+
+            Informasi::where('id',$informasi->id)
+                    ->update([
+                    'title'             => $request->title,
+                    'informasi'         => $request->informasi,
+                    'file'              => $request->file,
+            ]);
+        } else {   
+            Informasi::where('id',$informasi->id)
+                    ->update([
+                    'title'             => $request->title,
+                    'informasi'         => $request->informasi,
+            ]);
+        }
+        
         return redirect()->route('informasi')->with('status', 'Update Informasi Berhasil');
     }
 
@@ -99,6 +122,7 @@ class InformasiController extends Controller
     public function destroy(Informasi $informasi)
     {
         Informasi::destroy($informasi->id);
+        Storage::delete('informasi/'.$informasi->file);
         return redirect()->route('informasi')->with('status', 'Delete Informasi Berhasil');
     }
 }
