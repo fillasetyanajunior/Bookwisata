@@ -11,7 +11,7 @@
                 @endif
                 <div class="card-body">
                     <h2>{{$informasi->title}}</h2>
-                    <pre>{{$informasi->informasi}}</pre>
+                    <p></p>{{$informasi->informasi}}</p>
                 </div>
             </div>
         </div>
