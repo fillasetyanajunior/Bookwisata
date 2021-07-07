@@ -42,19 +42,31 @@ class InformasiController extends Controller
         $request->validate([
             'title'             => 'required',
             'informasi'         => 'required',
+        ]);
+
+        if ($request->hasfile('file')) {
+
+            $request->validate([
             'file'              => 'required',
-        ]);
+            ]);
 
-        $file = $request->file;
-        $name = time() . rand(1, 100) . '.' . $file->extension();
-        $file->storeAs('informasi', $name);
-
-        Informasi::create([
-            'title'             => $request->title,
-            'informasi'         => $request->informasi,
-            'pilihinformasi'    => $request->pilihinformasi,
-            'file'              => $name,
-        ]);
+            $file = $request->file;
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('informasi', $name);
+            
+            Informasi::create([
+                'title'             => $request->title,
+                'informasi'         => $request->informasi,
+                'pilihinformasi'    => $request->pilihinformasi,
+                'file'              => $name,
+            ]);
+        } else {
+            Informasi::create([
+                'title'             => $request->title,
+                'informasi'         => $request->informasi,
+                'pilihinformasi'    => $request->pilihinformasi,
+            ]);
+        }
         return redirect()->route('informasi')->with('status','Tambah Informasi Berhasil');
     }
 

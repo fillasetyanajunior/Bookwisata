@@ -49,6 +49,7 @@
                 <div class="mb-3">
                     <label for="file">Foto</label>
                     <input type="file" class="form-control-file" id="file" name="file">
+                    <small id="emailHelp" class="form-text text-muted">Opsional</small>
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit">Sumbit</button>
             </form>

@@ -33,11 +33,13 @@
                 @foreach ($informasi as $informasi)
                 <div class="col-lg-3 col-6">
                     <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <img src="{{asset('informasi/' . $informasi->file)}}" alt="" width="370px">
+                    <div class="card" style="width: 18rem;">
+                        @if ($informasi->file != null )
+                        <img src="{{asset('informasi/' . $informasi->file)}}" alt="" class="card-img-top">
+                        @else
+                        @endif
+                        <div class="card-body">
                             <h4>{{$informasi->title}}</h4>
-
                             <p>{{$informasi->informasi}}</p>
                         </div>
                     </div>

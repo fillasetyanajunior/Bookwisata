@@ -721,7 +721,10 @@
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="single-place mb-30">
                         <div class="place-img">
+                            @if ($info->file != null )
                             <img src="{{asset('informasi/' . $info->file)}}" alt="" height="250px">
+                            @else
+                            @endif
                         </div>
                         <div class="place-cap">
                             <div class="place-cap-top">

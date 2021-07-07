@@ -18,7 +18,7 @@ class CreateInformasiTable extends Migration
             $table->string('title');
             $table->text('informasi');
             $table->integer('pilihinformasi');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

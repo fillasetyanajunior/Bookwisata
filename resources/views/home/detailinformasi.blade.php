@@ -3,11 +3,18 @@
  <!-- Blog Area Start -->
 <div class="home-blog-area my-5">
     <div class="container">
-        <blockquote class="generic-blockquote">
-        <img src="{{asset('informasi/' . $informasi->file)}}" alt="">
-        <h2>{{$informasi->title}}</h2>
-        <pre>{{$informasi->informasi}}</pre>
-    </blockquote>
+        <div class="d-flex justify-content-center">
+            <div class="card" style="width: 50rem;">
+                @if ($informasi->file != null )
+                <img src="{{asset('informasi/' . $informasi->file)}}" alt="">
+                @else
+                @endif
+                <div class="card-body">
+                    <h2>{{$informasi->title}}</h2>
+                    <pre>{{$informasi->informasi}}</pre>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- Blog Area End -->
