@@ -124,7 +124,7 @@ class TourController extends Controller
      */
     public function update(Request $request, Tour $tour)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 

@@ -44,7 +44,7 @@ class KapalController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+       $request->validate([
             'nama'      => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
@@ -120,7 +120,7 @@ class KapalController extends Controller
      */
     public function update(Request $request, Kapal $kapal)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 

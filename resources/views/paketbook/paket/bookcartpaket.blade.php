@@ -37,7 +37,7 @@
                         <label for="note">Note/ Program Detail</label>
                         <textarea class="form-control" id="note" name="note" rows="4"></textarea>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="card text-white  mb-3 mt-3">
@@ -113,7 +113,7 @@
                             </tr>
                             <tr>
                                 <td colspan="2">Jumlah Pemesanan</td>
-                                <td>{{$riwayat->jumlahpesanan}} Unit</td>
+                                <td>{{$riwayat->jumlahpesanan}} Orang/Pax</td>
                             </tr>
                         </tbody>
                     </table>

@@ -98,12 +98,12 @@
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($tambahan)),3)))}}</td>
                     </tr>
                     @php
-                        if ($riwayat->cost == null) {
+                        if ($riwayat->cost != null) {
                             $total = $riwayat->total - $tambahan;
-                        } elseif ($riwayat->event == null) {
+                        } elseif ($riwayat->event != null) {
                             $total = $riwayat->total + $tambahan;
                         } else{
-                            $total = 0;
+                            $total = $riwayat->total;
                         }
                     @endphp
                     <tr>

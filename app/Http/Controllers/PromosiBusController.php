@@ -21,7 +21,7 @@ class PromosiBusController extends Controller
                             ->get();
         return view('paketbook.bus.boordingbus',$data);
     }
-    
+
     public function create()
     {
         $data['riwayat'] = DB::table('riwayat')
@@ -32,9 +32,14 @@ class PromosiBusController extends Controller
                             ->get();
         return view('paketbook.bus.bookcartbus', $data);
     }
-    
+
     public function store(Bus $bus, Request $request)
     {
+        $request->validate([
+            'hari'      => 'required',
+            'date'      => 'required',
+            'pesanan'   => 'required'
+        ]);
         $potongan = 25000;
         $harga = $bus->harga;
         $hari = $request->hari;
@@ -66,28 +71,27 @@ class PromosiBusController extends Controller
         ]);
         return redirect()->route('createbus');
     }
-    
+
     public function show(Bus $bus)
     {
         return view('paketbook.bus.detailbus', compact('bus'));
     }
-    
+
     public function update(Request $request,Riwayat $riwayat)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'name'          => 'required',
             'nomerhp'       => 'required',
             'email'         => 'required',
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->first();
-        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
-                    ->update([
-                        'nama'      => $request->namalengkap,
-                        'nomerhp'   =>$request->nomerhp,
-                        'email'     => $request->email,
-        ]);
+        DetailRiwayat::where('id', $riwayat->id_detail_riwayat)
+            ->update([
+                'nama'      => $request->namalengkap,
+                'nomerhp'   => $request->nomerhp,
+                'email'     => $request->email,
+            ]);
 
         $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $qr = substr(str_shuffle($permitted_chars), 0, 6);

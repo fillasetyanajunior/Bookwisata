@@ -44,7 +44,7 @@ class BusController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  =   $request->validate([
+        $request->validate([
             'nama'          => 'required',
             'po'            => 'required',
             'provinsi'      => 'required',
@@ -94,7 +94,7 @@ class BusController extends Controller
             'rating'        => 0,
             'kota_search'   => $kota,
         ]);
-        
+
         return redirect('bus')->with('status','Postingan Bus Berhasil Di Upload');
 
     }
@@ -133,7 +133,7 @@ class BusController extends Controller
      */
     public function update(Request $request, Bus $bus)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 

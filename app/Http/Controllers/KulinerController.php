@@ -44,7 +44,7 @@ class KulinerController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'nama'      => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
@@ -122,7 +122,7 @@ class KulinerController extends Controller
      */
     public function update(Request $request, Kuliner $kuliner)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 
@@ -143,7 +143,7 @@ class KulinerController extends Controller
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
-            
+
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $kuliner->nama)
                             ->get();
@@ -151,7 +151,7 @@ class KulinerController extends Controller
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('kuliner/' . $gambar->foto));
             }
-            
+
             FileUpload::where('nama', $kuliner->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {

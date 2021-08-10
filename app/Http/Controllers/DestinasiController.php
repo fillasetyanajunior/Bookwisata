@@ -44,7 +44,7 @@ class DestinasiController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'nama'      => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
@@ -122,7 +122,7 @@ class DestinasiController extends Controller
      */
     public function update(Request $request, Destinasi $destinasi)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 

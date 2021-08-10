@@ -35,6 +35,12 @@ class PromosiGuideController extends Controller
 
     public function store(Guide $guide, Request $request)
     {
+        $request->validate([
+            'hari'      => 'required',
+            'date'      => 'required',
+            'pesanan'   => 'required'
+        ]);
+
         $potongan = 25000;
         $harga = $guide->harga;
         $hari = $request->hari;
@@ -74,15 +80,14 @@ class PromosiGuideController extends Controller
 
     public function update(Request $request, Riwayat $riwayat)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'name'          => 'required',
             'nomerhp'       => 'required',
             'email'         => 'required',
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->first();
-        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
+        DetailRiwayat::where('id', $riwayat->id_detail_riwayat)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,

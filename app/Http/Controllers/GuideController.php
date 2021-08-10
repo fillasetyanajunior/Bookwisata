@@ -44,7 +44,7 @@ class GuideController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'nama'      => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
@@ -120,14 +120,14 @@ class GuideController extends Controller
      */
     public function update(Request $request, Guide $guide)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 
         $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
             'id_provinsi' => $request->provinsi
         ]);
-        
+
         $kota = null;
 
         foreach ($url['kota_kabupaten'] as $kab) {

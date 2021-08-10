@@ -46,7 +46,7 @@ class HotelConteoller extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'nama'      => 'required',
             'provinsi'  => 'required',
             'kabupaten' => 'required',
@@ -88,7 +88,7 @@ class HotelConteoller extends Controller
             'rating'        => 0,
             'kota_search'   => $kota,
         ]);
-        
+
         return redirect('hotel')->with('status','Postingan Hotel Berhasil Di Upload');
     }
 
@@ -127,7 +127,7 @@ class HotelConteoller extends Controller
      */
     public function update(Request $request, Hotel $hotel)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 
@@ -142,13 +142,13 @@ class HotelConteoller extends Controller
                 $kota = $kab['nama'];
             }
         }
-        
+
         if ($request->hasfile('gambar')) {
 
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
-            
+
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $hotel->nama)
                             ->get();

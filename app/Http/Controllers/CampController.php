@@ -98,7 +98,7 @@ class CampController extends Controller
      */
     public function show(Camp $camp)
      {
-        
+
     }
 
     /**
@@ -124,7 +124,7 @@ class CampController extends Controller
      */
     public function update(Request $request, Camp $camp)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 

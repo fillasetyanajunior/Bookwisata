@@ -44,7 +44,7 @@ class PaketController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'nama'      => 'required',
             'company'   => 'required',
             'provinsi'  => 'required',
@@ -122,7 +122,7 @@ class PaketController extends Controller
      */
     public function update(Request $request, Paket $paket)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 
@@ -143,7 +143,7 @@ class PaketController extends Controller
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
-            
+
             $filegambar = DB::table('fileuploads')
                             ->where('nama', '=', $paket->nama)
                             ->get();

@@ -35,6 +35,12 @@ class PromosiPaketController extends Controller
 
     public function store(Paket $paket, Request $request)
     {
+        $request->validate([
+            'hari'      => 'required',
+            'date'      => 'required',
+            'pesanan'   => 'required'
+        ]);
+
         $potongan = 25000;
         $harga = $paket->harga;
         $hari = $request->hari;
@@ -60,7 +66,7 @@ class PromosiPaketController extends Controller
         Riwayat::create([
             'user_nama_customer'    => request()->user()->name,
             'user_id_owner'         => $request->hidden,
-            'company'               => $mobil->company,
+            'company'               => $paket->company,
             'id_detail_riwayat'     => $detail_riwayat->id,
             'is_active'             => 1
         ]);
@@ -74,15 +80,14 @@ class PromosiPaketController extends Controller
 
     public function update(Request $request, Riwayat $riwayat)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'name'          => 'required',
             'nomerhp'       => 'required',
             'email'         => 'required',
             'namalengkap'   => 'required',
         ]);
 
-        $rwt = Riwayat::where('id', $riwayat->id)->first();
-        DetailRiwayat::where('id', $rwt->id_detail_riwayat)
+        DetailRiwayat::where('id', $riwayat->id_detail_riwayat)
             ->update([
                 'nama'      => $request->namalengkap,
                 'nomerhp'   => $request->nomerhp,

@@ -124,7 +124,7 @@ class SepedaController extends Controller
      */
     public function update(Request $request, Sepeda $sepeda)
     {
-        $validatedData  = $request->validate([
+        $request->validate([
             'kabupaten' => 'required',
         ]);
 
