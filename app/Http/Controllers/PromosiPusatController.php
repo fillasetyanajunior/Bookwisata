@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Pusat;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiPusatController extends Controller
 {
-    public function index()
+    public function index(Pusat $pusat)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.pusat.boordingpusat', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.pusat.bookcartpusat', $data);
+        $data['cart']         = Cart::content();
+        $data['datapusat']    = Pusat::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.pusat.detailpusat', compact('pusat'), $data);
     }
 
     public function store(Pusat $pusat, Request $request)
@@ -71,11 +57,6 @@ class PromosiPusatController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createpusat');
-    }
-
-    public function show(Pusat $pusat)
-    {
-        return view('paketbook.pusat.detailpusat', compact('pusat'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

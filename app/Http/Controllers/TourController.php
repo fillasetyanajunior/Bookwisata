@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Tour;
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class TourController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data['tour'] = Tour::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
         $data['title'] = 'Posting Perlengkapan Tour';
         return view('admin.promosi.tour.showtour', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Perlengkapan Tour';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.tour.createtour', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,7 +30,7 @@ class TourController extends Controller
             'kabupaten'     => 'required',
             'tipe'          => 'required',
             'harga'         => 'required',
-            'review'         => 'required',
+            'review'        => 'required',
             'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
@@ -65,17 +44,28 @@ class TourController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Tour::orderBy("id_tour", "DESC")->first();
+        if ($no == null) {
+            $id_tour = 'TOU0001';
+        } else {
+            $nama = substr($no->id_tour, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_tour = 'TOU' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_tour = 'TOU' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_tour = 'TOU' . "0" . $tambah;
+            } else {
+                $id_tour = 'TOU' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Tour::create([
             'user_id'       => request()->user()->id,
+            'id_tour'       => $id_tour,
             'nama'          => $request->nama,
             'company'       => $request->company,
             'provinsi'      => $request->provinsi,
@@ -84,61 +74,24 @@ class TourController extends Controller
             'harga'         => $request->harga,
             'review'        => $request->review,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('tour')->with('status', 'Postingan Perlengkapan Tour Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tour $tour)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tour $tour)
     {
-        $data['title']      = 'Update Posting Perlengkapan Tour';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.tour.updatetour', compact('tour'), $data);
+        return response()->json([
+            'tour' => $tour
+        ]);
+        // $data['title']      = 'Update Posting Perlengkapan Tour';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.tour.updatetour', compact('tour'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Tour $tour)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -174,7 +127,7 @@ class TourController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $tour->nama)
@@ -190,18 +143,11 @@ class TourController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('tour')->with('status', 'Postingan Perlengkapan Tour Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tour  $tour
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Tour $tour)
     {
         $filegambar = DB::table('fileuploads')

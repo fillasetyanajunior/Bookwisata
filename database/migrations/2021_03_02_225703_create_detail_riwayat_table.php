@@ -23,7 +23,6 @@ class CreateDetailRiwayatTable extends Migration
             $table->string('jumlah_sit');
             $table->string('harga');
             $table->string('jumlahpesanan');
-            $table->string('durasi');
             $table->string('potongan');
             $table->string('hari');
             $table->string('date');

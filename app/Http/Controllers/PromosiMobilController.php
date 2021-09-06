@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Mobil;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiMobilController extends Controller
 {
-    public function index()
+    public function index(Mobil $mobil)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.mobil.boordingmobil', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.mobil.bookcartmobil', $data);
+        $data['cart']         = Cart::content();
+        $data['datamobil']    = Mobil::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.mobil.detailmobil', compact('mobil'), $data);
     }
 
     public function store(Mobil $mobil, Request $request)
@@ -71,11 +57,6 @@ class PromosiMobilController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createmobil');
-    }
-
-    public function show(Mobil $mobil)
-    {
-        return view('paketbook.mobil.detailmobil', compact('mobil'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

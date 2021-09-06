@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
 use App\Models\Kapal;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class KapalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data['kapal'] = Kapal::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
         $data['title'] = 'Posting Kapal Pesiar';
         return view('admin.promosi.kapal.showkapal', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Kapal Pesiar';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.kapal.createkapal', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
        $request->validate([
@@ -63,78 +42,52 @@ class KapalController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Kapal::orderBy("id_kapal", "DESC")->first();
+        if ($no == null) {
+            $id_kapal = 'KAP0001';
+        } else {
+            $nama = substr($no->id_kapal, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_kapal = 'KAP' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_kapal = 'KAP' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_kapal = 'KAP' . "0" . $tambah;
+            } else {
+                $id_kapal = 'KAP' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Kapal::create([
             'user_id'       => request()->user()->id,
+            'id_kapal'      => $id_kapal,
             'nama'          => $request->nama,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kapal  $kapal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kapal $kapal)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kapal  $kapal
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Kapal $kapal)
     {
-        $data['title']      = 'Update Posting Kapal Pesiar';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.kapal.updatekapal', compact('kapal'), $data);
+        return response()->json([
+            'kapal' => $kapal
+        ]);
+        // $data['title']      = 'Update Posting Kapal Pesiar';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.kapal.updatekapal', compact('kapal'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kapal  $kapal
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Kapal $kapal)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -169,7 +122,7 @@ class KapalController extends Controller
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $kapal->nama)
@@ -183,18 +136,11 @@ class KapalController extends Controller
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kapal  $kapal
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Kapal $kapal)
     {
         $filegambar = DB::table('fileuploads')

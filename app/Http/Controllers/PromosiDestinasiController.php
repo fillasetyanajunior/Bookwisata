@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\Destinasi;
 use App\Models\DetailRiwayat;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiDestinasiController extends Controller
 {
-    public function index()
+    public function index(Destinasi $destinasi)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.destinasi.boordingdestinasi', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.destinasi.bookcartdestinasi', $data);
+        $data['cart']           = Cart::content();
+        $data['datadestinasi']  = Destinasi::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.destinasi.detaildestinasi', compact('destinasi'),$data);
     }
 
     public function store(Destinasi $destinasi, Request $request)
@@ -70,11 +56,6 @@ class PromosiDestinasiController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createdestinasi');
-    }
-
-    public function show(Destinasi $destinasi)
-    {
-        return view('paketbook.destinasi.detaildestinasi', compact('destinasi'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

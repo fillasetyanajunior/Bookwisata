@@ -1,93 +1,131 @@
 @extends('layouts.apputama')
 @section('main')
 <div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="d-flex justify-content-center">
-                <div class="card mt-3 mb-3 col-10">
-                    <div class="card-header">
-                        <h1> {{$kuliner->nama}}</h1>
-                    </div>
-                    @php
-                    $foto = DB::table('kuliner')
-                                ->join('fileuploads','fileuploads.nama','=','kuliner.nama')
-                                ->select('fileuploads.foto')
-                                ->where('fileuploads.nama','=',$kuliner->nama)
-                                ->get();
-                    @endphp
-                    <div class="card-body">
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                                @for ($i = 0; $i < count($foto); $i++)
-                                @if ($i == 0)
-                                <div class="carousel-item active">
+    <div class="row mb-3">
+        <div class="col-lg-8">
+            <div class="card">
+                @php
+                $foto = DB::table('kuliner')
+                ->join('fileuploads','fileuploads.nama','=','kuliner.nama')
+                ->select('fileuploads.foto')
+                ->where('fileuploads.nama','=',$kuliner->nama)
+                ->get();
+                @endphp
+                <div class="card-body">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @for ($i = 0; $i < count($foto); $i++) @if ($i==0) <div class="carousel-item active">
                                 @else
                                 <div class="carousel-item ">
-                                @endif
+                                    @endif
                                     <img src="{{asset('kuliner/' . $foto[$i]->foto)}}" class="d-block w-100">
                                 </div>
                                 @endfor
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
-                        <div class="row mt-5">
-                            <div class="col-xs-6 col-sm-6">
-                                <h3>Bookwisata</h3>
-                                <form action="/bookchartkuliner/kuliner/{{$kuliner->id}}" method="post">
-                                    @csrf
-                                <input type="hidden" name="hidden" value="{{$kuliner->user_id}}">
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h2>Review {{$kuliner->nama}}</h2>
+                </div>
+                <div class="card-body">
+                    <p>
+                        {!!nl2br(str_replace("{}", " \n", $kuliner->review))!!}
+                    </p>
+                    <hr>
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Lokasi</th>
+                                <td>{{$kuliner->kota_search}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1> {{$kuliner->nama}}</h1>
+                    <small>{{$kuliner->kota_search}}</small>
+                    <hr>
+                    <div class="d-flex">
+                        <div>
+                            Price From
+                        </div>
+                        <div class="ml-auto">
+                            <p>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kuliner->harga)),3)))}}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <p>{{Str::limit($kuliner->review, 100,'')}}</p>
+                    <hr>
+                    <div class="d-flex">
+                        <div class="ml-auto">
+                            @if ($cart->where('id',$kuliner->id_kuliner)->count())
+                            <button type="button" class="btn btn-primary">In Cart</button>
+                            @else
+                            <form action="{{route('cartstore')}}" method="post">
+                                @csrf
                                 <div class="form-group">
-                                    <input type="date" class="form-control mt-3" name="date">
+                                    <label for="quntity">Jumlah</label>
+                                    <input type="text" class="form-control @error('quntity') is-invalid @enderror" id="quntity" name="quntity">
                                 </div>
-                                <div>
-                                    <select class="form-select my-3" name="hari">
-                                        <option value="" >Pilih Berapa Hari</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div >
-                                    <select class="form-select my-3" name="pesanan">
-                                        <option value="" >Jumlah Pesanan</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 text-right">
-                                <h3>Harga Perhari</h3>
-                                <h3>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kuliner->harga)),3)))}}</h3>
-                                <button type="submit" class="btn btn-primiry mt-3">Booking</button>
-                            </div>
+                                <input type="hidden" name="id_produk" value="{{$kuliner->id_kuliner}}">
+                                <input type="hidden" name="catagori_produk" value="kuliner">
+                                <button type="submit" class="btn btn-primary">Send In Chart</button>
                             </form>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-center">
-                <div class="card mt-3 mb-3 col-10">
-                    <div class="card-header">
-                        <h2>Review {{$kuliner->nama}}</h2>
+            <div class="card my-5">
+                <h3 class="text-center my-3">Pilihan Kuliner Lain</h3>
+                @foreach ($datakuliner as $itemkuliner)
+                    @if ($itemkuliner->id_kuliner != $kuliner->id_kuliner)
+                    <div class="card-body mt-3">
+                        <img src="{{asset('kuliner/' . $itemkuliner->foto)}}" alt="">
+                        <h1> {{$itemkuliner->nama}}</h1>
+                        <hr>
+                        <div class="d-flex">
+                            <div>
+                                Harga Sewa/Hari
+                            </div>
+                            <div class="ml-auto">
+                                <p>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($itemkuliner->harga)),3)))}}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th scope="row">Lokasi</th>
+                                    <td>{{$itemkuliner->kota_search}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="d-flex">
+                            <div class="ml-auto">
+                                <a href="'/detailkuliner/{{$itemkuliner->id}}" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <p>
-                            {!!nl2br(str_replace("{}", " \n", $kuliner->review))!!}
-                        </p>
-                    </div>
-                </div>
+                    @endif
+                @endforeach
             </div>
         </div>
     </div>

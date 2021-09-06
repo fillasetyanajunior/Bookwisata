@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@yield('title')</title>
-<meta name="csrf-token" content="{{csrf_token()}}"> 
+<meta name="csrf-token" content="{{csrf_token()}}">
 
 <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/utama/img/icon/icon.png')}}">
 <!-- Google Font: Source Sans Pro -->
@@ -45,7 +45,7 @@
     <strong>Copyright &copy;
         <script>
             document.write(new Date().getFullYear());
-        </script> 
+        </script>
         <a href="https://adminlte.io">Bookwisata.com</a>.
     </strong>
     By Filla Jr
@@ -60,6 +60,7 @@
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{url('assets/plugins/jquery/jquery.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{url('assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
@@ -72,7 +73,7 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- ChartJS -->
 <script src="{{url('assets/plugins/chart.js/Chart.min.js')}}"></script>
 <!-- Sparkline -->
-<script src="{{url('assets/plugins/sparklines/sparkline.js')}}"></script>
+{{-- <script src="{{url('assets/plugins/sparklines/sparkline.js')}}"></script> --}}
 <!-- JQVMap -->
 <script src="{{url('assets/plugins/jqvmap/jquery.vmap.min.js')}}"></script>
 <script src="{{url('assets/plugins/jqvmap/maps/jquery.vmap.usa.js')}}"></script>
@@ -92,8 +93,9 @@ $.widget.bridge('uibutton', $.ui.button)
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('assets/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{url('assets/dist/js/pages/dashboard.js')}}"></script>
+{{-- <script src="{{url('assets/dist/js/pages/dashboard.js')}}"></script> --}}
 <script src="{{url('assets/dist/js/kota.js')}}"></script>
+<script src="{{url('assets/dist/js/add.js')}}"></script>
 <script src="{{url('assets/dist/js/countdown.js')}}"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script language="javascript" type="text/javaScript">
@@ -112,18 +114,18 @@ $(document).ready(function () {
         var html='';
         if (data.ids == chacking) {
         if(data){
-            
+
             html +=' <a class="dropdown-item" href="/riwayat">' + data.messages + '</a>';
-    
+
             notifcount +=1;
             $('.dropdown .countNotif').text(notifcount);
             var newNotifHtml = html + existing;
             $('.dropdown .dropdown-menu').html(newNotifHtml);
         }
         } else {
-        
+
         }
-        
+
     });
     });
 </script>

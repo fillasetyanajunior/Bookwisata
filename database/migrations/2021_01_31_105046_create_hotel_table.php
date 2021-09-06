@@ -16,15 +16,17 @@ class CreateHotelTable extends Migration
         Schema::create('hotel', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('nama'); 
-            $table->string('provinsi'); 
-            $table->string('kabupaten'); 
-            $table->string('tipe'); 
+            $table->string('id_hotel');
+            $table->string('nama');
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            $table->string('tipe');
             $table->string('bad');
             $table->string('rating');
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

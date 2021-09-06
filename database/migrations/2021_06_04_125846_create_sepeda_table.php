@@ -16,6 +16,7 @@ class CreateSepedaTable extends Migration
         Schema::create('sepeda', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_sepeda');
             $table->string('nama');
             $table->string('company');
             $table->string('provinsi');
@@ -25,6 +26,7 @@ class CreateSepedaTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

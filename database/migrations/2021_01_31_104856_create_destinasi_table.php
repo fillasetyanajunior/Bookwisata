@@ -16,6 +16,7 @@ class CreateDestinasiTable extends Migration
         Schema::create('destinasi', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_destinasi');
             $table->string('nama');
             $table->string('provinsi');
             $table->string('kabupaten');
@@ -24,6 +25,7 @@ class CreateDestinasiTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Kapal;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiKapalController extends Controller
 {
-    public function index()
+    public function index(Kapal $kapal)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.kapal.boordingkapal', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.kapal.bookcartkapal', $data);
+        $data['cart']       = Cart::content();
+        $data['datakapal']  = Kapal::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.kapal.detailkapal', compact('kapal'), $data);
     }
 
     public function store(Kapal $kapal, Request $request)
@@ -71,11 +57,6 @@ class PromosiKapalController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createkapal');
-    }
-
-    public function show(Kapal $kapal)
-    {
-        return view('paketbook.kapal.detailkapal', compact('kapal'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use App\Models\Pusat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PusatController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['pusat'] = Pusat::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Posting Pusat Oleh-Oleh';
+        $data['pusat']      = Pusat::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Posting Pusat Oleh-Oleh';
         return view('admin.promosi.pusat.showpusat', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Pusat Oleh-Oleh';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.pusat.createpusat', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -64,17 +43,28 @@ class PusatController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Pusat::orderBy("id_pusat", "DESC")->first();
+        if ($no == null) {
+            $id_pusat = 'PUS0001';
+        } else {
+            $nama = substr($no->id_pusat, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_pusat = 'PUS' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_pusat = 'PUS' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_pusat = 'PUS' . "0" . $tambah;
+            } else {
+                $id_pusat = 'PUS' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Pusat::create([
             'user_id'       => request()->user()->id,
+            'id_pusat'      => $id_pusat,
             'nama'          => $request->nama,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
@@ -82,61 +72,24 @@ class PusatController extends Controller
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Pusat  $pusat
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Pusat $pusat)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Pusat  $pusat
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Pusat $pusat)
     {
-        $data['title']      = 'Update Posting Pusat Oleh-Oleh';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.pusat.updatepusat', compact('pusat'), $data);
+        return response()->json([
+            'pusat' => $pusat
+        ]);
+        // $data['title']      = 'Update Posting Pusat Oleh-Oleh';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.pusat.updatepusat', compact('pusat'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Pusat  $pusat
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Pusat $pusat)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -171,7 +124,7 @@ class PusatController extends Controller
                     'alamat'        => $request->alamat,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $pusat->nama)
@@ -186,18 +139,11 @@ class PusatController extends Controller
                     'alamat'        => $request->alamat,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Pusat  $pusat
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Pusat $pusat)
     {
         $filegambar = DB::table('fileuploads')

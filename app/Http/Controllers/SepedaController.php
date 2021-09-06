@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Sepeda;
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -18,30 +20,12 @@ class SepedaController extends Controller
      */
     public function index()
     {
-        $data['sepeda']   = Sepeda::where('user_id',request()->user()->id)->get();
-        $data['title']  = 'Posting Rental Sepeda motor & Gowes';
+        $data['sepeda']     = Sepeda::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Posting Rental Sepeda motor & Gowes';
         return view('admin.promosi.sepeda.showsepeda', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Rental Sepeda motor & Gowes';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.sepeda.createsepeda', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -65,17 +49,28 @@ class SepedaController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Sepeda::orderBy("id_sepeda", "DESC")->first();
+        if ($no == null) {
+            $id_sepeda = 'SEP0001';
+        } else {
+            $nama = substr($no->id_sepeda, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_sepeda = 'SEP' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_sepeda = 'SEP' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_sepeda = 'SEP' . "0" . $tambah;
+            } else {
+                $id_sepeda = 'SEP' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Sepeda::create([
             'user_id'       => request()->user()->id,
+            'id_sepeda'      => $id_sepeda,
             'nama'          => $request->nama,
             'company'       => $request->company,
             'provinsi'      => $request->provinsi,
@@ -84,61 +79,24 @@ class SepedaController extends Controller
             'harga'         => $request->harga,
             'review'        => $request->review,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('sepeda')->with('status', 'Postingan Rental Sepeda motor & Gowes Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sepeda  $sepeda
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Sepeda $sepeda)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sepeda  $sepeda
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Sepeda $sepeda)
     {
-        $data['title']      = 'Update Posting Rental Sepeda motor & Gowes';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.sepeda.updatesepeda', compact('sepeda'), $data);
+        return response()->json([
+            'sepeda' => $sepeda
+        ]);
+        // $data['title']      = 'Update Posting Rental Sepeda motor & Gowes';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.sepeda.updatesepeda', compact('sepeda'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sepeda  $sepeda
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Sepeda $sepeda)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -174,7 +132,7 @@ class SepedaController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $sepeda->nama)
@@ -190,18 +148,11 @@ class SepedaController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('sepeda')->with('status', 'Postingan Rental Sepeda motor & Gowes Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Sepeda  $sepeda
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Sepeda $sepeda)
     {
         $filegambar = DB::table('fileuploads')

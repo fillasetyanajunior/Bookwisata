@@ -7,31 +7,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Sepeda;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 
 
 class PromosiSepedaController extends Controller
 {
-    public function index()
+    public function index(Sepeda $sepeda)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.sepeda.boordingsepeda', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.sepeda.bookcartsepeda', $data);
+        $data['cart']         = Cart::content();
+        $data['datasepeda']   = Sepeda::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.sepeda.detailsepeda', compact('sepeda'), $data);
     }
 
     public function store(Sepeda $sepeda, Request $request)
@@ -72,11 +58,6 @@ class PromosiSepedaController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createsepeda');
-    }
-
-    public function show(Sepeda $sepeda)
-    {
-        return view('paketbook.sepeda.detailsepeda', compact('sepeda'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

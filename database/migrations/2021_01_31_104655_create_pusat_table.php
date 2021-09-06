@@ -16,6 +16,7 @@ class CreatePusatTable extends Migration
         Schema::create('pusat', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_pusat');
             $table->string('nama');
             $table->string('provinsi');
             $table->string('kabupaten');
@@ -24,6 +25,7 @@ class CreatePusatTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

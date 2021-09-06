@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now(),
         ]);
-        
+
         DB::table('users')->insert([
             'name'              => 'Fuad Ashari',
             'email'             => 'azhartour_yk@yahoo.co.id',
@@ -42,12 +42,13 @@ class DatabaseSeeder extends Seeder
             'created_at'        => Carbon::now(),
             'updated_at'        => Carbon::now(),
         ]);
-        
+
         $this->call([
             TipekamarSeeder::class,
             MenuSeeder::class,
             SubMenuSeeder::class,
             AccessMenuSeeder::class,
+            DaerahIndonesia::class,
         ]);
     }
 }

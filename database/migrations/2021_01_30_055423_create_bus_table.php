@@ -16,6 +16,7 @@ class CreateBusTable extends Migration
         Schema::create('bus', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_bus');
             $table->string('nama');
             $table->string('po');
             $table->string('provinsi');
@@ -29,6 +30,7 @@ class CreateBusTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

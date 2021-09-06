@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Paket;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiPaketController extends Controller
 {
-    public function index()
+    public function index(Paket $paket)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.paket.boordingpaket', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.paket.bookcartpaket', $data);
+        $data['cart']         = Cart::content();
+        $data['datapaket']    = Paket::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.paket.detailpaket', compact('paket'), $data);
     }
 
     public function store(Paket $paket, Request $request)
@@ -71,11 +57,6 @@ class PromosiPaketController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createpaket');
-    }
-
-    public function show(Paket $paket)
-    {
-        return view('paketbook.paket.detailpaket', compact('paket'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

@@ -16,6 +16,7 @@ class CreatePaketTable extends Migration
         Schema::create('paket', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_paket');
             $table->string('nama');
             $table->string('company');
             $table->string('provinsi');
@@ -24,6 +25,7 @@ class CreatePaketTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

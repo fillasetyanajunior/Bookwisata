@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
 use App\Models\Paket;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class PaketController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['paket'] = Paket::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Posting Paket Wisata';
+        $data['paket']      = Paket::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Posting Paket Wisata';
         return view('admin.promosi.paket.showpaket', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Paket Wisata';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.paket.createpaket', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,7 +30,7 @@ class PaketController extends Controller
             'kabupaten' => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -64,17 +43,28 @@ class PaketController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Paket::orderBy("id_paket", "DESC")->first();
+        if ($no == null) {
+            $id_paket = 'PAK0001';
+        } else {
+            $nama = substr($no->id_paket, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_paket = 'PAK' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_paket = 'PAK' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_paket = 'PAK' . "0" . $tambah;
+            } else {
+                $id_paket = 'PAK' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Paket::create([
             'user_id'       => request()->user()->id,
+            'id_paket'      => $id_paket,
             'nama'          => $request->nama,
             'company'       => $request->company,
             'provinsi'      => $request->provinsi,
@@ -82,61 +72,24 @@ class PaketController extends Controller
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Paket  $paket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Paket $paket)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Paket  $paket
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Paket $paket)
     {
-        $data['title']      = 'Update Posting Paket Wisata';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.paket.updatepaket', compact('paket'), $data);
+        return response()->json([
+            'paket' => $paket
+        ]);
+        // $data['title']      = 'Update Posting Paket Wisata';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.paket.updatepaket', compact('paket'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Paket  $paket
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Paket $paket)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -172,7 +125,7 @@ class PaketController extends Controller
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $paket->nama)
@@ -187,18 +140,11 @@ class PaketController extends Controller
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
                     'harga'         => $request->harga,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Paket  $paket
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Paket $paket)
     {
         $filegambar = DB::table('fileuploads')

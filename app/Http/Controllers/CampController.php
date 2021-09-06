@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Camp;
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class CampController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['camp']  = Camp::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Promosi Alat Camping & Outdoor';
+        $data['camp']       = Camp::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Promosi Alat Camping & Outdoor';
         return view('admin.promosi.camp.showcamp', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Promosi Alat Camping & Outdoor';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.camp.createcamp', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -64,18 +43,28 @@ class CampController extends Controller
                 'foto' => $name,
             ]);
         }
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Camp::orderBy("id_camp", "DESC")->first();
+        if ($no == null) {
+            $id_camp = 'CAM0001';
+        } else {
+            $nama = substr($no->id_camp, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_camp = 'CAM' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_camp = 'CAM' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_camp = 'CAM' . "0" . $tambah;
+            } else {
+                $id_camp = 'CAM' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Camp::create([
             'user_id'       => request()->user()->id,
+            'id_camp'       => $id_camp,
             'nama'          => $request->nama,
             'company'       => $request->company,
             'provinsi'      => $request->provinsi,
@@ -84,61 +73,24 @@ class CampController extends Controller
             'harga'         => $request->harga,
             'review'        => $request->review,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('camp')->with('status', 'Postingan Perlengkapan Camping & Outdoor Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Camp  $camp
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Camp $camp)
-     {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Camp  $camp
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Camp $camp)
     {
-        $data['title']      = 'Update Promosi Alat Camping & Outdoor';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.camp.updatecamp', compact('camp'), $data);
+        return response()->json([
+            'camp' => $camp
+        ]);
+        // $data['title']      = 'Update Promosi Alat Camping & Outdoor';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.camp.updatecamp', compact('camp'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Camp  $camp
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Camp $camp)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -174,7 +126,7 @@ class CampController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $camp->nama)
@@ -190,18 +142,11 @@ class CampController extends Controller
                     'tipe'          => $request->tipe,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
-                    'kota_search'   => $kota,
+                    'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('camp')->with('status', 'Postingan Perlengkapan Camping & Outdoor Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Camp  $camp
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Camp $camp)
     {
         $filegambar = DB::table('fileuploads')

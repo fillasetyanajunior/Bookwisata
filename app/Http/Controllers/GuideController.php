@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
 use App\Models\Guide;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class GuideController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['guide'] = Guide::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Posting Tour Guide';
+        $data['guide']      = Guide::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Posting Tour Guide';
         return view('admin.promosi.guide.showguide', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Tour Guide';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.guide.createguide', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -63,78 +42,53 @@ class GuideController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        //Acak Kode Mitra
+        $no = Guide::orderBy("id_guide", "DESC")->first();
+        if ($no == null) {
+            $id_guide = 'GUI0001';
+        } else {
+            $nama = substr($no->id_guide, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_guide = 'GUI' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_guide = 'GUI' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_guide = 'GUI' . "0" . $tambah;
+            } else {
+                $id_guide = 'GUI' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Guide::create([
             'user_id'       => request()->user()->id,
+            'id_guide'      => $id_guide,
             'nama'          => $request->nama,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Guide $guide)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Guide $guide)
     {
-        $data['title']      = 'Update Posting Tour Guide';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.guide.updateguide', compact('guide'), $data);
+        return response()->json([
+            'guide' => $guide
+        ]);
+        // $data['title']      = 'Update Posting Tour Guide';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.guide.updateguide', compact('guide'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Guide $guide)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -169,7 +123,7 @@ class GuideController extends Controller
                 'kabupaten'     => $request->kabupaten,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $guide->nama)
@@ -183,18 +137,11 @@ class GuideController extends Controller
                 'kabupaten'     => $request->kabupaten,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Guide  $guide
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Guide $guide)
     {
         $filegambar = DB::table('fileuploads')

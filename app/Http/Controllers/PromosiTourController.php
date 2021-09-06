@@ -7,30 +7,16 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Tour;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
 
 class PromosiTourController extends Controller
 {
-    public function index()
+    public function index(Tour $tour)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.tour.boordingtour', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.tour.bookcarttour', $data);
+        $data['cart']       = Cart::content();
+        $data['datatour']   = Tour::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.tour.detailtour', compact('tour'), $data);
     }
 
     public function store(Tour $tour, Request $request)
@@ -71,11 +57,6 @@ class PromosiTourController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createtour');
-    }
-
-    public function show(Tour $tour)
-    {
-        return view('paketbook.tour.detailtour', compact('tour'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

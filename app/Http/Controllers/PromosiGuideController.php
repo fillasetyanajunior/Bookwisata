@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Guide;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiGuideController extends Controller
 {
-    public function index()
+    public function index(Guide $guide)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.guide.boordingguide', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.guide.bookcartguide', $data);
+        $data['cart']       = Cart::content();
+        $data['dataguide']  = Guide::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.guide.detailguide', compact('guide'), $data);
     }
 
     public function store(Guide $guide, Request $request)
@@ -71,11 +57,6 @@ class PromosiGuideController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createguide');
-    }
-
-    public function show(Guide $guide)
-    {
-        return view('paketbook.guide.detailguide', compact('guide'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

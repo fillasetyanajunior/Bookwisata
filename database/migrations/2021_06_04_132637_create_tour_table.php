@@ -16,6 +16,7 @@ class CreateTourTable extends Migration
         Schema::create('tour', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
+            $table->string('id_tour');
             $table->string('nama');
             $table->string('company');
             $table->string('provinsi');
@@ -25,6 +26,7 @@ class CreateTourTable extends Migration
             $table->text('review');
             $table->string('harga');
             $table->string('kota_search');
+            $table->string('foto');
             $table->timestamps();
         });
     }

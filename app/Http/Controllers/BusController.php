@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bus;
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class BusController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['bus']    = Bus::where('user_id',request()->user()->id)->get();
-        $data['title']  = 'Posting Bus';
+        $data['bus']        = Bus::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['title']      = 'Posting Bus';
         return view('admin.promosi.bus.showbus',$data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Bus';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.bus.createbus', compact('response'),$data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -69,17 +48,29 @@ class BusController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if($kab['id'] == $request->kabupaten){
-                $kota = $kab['nama'];
+        //Acak Kode Mitra
+        $no = Bus::orderBy("id_bus", "DESC")->first();
+        if ($no == null) {
+            $id_bus = 'BUS0001';
+        } else {
+            $nama = substr($no->id_bus, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_bus = 'BUS' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_bus = 'BUS' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_bus = 'BUS' . "0" . $tambah;
+            } else {
+                $id_bus = 'BUS' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode',$request->kabupaten)->first();
+
         Bus::create([
             'user_id'       => request()->user()->id,
+            'id_bus'        => $id_bus,
             'nama'          => $request->nama,
             'po'            => $request->po,
             'provinsi'      => $request->provinsi,
@@ -92,62 +83,26 @@ class BusController extends Controller
             'harga'         => $request->harga,
             'review'        => $request->review,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('bus')->with('status','Postingan Bus Berhasil Di Upload');
 
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bus  $bus
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Bus $bus)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bus  $bus
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Bus $bus)
     {
-        $data['title']      = 'Update Posting Bus';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.bus.updatebus', compact('bus'), $data);
+        return response()->json([
+            'bus' => $bus
+        ]);
+        // $data['title']      = 'Update Posting Bus';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.bus.updatebus', compact('bus'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bus  $bus
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Bus $bus)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
         if($request->hasfile('gambar'))
         {
             $request->validate([
@@ -187,7 +142,7 @@ class BusController extends Controller
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
                 'review'        => $request->review,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
             ]);
         }
         else
@@ -208,19 +163,12 @@ class BusController extends Controller
                 'ac'            => $request->ac,
                 'jumlah_sit'    => $request->jumlah_sit,
                 'harga'         => $request->harga,
-                'review'         => $request->review,
-                'kota_search'   => $kota,
+                'review'        => $request->review,
+                'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('bus')->with('status', 'Postingan Bus Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Bus  $bus
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Bus $bus)
     {
         $filegambar = DB::table('fileuploads')

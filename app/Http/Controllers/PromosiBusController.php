@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\Bus;
 use App\Models\DetailRiwayat;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiBusController extends Controller
 {
-    public function index()
+    public function index(Bus $bus)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.bus.boordingbus',$data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat','detail_riwayat.id','=','riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer','=',request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at','DESC')
-                            ->get();
-        return view('paketbook.bus.bookcartbus', $data);
+        $data['cart']       = Cart::content();
+        $data['databus']    = Bus::orderBy('created_at','DESC')->paginate(3);
+        return view('paketbook.bus.detailbus', compact('bus'),$data);
     }
 
     public function store(Bus $bus, Request $request)
@@ -70,11 +56,6 @@ class PromosiBusController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createbus');
-    }
-
-    public function show(Bus $bus)
-    {
-        return view('paketbook.bus.detailbus', compact('bus'));
     }
 
     public function update(Request $request,Riwayat $riwayat)

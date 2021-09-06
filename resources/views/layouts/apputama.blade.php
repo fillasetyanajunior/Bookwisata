@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="zxx">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,6 +10,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{url('assets/utama/img/icon/icon.png')}}">
     <!-- CSS here -->
     <link rel="stylesheet" href="{{url('assets/utama/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{url('assets/utama/formwizart/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{url('assets/utama/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/slicknav.css') }}">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{{url('assets/utama/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/style.css') }}">
     <link rel="stylesheet" href="{{url('assets/utama/css/responsive.css') }}">
-    
+
 </head>
 
 <body>
@@ -98,6 +98,7 @@
                                                     <li><a href="{{ route('listoftour') }}">Perlengkapan Tour</a></li>
                                                 </ul>
                                             </li>
+                                            <li><a href="{{route('cart')}}">Cart ({{Cart::content()->count()}})</a></li>
                                             <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
                                             <li><a href="{{ route('register') }}">{{ __('Register') }}</a></li>
                                         </ul>
@@ -117,7 +118,7 @@
     </header>
 
     <main>
-       
+
         <div class="container mt-5">
             @if (session('status'))
                 <div class="alert alert-secondary">
@@ -139,7 +140,7 @@
                             </div>
                             <p class="pera2"></p>
                             <p class="pera1" style="font-size: 16pt">
-                                
+
                             </p>
                             <p class="pera3"></p>
                         </div>
@@ -264,8 +265,8 @@
                                     <div class="footer-tittle">
                                         <div class="footer-pera">
                                             <p>Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia.
-                                            <span>P: 24/7 customer support: +62 274 - 443165 | WA. +62 81 5791 3168</span> 
-                                            <p>E: info@bookwisata.com</p></p> 
+                                            <span>P: 24/7 customer support: +62 274 - 443165 | WA. +62 81 5791 3168</span>
+                                            <p>E: info@bookwisata.com</p></p>
                                         </div>
                                     </div>
                                 </div>
@@ -326,56 +327,54 @@
         </footer>
 
 
-        <!-- JS here -->
+    <!-- JS here -->
+    <!-- All JS Custom Plugins Link Here here -->
+    <script src="{{url('assets/utama/js/vendor/modernizr-3.5.0.min.js') }}"></script>
 
-        <!-- All JS Custom Plugins Link Here here -->
-        <script src="{{url('assets/utama/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="{{url('assets/utama/js/jquery-3-5-1.js') }}"></script>
+    <script src="{{url('assets/utama/js/popper.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/bootstrap.min.js') }}"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="{{url('assets/utama/js/jquery.slicknav.min.js') }}"></script>
 
-        <!-- Jquery, Popper, Bootstrap -->
-        <script src="{{url('assets/utama/js/jquery-3-5-1.js') }}"></script>
-        <script src="{{url('assets/utama/js/popper.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/bootstrap.min.js') }}"></script>
-        <!-- Jquery Mobile Menu -->
-        <script src="{{url('assets/utama/js/jquery.slicknav.min.js') }}"></script>
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="{{url('assets/utama/js/owl.carousel.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/slick.min.js') }}"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="{{url('assets/utama/js/wow.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/animated.headline.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.magnific-popup.js') }}"></script>
 
-        <!-- Jquery Slick , Owl-Carousel Plugins -->
-        <script src="{{url('assets/utama/js/owl.carousel.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/slick.min.js') }}"></script>
-        <!-- One Page, Animated-HeadLin -->
-        <script src="{{url('assets/utama/js/wow.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/animated.headline.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.magnific-popup.js') }}"></script>
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="{{url('assets/utama/js/jquery.scrollUp.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.sticky.js') }}"></script>
 
-        <!-- Scrollup, nice-select, sticky -->
-        <script src="{{url('assets/utama/js/jquery.scrollUp.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.nice-select.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.sticky.js') }}"></script>
+    <!-- contact js -->
+    <script src="{{url('assets/utama/js/contact.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.form.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.validate.min.js') }}"></script>
+    <script src="{{url('assets/utama/js/mail-script.js') }}"></script>
+    <script src="{{url('assets/utama/js/jquery.ajaxchimp.min.js') }}"></script>
 
-        <!-- contact js -->
-        <script src="{{url('assets/utama/js/contact.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.form.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.validate.min.js') }}"></script>
-        <script src="{{url('assets/utama/js/mail-script.js') }}"></script>
-        <script src="{{url('assets/utama/js/jquery.ajaxchimp.min.js') }}"></script>
-
-        <!-- Jquery Plugins, main Jquery -->
-        <script src="{{url('assets/utama/js/plugins.js') }}"></script>
-        <script src="{{url('assets/utama/js/main.js') }}"></script>
-        <!--Start of Tawk.to Script-->
-        <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/601fb04ec31c9117cb769f2a/1etttkinh';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-        </script>
-        <!--End of Tawk.to Script-->
-        
-
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="{{url('assets/utama/js/plugins.js') }}"></script>
+    <script src="{{url('assets/utama/js/main.js') }}"></script>
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/601fb04ec31c9117cb769f2a/1etttkinh';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+    <script src="{{url('assets/utama/formwizart/js/bootstrap.js')}}"></script>
 </body>
 
 </html>

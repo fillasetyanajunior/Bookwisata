@@ -6,31 +6,17 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Kuliner;
 use App\Models\Riwayat;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PromosiKulinerController extends Controller
 {
-    public function index()
+    public function index(Kuliner $kuliner)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.kuliner.boordingkuliner', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.kuliner.bookcartkuliner', $data);
+        $data['cart']           = Cart::content();
+        $data['datakuliner']    = Kuliner::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.kuliner.detailkuliner', compact('kuliner'), $data);
     }
 
     public function store(Kuliner $kuliner, Request $request)
@@ -71,11 +57,6 @@ class PromosiKulinerController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createkuliner');
-    }
-
-    public function show(Kuliner $kuliner)
-    {
-        return view('paketbook.kuliner.detailkuliner', compact('kuliner'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

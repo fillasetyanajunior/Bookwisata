@@ -17,6 +17,7 @@ use App\Http\Controllers\MobilController;
 use App\Http\Controllers\PaketController;
 use App\Http\Controllers\PusatController;
 use App\Http\Controllers\CampController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\SepedaController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\PromosiBusController;
@@ -59,7 +60,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/pdf/{id}',[PdfController::class, 'PdfGenerate']);
 
 Route::get('/coba',function (){
-    return view('home.lowongankerja');
+    return view('paketbook.bus.confirmbus');
 });
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('verified')->name('home');
@@ -84,104 +85,111 @@ Route::get('/listoftour',[UtamaController::class, 'ListOfTour'])->name('listofto
 Route::get('/listofsepeda',[UtamaController::class, 'ListOfSepeda'])->name('listofsepeda');
 Route::get('/listofcamp',[UtamaController::class, 'ListOfCamp'])->name('listofcamp');
 
-Route::get('/detailbus/{bus}', [PromosiBusController::class,'show'])->name('detailbus');
-Route::get('/detailmobil/{mobil}', [PromosiMobilController::class,'show'])->name('detailmobil');
-Route::get('/detaildestinasi/{destinasi}', [PromosiDestinasiController::class,'show'])->name('detaildestinasi');
-Route::get('/detailpusat/{pusat}', [PromosiPusatController::class,'show'])->name('detailpusat');
-Route::get('/detailguide/{guide}', [PromosiGuideController::class,'show'])->name('detailguide');
-Route::get('/detailhotel/{hotel}', [PromosiHotelController::class,'show'])->name('detailhotel');
-Route::get('/detailkapal/{kapal}', [PromosiKapalController::class,'show'])->name('detailkapal');
-Route::get('/detailpaket/{paket}', [PromosiPaketController::class,'show'])->name('detailpaket');
-Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'show'])->name('detailkuliner');
-Route::get('/detailtour/{tour}', [PromosiTourController::class,'show'])->name('detailtour');
-Route::get('/detailsepeda/{sepeda}', [PromosiSepedaController::class,'show'])->name('detailsepeda');
-Route::get('/detailcamp/{camp}', [PromosiCampController::class,'show'])->name('detailcamp');
-Route::get('/detailinformasi/{informasi}',[InformasiController::class,'show'])->name('detailinformasi');
+Route::get('/detailbus/{bus}', [PromosiBusController::class,'index'])->name('detailbus');
+Route::get('/detailmobil/{mobil}', [PromosiMobilController::class,'index'])->name('detailmobil');
+Route::get('/detaildestinasi/{destinasi}', [PromosiDestinasiController::class,'index'])->name('detaildestinasi');
+Route::get('/detailpusat/{pusat}', [PromosiPusatController::class,'index'])->name('detailpusat');
+Route::get('/detailguide/{guide}', [PromosiGuideController::class,'index'])->name('detailguide');
+Route::get('/detailhotel/{hotel}', [PromosiHotelController::class,'index'])->name('detailhotel');
+Route::get('/detailkapal/{kapal}', [PromosiKapalController::class,'index'])->name('detailkapal');
+Route::get('/detailpaket/{paket}', [PromosiPaketController::class,'index'])->name('detailpaket');
+Route::get('/detailkuliner/{kuliner}', [PromosiKulinerController::class,'index'])->name('detailkuliner');
+Route::get('/detailtour/{tour}', [PromosiTourController::class,'index'])->name('detailtour');
+Route::get('/detailsepeda/{sepeda}', [PromosiSepedaController::class,'index'])->name('detailsepeda');
+Route::get('/detailcamp/{camp}', [PromosiCampController::class,'index'])->name('detailcamp');
+Route::get('/detailinformasi/{informasi}',[InformasiController::class,'index'])->name('detailinformasi');
+
+Route::get('/checkout', [CartController::class, 'Checkout'])->name('checkout');
+Route::post('/checkout', [CartController::class, 'CheckoutStore'])->name('checkoutstore');
+Route::get('/cartproduk', [CartController::class,'Cart'])->name('cart');
+Route::post('/cartproduk', [CartController::class,'storeCart'])->name('cartstore');
+Route::delete('/cartproduk/delete/{id}', [CartController::class,'delete']);
+Route::delete('/cartproduk/deleteall', [CartController::class,'deleteAll']);
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    
+
     Route::post('/layananmitra', [TransaksiMitraController::class, 'create']);
     Route::post('/layananmitra/create', [TransaksiMitraController::class, 'store']);
 
     Route::get('/riwayat',[RiwayatController::class,'index'])->name('riwayat');
-    
+
     //Bus
     Route::get('/bordingbus', [PromosiBusController::class,'index'])->name('showbordingbus');
     Route::post('/bordingbus', [PromosiBusController::class,'boording'])->name('bordingbus');
     Route::get('/bookchartbus', [PromosiBusController::class,'create'])->middleware('auth')->name('createbus');
     Route::post('/bookchartbus/bus/{bus}', [PromosiBusController::class,'store'])->name('storebus');
     Route::put('/bookchartbus/{riwayat}', [PromosiBusController::class,'update'])->name('updatebus');
-    
+
     //Mobil
     Route::get('/bordingmobil', [PromosiMobilController::class,'index'])->name('showbordingmobil');
     Route::post('/bordingmobil', [PromosiMobilController::class,'boording'])->name('bordingmobil');
     Route::get('/bookchartmobil', [PromosiMobilController::class,'create'])->middleware('auth')->name('createmobil');
     Route::post('/bookchartmobil/mobil/{mobil}', [PromosiMobilController::class,'store'])->name('storemobil');
     Route::put('/bookchartmobil/{riwayat}', [PromosiMobilController::class,'update'])->name('updatemobil');
-    
+
     //Destinasi
     Route::get('/bordingdestinasi', [PromosiDestinasiController::class,'index'])->name('showbordingdestinasi');
     Route::post('/bordingdestinasi', [PromosiDestinasiController::class,'boording'])->name('bordingdestinasi');
     Route::get('/bookchartdestinasi', [PromosiDestinasiController::class,'create'])->middleware('auth')->name('createdestinasi');
     Route::post('/bookchartdestinasi/destinasi/{destinasi}', [PromosiDestinasiController::class,'store'])->name('storedestinasi');
     Route::put('/bookchartdestinasi/{riwayat}', [PromosiDestinasiController::class,'update'])->name('updatedestinasi');
-    
+
     //Pusat Oleh-oleh
     Route::get('/bordingpusat', [PromosiPusatController::class,'index'])->name('showbordingpusat');
     Route::post('/bordingpusat', [PromosiPusatController::class,'boording'])->name('bordingpusat');
     Route::get('/bookchartpusat', [PromosiPusatController::class,'create'])->middleware('auth')->name('createpusat');
     Route::post('/bookchartpusat/pusat/{pusat}', [PromosiPusatController::class,'store'])->name('storepusat');
     Route::put('/bookchartpusat/{riwayat}', [PromosiPusatController::class,'update'])->name('updatepusat');
-    
+
     //Tourguide
     Route::get('/bordingguide', [PromosiGuideController::class,'index'])->name('showbordingguide');
     Route::post('/bordingguide', [PromosiGuideController::class,'boording'])->name('bordingguide');
     Route::get('/bookchartguide', [PromosiGuideController::class,'create'])->middleware('auth')->name('createguide');
     Route::post('/bookchartguide/guide/{guide}', [PromosiGuideController::class,'store'])->name('storeguide');
     Route::put('/bookchartguide/{riwayat}', [PromosiGuideController::class,'update'])->name('updateguide');
-    
+
     //Hotel
     Route::get('/bordinghotel', [PromosiHotelController::class,'index'])->name('showbordinghotel');
     Route::post('/bordinghotel', [PromosiHotelController::class,'boording'])->name('bordinghotel');
     Route::get('/bookcharthotel', [PromosiHotelController::class,'create'])->middleware('auth')->name('createhotel');
     Route::post('/bookcharthotel/hotel/{hotel}', [PromosiHotelController::class,'store'])->name('storehotel');
     Route::put('/bookcharthotel/{riwayat}', [PromosiHotelController::class,'update'])->name('updatehotel');
-    
+
     //Kapal Pesiar
     Route::get('/bordingkapal', [PromosiKapalController::class,'index'])->name('showbordingkapal');
     Route::post('/bordingkapal', [PromosiKapalController::class,'boording'])->name('bordingkapal');
     Route::get('/bookchartkapal', [PromosiKapalController::class,'create'])->middleware('auth')->name('createkapal');
     Route::post('/bookchartkapal/kapal/{kapal}', [PromosiKapalController::class,'store'])->name('storekapal');
     Route::put('/bookchartkapal/{riwayat}', [PromosiKapalController::class,'update'])->name('updatekapal');
-    
+
     //Paket Wisata
     Route::get('/bordingpaket', [PromosiPaketController::class,'index'])->name('showbordingpaket');
     Route::post('/bordingpaket', [PromosiPaketController::class,'boording'])->name('bordingpaket');
     Route::get('/bookchartpaket', [PromosiPaketController::class,'create'])->middleware('auth')->name('createpaket');
     Route::post('/bookchartpaket/paket/{paket}', [PromosiPaketController::class,'store'])->name('storepaket');
     Route::put('/bookchartpaket/{riwayat}', [PromosiPaketController::class,'update'])->name('updatepaket');
-    
+
     //Kuliner
     Route::get('/boardingkuliner', [PromosiKulinerController::class,'index'])->name('showbordingkuliner');
     Route::post('/bordingkuliner', [PromosiKulinerController::class,'boording'])->name('bordingkuliner');
     Route::get('/bookchartkuliner', [PromosiKulinerController::class,'create'])->middleware('auth')->name('createkuliner');
     Route::post('/bookchartkuliner/kuliner/{kuliner}', [PromosiKulinerController::class,'store'])->name('storekuliner');
     Route::put('/bookchartkuliner/{riwayat}', [PromosiKulinerController::class,'update'])->name('updatekuliner');
-    
+
     //Camp
     Route::get('/boardingcamp', [PromosiCampController::class,'index'])->name('showbordingcamp');
     Route::post('/bordingcamp', [PromosiCampController::class,'boording'])->name('bordingcamp');
     Route::get('/bookchartcamp', [PromosiCampController::class,'create'])->middleware('auth')->name('createcamp');
     Route::post('/bookchartcamp/camp/{camp}', [PromosiCampController::class,'store'])->name('storecamp');
     Route::put('/bookchartcamp/{riwayat}', [PromosiCampController::class,'update'])->name('updatecamp');
-    
+
     //Tour
     Route::get('/boardingtour', [PromosiTourController::class,'index'])->name('showbordingtour');
     Route::post('/bordingtour', [PromosiTourController::class,'boording'])->name('bordingtour');
     Route::get('/bookcharttour', [PromosiTourController::class,'create'])->middleware('auth')->name('createtour');
     Route::post('/bookcharttour/tour/{tour}', [PromosiTourController::class,'store'])->name('storetour');
     Route::put('/bookcharttour/{riwayat}', [PromosiTourController::class,'update'])->name('updatetour');
-    
+
     //Sepeda
     Route::get('/boardingsepeda', [PromosiSepedaController::class,'index'])->name('showbordingsepeda');
     Route::post('/bordingsepeda', [PromosiSepedaController::class,'boording'])->name('bordingsepeda');
@@ -201,49 +209,42 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 });
 
 Route::middleware(['auth', 'verified','user'])->group(function () {
-    
+
     Route::get('/konfirmasi_pembayaran/create', [KonfirmasiController::class,'create'])->name('create_konfirmasi_pembayaran');
     Route::post('/konfirmasi_pembayaran', [KonfirmasiController::class,'store'])->name('store_konfirmasi_pembayaran');
 });
 
 Route::group(['middleware' => ['auth', 'verified','admin']], function () {
-    
+
     Route::get('/menu',[MenuController::class,'index'])->name('menu');
-    Route::get('/menu/create',[MenuController::class,'create'])->name('create_menu');
-    Route::post('/menu',[MenuController::class,'store'])->name('store_menu');
-    Route::get('/menu/{menu}',[MenuController::class,'edit'])->name('edit_menu');
-    Route::put('/menu/{menu}',[MenuController::class,'update'])->name('update_menu');
-    Route::delete('/menu/{menu}',[MenuController::class,'destroy'])->name('destroy_menu');
-    
+    Route::post('/menu/store',[MenuController::class,'store']);
+    Route::post('/menu/edit/{menu}',[MenuController::class,'edit']);
+    Route::post('/menu/update/{menu}',[MenuController::class,'update']);
+    Route::delete('/menu/delete/{menu}',[MenuController::class,'destroy']);
+
     Route::get('/submenu',[SubMenuController::class,'index'])->name('submenu');
-    Route::get('/submenu/create',[SubMenuController::class,'create'])->name('create_submenu');
-    Route::post('/submenu',[SubMenuController::class,'store'])->name('store_submenu');
-    Route::get('/submenu/{subMenu}',[SubMenuController::class,'edit'])->name('edit_submenu');
-    Route::put('/submenu/{subMenu}',[SubMenuController::class,'update'])->name('update_submenu');
-    Route::delete('/submenu/{subMenu}',[SubMenuController::class,'destroy'])->name('destroy_submenu');
-    
+    Route::post('/submenu/store',[SubMenuController::class,'store']);
+    Route::post('/submenu/edit/{subMenu}',[SubMenuController::class,'edit']);
+    Route::post('/submenu/update/{subMenu}',[SubMenuController::class,'update']);
+    Route::delete('/submenu/delete/{subMenu}',[SubMenuController::class,'destroy']);
+
     Route::get('/accessmenu',[AccessMenuController::class,'index'])->name('accessmenu');
-    Route::get('/accessmenu/create',[AccessMenuController::class,'create'])->name('create_accessmenu');
-    Route::post('/accessmenu',[AccessMenuController::class,'store'])->name('store_accessmenu');
-    Route::get('/accessmenu/{accessMenu}',[AccessMenuController::class,'edit'])->name('edit_accessmenu');
-    Route::put('/accessmenu/{accessMenu}',[AccessMenuController::class,'update'])->name('update_accessmenu');
-    Route::delete('/accessmenu/{accessMenu}',[AccessMenuController::class,'destroy'])->name('destroy_accessmenu');
+    Route::post('/accessmenu/store',[AccessMenuController::class,'store']);
+    Route::post('/accessmenu/edit/{accessMenu}',[AccessMenuController::class,'edit']);
+    Route::post('/accessmenu/update/{accessMenu}',[AccessMenuController::class,'update']);
+    Route::delete('/accessmenu/delete/{accessMenu}',[AccessMenuController::class,'destroy']);
 
     Route::get('/informasi',[InformasiController::class,'index'])->name('informasi');
-    Route::get('/informasi/create',[InformasiController::class,'create'])->name('create_informasi');
-    Route::post('/informasi',[InformasiController::class,'store'])->name('store_informasi');
-    Route::get('/informasi/{informasi}',[InformasiController::class,'edit'])->name('edit_informasi');
-    Route::put('/informasi/{informasi}',[InformasiController::class,'update'])->name('update_informasi');
-    Route::delete('/informasi/{informasi}',[InformasiController::class,'destroy'])->name('destroy_informasi');
+    Route::post('/informasi/store',[InformasiController::class,'store']);
+    Route::post('/informasi/edit/{informasi}',[InformasiController::class,'edit']);
+    Route::post('/informasi/update/{informasi}',[InformasiController::class,'update']);
+    Route::delete('/informasi/delete/{informasi}',[InformasiController::class,'destroy']);
 
     Route::get('/managementuser', [ManagementUserController::class, 'index'])->name('managementuser');
-    Route::get('/managementuser/edit/{user}', [ManagementUserController::class, 'EditOfUser'])->name('edit_managementuser');
-    Route::get('/managementuser/show/{user}', [ManagementUserController::class, 'show']);
-    Route::post('/managementuser/{user}', [ManagementUserController::class, 'update'])->name('update_managementuser');
+    Route::post('/managementuser/edit/{user}', [ManagementUserController::class, 'EditOfUser']);
+    Route::post('/managementuser/update/{user}', [ManagementUserController::class, 'update']);
 
     Route::get('/showlayananmitra', [TransaksiMitraController::class,'index'])->name('layananmitra');
-
-    
 });
 
 Route::group(['middleware' => ['auth','verified','mitra']], function () {
@@ -252,98 +253,86 @@ Route::group(['middleware' => ['auth','verified','mitra']], function () {
     Route::get('/konfirmasi_mitra/{konfirmasipembayaran}', [KonfirmasiController::class,'showValidasiMitra']);
     Route::post('/konfirmasi_download/mitra/{konfirmasipembayaran}', [KonfirmasiController::class,'downloadMitra']);
     Route::post('/konfirmasi_download/pembayaran/{konfirmasi}', [KonfirmasiController::class,'downloadPembayaran']);
-    
+
     Route::get('/bus',[BusController::class,'index'])->name('bus');
-    Route::get('/bus/create',[BusController::class,'create'])->name('create_bus');
-    Route::post('/bus', [BusController::class,'store'])->name('store_bus');
-    Route::get('/bus/{bus}', [BusController::class,'edit'])->name('edit_bus');
-    Route::put('/bus/{bus}', [BusController::class,'update'])->name('update_bus');
-    Route::delete('/bus/{bus}', [BusController::class,'destroy'])->name('destroy_bus');
-    
+    Route::post('/bus/store', [BusController::class,'store']);
+    Route::post('/bus/edit/{bus}', [BusController::class,'edit']);
+    Route::post('/bus/update/{bus}', [BusController::class,'update']);
+    Route::delete('/bus/delete/{bus}', [BusController::class,'destroy']);
+
     Route::get('/mobil',[MobilController::class,'index'])->name('mobil');
-    Route::get('/mobil/create',[MobilController::class,'create'])->name('create_mobil');
-    Route::post('/mobil', [MobilController::class,'store'])->name('store_mobil');
-    Route::get('/mobil/{mobil}', [MobilController::class,'edit'])->name('edit_mobil');
-    Route::put('/mobil/{mobil}', [MobilController::class,'update'])->name('update_mobil');
-    Route::delete('/mobil/{mobil}', [MobilController::class,'destroy'])->name('destroy_mobil');
-    
+    Route::post('/mobil/store', [MobilController::class,'store']);
+    Route::post('/mobil/edit/{mobil}', [MobilController::class,'edit']);
+    Route::post('/mobil/update/{mobil}', [MobilController::class,'update']);
+    Route::delete('/mobil/delete/{mobil}', [MobilController::class,'destroy']);
+
     Route::get('/destinasi',[DestinasiController::class,'index'])->name('destinasi');
-    Route::get('/destinasi/create',[DestinasiController::class,'create'])->name('create_destinasi');
-    Route::post('/destinasi', [DestinasiController::class,'store'])->name('store_destinasi');
-    Route::get('/destinasi/{destinasi}', [DestinasiController::class,'edit'])->name('edit_destinasi');
-    Route::put('/destinasi/{destinasi}', [DestinasiController::class,'update'])->name('update_destinasi');
-    Route::delete('/destinasi/{destinasi}', [DestinasiController::class,'destroy'])->name('destroy_destinasi');
-    
+    Route::post('/destinasi/store', [DestinasiController::class,'store']);
+    Route::post('/destinasi/edit/{destinasi}', [DestinasiController::class,'edit']);
+    Route::post('/destinasi/update/{destinasi}', [DestinasiController::class,'update']);
+    Route::delete('/destinasi/delete/{destinasi}', [DestinasiController::class,'destroy']);
+
     Route::get('/hotel',[HotelConteoller::class,'index'])->name('hotel');
-    Route::get('/hotel/create',[HotelConteoller::class,'create'])->name('create_hotel');
-    Route::post('/hotel', [HotelConteoller::class,'store'])->name('store_hotel');
-    Route::get('/hotel/{hotel}', [HotelConteoller::class,'edit'])->name('edit_hotel');
-    Route::put('/hotel/{hotel}', [HotelConteoller::class,'update'])->name('update_hotel');
-    Route::delete('/hotel/{hotel}', [HotelConteoller::class,'destroy'])->name('destroy_hotel');
-    
+    Route::post('/hotel/store', [HotelConteoller::class,'store']);
+    Route::post('/hotel/edit/{hotel}', [HotelConteoller::class,'edit']);
+    Route::post('/hotel/update/{hotel}', [HotelConteoller::class,'update']);
+    Route::delete('/hotel/delete/{hotel}', [HotelConteoller::class,'destroy']);
+
     Route::get('/kapal',[KapalController::class,'index'])->name('kapal');
-    Route::get('/kapal/create',[KapalController::class,'create'])->name('create_kapal');
-    Route::post('/kapal', [KapalController::class,'store'])->name('store_kapal');
-    Route::get('/kapal/{kapal}', [KapalController::class,'edit'])->name('edit_kapal');
-    Route::put('/kapal/{kapal}', [KapalController::class,'update'])->name('update_kapal');
-    Route::delete('/kapal/{kapal}', [KapalController::class,'destroy'])->name('destroy_kapal');
-    
+    Route::post('/kapal/store', [KapalController::class,'store']);
+    Route::post('/kapal/edit/{kapal}', [KapalController::class,'edit']);
+    Route::post('/kapal/update/{kapal}', [KapalController::class,'update']);
+    Route::delete('/kapal/delete/{kapal}', [KapalController::class,'destroy']);
+
     Route::get('/paket',[PaketController::class,'index'])->name('paket');
-    Route::get('/paket/create',[PaketController::class,'create'])->name('create_paket');
-    Route::post('/paket', [PaketController::class,'store'])->name('store_paket');
-    Route::get('/paket/{paket}', [PaketController::class,'edit'])->name('edit_paket');
-    Route::put('/paket/{paket}', [PaketController::class,'update'])->name('update_paket');
-    Route::delete('/paket/{paket}', [PaketController::class,'destroy'])->name('destroy_paket');
-    
+    Route::post('/paket/store', [PaketController::class,'store']);
+    Route::post('/paket/edit/{paket}', [PaketController::class,'edit']);
+    Route::post('/paket/update/{paket}', [PaketController::class,'update']);
+    Route::delete('/paket/delete/{paket}', [PaketController::class,'destroy']);
+
     Route::get('/kuliner',[KulinerController::class,'index'])->name('kuliner');
-    Route::get('/kuliner/create',[KulinerController::class,'create'])->name('create_kuliner');
-    Route::post('/kuliner', [KulinerController::class,'store'])->name('store_kuliner');
-    Route::get('/kuliner/{kuliner}', [KulinerController::class,'edit'])->name('edit_kuliner');
-    Route::put('/kuliner/{kuliner}', [KulinerController::class,'update'])->name('update_kuliner');
-    Route::delete('/kuliner/{kuliner}', [KulinerController::class,'destroy'])->name('destroy_kuliner');
-    
+    Route::post('/kuliner/store', [KulinerController::class,'store']);
+    Route::post('/kuliner/edit/{kuliner}', [KulinerController::class,'edit']);
+    Route::post('/kuliner/update/{kuliner}', [KulinerController::class,'update']);
+    Route::delete('/kuliner/delete/{kuliner}', [KulinerController::class,'destroy']);
+
     Route::get('/pusat',[PusatController::class,'index'])->name('pusat');
-    Route::get('/pusat/create',[PusatController::class,'create'])->name('create_pusat');
-    Route::post('/pusat', [PusatController::class,'store'])->name('store_pusat');
-    Route::get('/pusat/{pusat}', [PusatController::class,'edit'])->name('edit_pusat');
-    Route::put('/pusat/{pusat}', [PusatController::class,'update'])->name('update_pusat');
-    Route::delete('/pusat/{pusat}', [PusatController::class,'destroy'])->name('destroy_pusat');
-    
+    Route::post('/pusat/store', [PusatController::class,'store']);
+    Route::post('/pusat/edit/{pusat}', [PusatController::class,'edit']);
+    Route::post('/pusat/update/{pusat}', [PusatController::class,'update']);
+    Route::delete('/pusat/delete/{pusat}', [PusatController::class,'destroy']);
+
     Route::get('/guide',[GuideController::class,'index'])->name('guide');
-    Route::get('/guide/create',[GuideController::class,'create'])->name('create_guide');
-    Route::post('/guide', [GuideController::class,'store'])->name('store_guide');
-    Route::get('/guide/{guide}', [GuideController::class,'edit'])->name('edit_guide');
-    Route::put('/guide/{guide}', [GuideController::class,'update'])->name('update_guide');
-    Route::delete('/guide/{guide}', [GuideController::class,'destroy'])->name('destroy_guide');
-    
+    Route::post('/guide/store', [GuideController::class,'store']);
+    Route::post('/guide/edit/{guide}', [GuideController::class,'edit']);
+    Route::post('/guide/update/{guide}', [GuideController::class,'update']);
+    Route::delete('/guide/delete/{guide}', [GuideController::class,'destroy']);
+
     Route::get('/tour',[TourController::class,'index'])->name('tour');
-    Route::get('/tour/create',[TourController::class,'create'])->name('create_tour');
-    Route::post('/tour', [TourController::class,'store'])->name('store_tour');
-    Route::get('/tour/{tour}', [TourController::class,'edit'])->name('edit_tour');
-    Route::put('/tour/{tour}', [TourController::class,'update'])->name('update_tour');
-    Route::delete('/tour/{tour}', [TourController::class,'destroy'])->name('destroy_tour');
+    Route::post('/tour/store', [TourController::class,'store']);
+    Route::post('/tour/edit/{tour}', [TourController::class,'edit']);
+    Route::post('/tour/update/{tour}', [TourController::class,'update']);
+    Route::delete('/tour/delete/{tour}', [TourController::class,'destroy']);
 
     Route::get('/sepeda',[SepedaController::class,'index'])->name('sepeda');
-    Route::get('/sepeda/create',[SepedaController::class,'create'])->name('create_sepeda');
-    Route::post('/sepeda', [SepedaController::class,'store'])->name('store_sepeda');
-    Route::get('/sepeda/{sepeda}', [SepedaController::class,'edit'])->name('edit_sepeda');
-    Route::put('/sepeda/{sepeda}', [SepedaController::class,'update'])->name('update_sepeda');
-    Route::delete('/sepeda/{sepeda}', [SepedaController::class,'destroy'])->name('destroy_sepeda');
+    Route::post('/sepeda/store', [SepedaController::class,'store']);
+    Route::post('/sepeda/edit/{sepeda}', [SepedaController::class,'edit']);
+    Route::post('/sepeda/update/{sepeda}', [SepedaController::class,'update']);
+    Route::delete('/sepeda/delete/{sepeda}', [SepedaController::class,'destroy']);
 
     Route::get('/camp',[CampController::class,'index'])->name('camp');
-    Route::get('/camp/create',[CampController::class,'create'])->name('create_camp');
-    Route::post('/camp', [CampController::class,'store'])->name('store_camp');
-    Route::get('/camp/{camp}', [CampController::class,'edit'])->name('edit_camp');
-    Route::put('/camp/{camp}', [CampController::class,'update'])->name('update_camp');
-    Route::delete('/camp/{camp}', [CampController::class,'destroy'])->name('destroy_camp');
+    Route::post('/camp/store', [CampController::class,'store']);
+    Route::post('/camp/edit/{camp}', [CampController::class,'edit']);
+    Route::post('/camp/update/{camp}', [CampController::class,'update']);
+    Route::delete('/camp/delete/{camp}', [CampController::class,'destroy']);
 
     Route::get('/konfirmasi/{riwayat}',[RiwayatController::class,'edit'])->name('konfirmasi');
     Route::post('/konfirmasi/{riwayat}',[RiwayatController::class,'update'])->name('riwayatkonfirmasi');
 
     Route::post('/kabupaten',[ResponseApiController::class, 'kabupaten']);
-});  
-    
+});
+
     // //Coba
     // Route::get('/coba',[CobaController::class,'index'])->name('coba');
     // Route::post('/cobas',[CobaController::class,'coba'])->name('cobas');
-    
+

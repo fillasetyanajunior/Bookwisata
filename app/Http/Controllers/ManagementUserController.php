@@ -15,15 +15,11 @@ class ManagementUserController extends Controller
         $data['title']  = 'Menagement User';
         return view('admin.managementuser.showmanagementuser',$data);
     }
-    public function show(User $user)
-    {
-        $data['title']  = 'Detail User';
-        return view('admin.managementuser.show',$data,compact('user'));
-    }
     public function EditOfUser(User $user)
     {
-        $data['title']  = 'Update User';
-        return view('admin.managementuser.updatemanagementuser', $data,compact('user'));
+        return response()->json([
+            'user' => $user
+        ]);
     }
     public function Update(Request $request,User $user)
     {
@@ -61,7 +57,7 @@ class ManagementUserController extends Controller
                 }else{
                     $active_mitra = date('Y-m-d', strtotime('+1 month'));
                 }
-                
+
                 User::where('id',$user->id)
                     ->update([
                         'role'  => $request->role,
@@ -77,7 +73,7 @@ class ManagementUserController extends Controller
             } else {
                 return redirect()->route('managementuser')->with('status','Update Data Gagal Karena Tidak Ada Transaksi Layanan Mitra');
             }
-            
+
         } else {
             User::where('id', $user->id)
                 ->update([

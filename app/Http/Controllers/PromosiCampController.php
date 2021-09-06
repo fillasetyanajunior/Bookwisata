@@ -7,30 +7,15 @@ use App\Events\MyEvent;
 use App\Models\DetailRiwayat;
 use App\Models\Camp;
 use App\Models\Riwayat;
-use Illuminate\Support\Facades\DB;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class PromosiCampController extends Controller
 {
-    public function index()
+    public function index(Camp $camp)
     {
-        $data['lasted'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.camp.boordingcamp', $data);
-    }
-
-    public function create()
-    {
-        $data['riwayat'] = DB::table('riwayat')
-                            ->join('detail_riwayat', 'detail_riwayat.id', '=', 'riwayat.id_detail_riwayat')
-                            ->where('user_nama_customer', '=', request()->user()->name)
-                            ->limit('1')
-                            ->orderBy('created_at', 'DESC')
-                            ->get();
-        return view('paketbook.camp.bookcartcamp', $data);
+        $data['cart']       = Cart::content();
+        $data['datacamp']    = Camp::orderBy('created_at', 'DESC')->paginate(3);
+        return view('paketbook.camp.detailcamp', compact('camp'),$data);
     }
 
     public function store(Camp $camp, Request $request)
@@ -71,11 +56,6 @@ class PromosiCampController extends Controller
             'is_active'             => 1
         ]);
         return redirect()->route('createcamp');
-    }
-
-    public function show(Camp $camp)
-    {
-        return view('paketbook.camp.detailcamp', compact('camp'));
     }
 
     public function update(Request $request, Riwayat $riwayat)

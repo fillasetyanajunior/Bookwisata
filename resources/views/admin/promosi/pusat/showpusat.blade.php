@@ -1,40 +1,34 @@
 @extends('layouts.appdashboard')
-
 @section('title',$title)
-
 @section('main')
-    
 <x-slidebar></x-slidebar>
-
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">{{$title}}</h1>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Promosi</a></li>
-                    <li class="breadcrumb-item active">{{$title}}</li>
+                        <li class="breadcrumb-item"><a href="#">Promosi</a></li>
+                        <li class="breadcrumb-item active">{{$title}}</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4">
-        @if (session('status'))
+            @if (session('status'))
             <div class="alert alert-success">
                 {{ session('status') }}
             </div>
-        @endif
-
-            <a href="{{route('create_pusat')}}" class="btn btn-primary my-3">Tambah {{$title}}</a>
+            @endif
+            <button type="button" class="btn btn-primary my-3" id="addpusat" data-toggle="modal"
+                data-target="#PusatModal">
+                Tambah {{$title}}
+            </button>
             <table class="table bg-info ">
                 <thead>
                     <tr>
@@ -52,11 +46,15 @@
                         <td>{{$Pusat->nama}}</td>
                         <td>{{$Pusat->alamat }} </td>
                         <td>
-                            <a class="btn btn-warning" href="/pusat/{{$Pusat->id}}">Edit</a>
-                            <form action="/pusat/{{$Pusat->id}}" method="post" class="d-inline">
+                            <button type="button" class="btn btn-warning" id="editpusat" data-id="{{$Pusat->id}}"
+                                data-toggle="modal" data-target="#PusatModal">
+                                Edit
+                            </button>
+                            <form action="/pusat/delete/{{$Pusat->id}}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('yakin');">Delete</button>
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('yakin');">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -67,6 +65,80 @@
         </div>
     </div>
 </div>
- 
+<div class="modal fade" id="PusatModal" tabindex="-1" aria-labelledby="PusatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="PusatModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="body_pusat">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Pusat Oleh-Oleh</label>
+                            <input type="text" class="form-control  @error('nama') is-invalid @enderror" id="nama"
+                                name="nama" placeholder="Nama" value="{{old('nama')}}">
+                        </div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <label class="form-label">Provinsi</label>
+                                <select class="form-select form-control  @error('provinsi') is-invalid @enderror"
+                                    aria-label="Default select example" id="form_prov" name="provinsi">
+                                    <option selected disabled>Pilih Provinsi</option>
+                                    @foreach ($provinsi as $item)
+                                    <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col mb-3">
+                                <label class="form-label">Kabupaten/Kota</label>
+                                <select class="form-select form-control  @error('kabupaten') is-invalid @enderror"
+                                    aria-label="Default select example" id="form_kab" name="kabupaten">
+                                    <option selected>Pilih Kota</option>
+                                    @foreach ($kabupaten as $item)
+                                    <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alamat" class="form-label">Alamat</label>
+                            <input type="text" class="form-control  @error('alamat') is-invalid @enderror" id="alamat"
+                                placeholder="alamat" name="alamat" value="{{old('alamat')}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="review" class="form-label">Review</label>
+                            <textarea class="form-control @error('review') is-invalid @enderror" id="review" rows="5"
+                                name="review"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga</label>
+                            <input type="text" class="form-control  @error('harga') is-invalid @enderror" id="harga"
+                                placeholder="Harga" name="harga" value="{{old('harga')}}">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Foto Unit</label>
+                            <input class="form-control  @error('formFile') is-invalid @enderror" type="file" id="formFile"
+                                name="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gambar" class="form-label">Foto Detail</label>
+                            <input class="form-control  @error('gambar') is-invalid @enderror" type="file" id="gambar"
+                                name="gambar[]" multiple>
+                            <small id="emailHelp" class="form-text text-muted">Masukan Beberpa Foto</small>
+                        </div>
+                    </div>
+                    <div class="modal-footer footer_pusat">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
-

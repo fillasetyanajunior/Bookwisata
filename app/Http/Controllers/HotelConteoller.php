@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
 use App\Models\Hotel;
+use App\Models\Kabupaten;
+use App\Models\Provinsi;
 use App\Models\Tipekamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,38 +14,15 @@ use Illuminate\Support\Facades\Storage;
 
 class HotelConteoller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data['hotel'] = Hotel::where('user_id',request()->user()->id)->get();
-        $data['title'] = 'Posting Hotel';
+        $data['hotel']      = Hotel::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
+        $data['tipe']       = Tipekamar::all();
+        $data['title']      = 'Posting Hotel';
         return view('admin.promosi.hotel.showhotel', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Hotel';
-        $url            = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['tipe']   = Tipekamar::all();
-        $response = $url['provinsi'];
-        return view('admin.promosi.hotel.createhotel', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -54,7 +33,7 @@ class HotelConteoller extends Controller
             'bad'       => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -67,17 +46,28 @@ class HotelConteoller extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Hotel::orderBy("id_hotel", "DESC")->first();
+        if ($no == null) {
+            $id_hotel = 'HOT0001';
+        } else {
+            $nama = substr($no->id_hotel, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_hotel = 'HOT' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_hotel = 'HOT' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_hotel = 'HOT' . "0" . $tambah;
+            } else {
+                $id_hotel = 'HOT' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Hotel::create([
             'user_id'       => request()->user()->id,
+            'id_hotel'      => $id_hotel,
             'nama'          => $request->nama,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
@@ -86,62 +76,25 @@ class HotelConteoller extends Controller
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('hotel')->with('status','Postingan Hotel Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Hotel $hotel)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Hotel $hotel)
     {
-        $data['title']      = 'Update Posting Hotel';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['tipe']       = Tipekamar::all();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.hotel.updatehotel', compact('hotel'), $data);
+        return response()->json([
+            'hotel' => $hotel
+        ]);
+        // $data['title']      = 'Update Posting Hotel';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['tipe']       = Tipekamar::all();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.hotel.updatehotel', compact('hotel'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Hotel $hotel)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -178,7 +131,7 @@ class HotelConteoller extends Controller
                 'bad'           => $request->bad,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $hotel->nama)
@@ -194,18 +147,11 @@ class HotelConteoller extends Controller
                 'bad'           => $request->bad,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('hotel')->with('status', 'Postingan Hotel Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Hotel  $hotel
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Hotel $hotel)
     {
         $filegambar = DB::table('fileuploads')

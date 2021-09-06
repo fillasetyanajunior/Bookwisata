@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
+use App\Models\Kabupaten;
 use App\Models\Kuliner;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -11,37 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class KulinerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $data['kuliner']    = Kuliner::where('user_id',request()->user()->id)->get();
+        $data['provinsi']   = Provinsi::all();
+        $data['kabupaten']  = Kabupaten::all();
         $data['title']      = 'Posting Kuliner';
         return view('admin.promosi.kuliner.showkuliner', $data);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $data['title']  = 'Create Posting Kuliner';
-        $url            =  Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $response       = $url['provinsi'];
-        return view('admin.promosi.kuliner.createkuliner', compact('response'), $data);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -51,7 +30,7 @@ class KulinerController extends Controller
             'alamat'    => 'required',
             'review'    => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
         foreach ($request->file('gambar') as $file) {
@@ -64,17 +43,28 @@ class KulinerController extends Controller
             ]);
         }
 
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
+        $no = Kuliner::orderBy("id_kuliner", "DESC")->first();
+        if ($no == null) {
+            $id_kuliner = 'KUL0001';
+        } else {
+            $nama = substr($no->id_kuliner, 4, 4);
+            $tambah = (int) $nama + 1;
+            if (strlen($tambah) == 1) {
+                $id_kuliner = 'KUL' . "000" . $tambah;
+            } elseif (strlen($tambah) == 2) {
+                $id_kuliner = 'KUL' . "00" . $tambah;
+            } elseif (strlen($tambah) == 3) {
+                $id_kuliner = 'KUL' . "0" . $tambah;
+            } else {
+                $id_kuliner = 'KUL' . $tambah;
             }
         }
 
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
         Kuliner::create([
             'user_id'       => request()->user()->id,
+            'id_kuliner'    => $id_kuliner,
             'nama'          => $request->nama,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
@@ -82,61 +72,24 @@ class KulinerController extends Controller
             'review'        => $request->review,
             'harga'         => $request->harga,
             'rating'        => 0,
-            'kota_search'   => $kota,
+            'kota_search'   => $kota->name,
         ]);
 
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Upload');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kuliner  $kuliner
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kuliner $kuliner)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kuliner  $kuliner
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Kuliner $kuliner)
     {
-        $data['title']      = 'Update Posting Kuliner';
-        $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
-        $data['response']   = $url['provinsi'];
-        return view('admin.promosi.kuliner.updatekuliner', compact('kuliner'), $data);
+        return response()->json([
+            'kuliner' => $kuliner
+        ]);
+        // $data['title']      = 'Update Posting Kuliner';
+        // $url                = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi')->json();
+        // $data['response']   = $url['provinsi'];
+        // return view('admin.promosi.kuliner.updatekuliner', compact('kuliner'), $data);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kuliner  $kuliner
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Kuliner $kuliner)
     {
-        $request->validate([
-            'kabupaten' => 'required',
-        ]);
-
-        $url = Http::get('http://dev.farizdotid.com/api/daerahindonesia/kota', [
-            'id_provinsi' => $request->provinsi
-        ]);
-
-        $kota = null;
-
-        foreach ($url['kota_kabupaten'] as $kab) {
-            if ($kab['id'] == $request->kabupaten) {
-                $kota = $kab['nama'];
-            }
-        }
+        $kota = Kabupaten::where('kode', $request->kabupaten)->first();
 
         if ($request->hasfile('gambar')) {
 
@@ -172,7 +125,7 @@ class KulinerController extends Controller
                 'alamat'        => $request->alamat,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         } else {
             FileUpload::where('nama', $kuliner->nama)
@@ -187,18 +140,11 @@ class KulinerController extends Controller
                 'alamat'        => $request->alamat,
                 'review'        => $request->review,
                 'harga'         => $request->harga,
-                'kota_search'   => $kota,
+                'kota_search'   => $kota->name,
                 ]);
         }
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Update');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kuliner  $kuliner
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Kuliner $kuliner)
     {
         $filegambar = DB::table('fileuploads')
