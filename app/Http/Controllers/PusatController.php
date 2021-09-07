@@ -29,19 +29,11 @@ class PusatController extends Controller
             'kabupaten' => 'required',
             'alamat'    => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'formFile'  => ['required','image'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('pusat', $name);
-
-            FileUpload::create([
-                'nama'  => $request->nama,
-                'foto'  => $name,
-            ]);
-        }
 
         $no = Pusat::orderBy("id_pusat", "DESC")->first();
         if ($no == null) {
@@ -60,7 +52,22 @@ class PusatController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('pusat', $name);
+
+            FileUpload::create([
+                'nama'  => $id_pusat,
+                'foto'  => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namepusat = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('pusat', $namepusat);
 
         Pusat::create([
             'user_id'       => request()->user()->id,
@@ -70,9 +77,10 @@ class PusatController extends Controller
             'kabupaten'     => $request->kabupaten,
             'alamat'        => $request->alamat,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namepusat,
         ]);
 
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Upload');
@@ -97,23 +105,20 @@ class PusatController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $pusat->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $pusat->id_pusat)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('pusat/' . $gambar->foto));
             }
-            FileUpload::where('nama', $pusat->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('pusat', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $pusat->id_pusat)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
 
             Pusat::where('id', $pusat->id)
@@ -123,36 +128,41 @@ class PusatController extends Controller
                     'kabupaten'     => $request->kabupaten,
                     'alamat'        => $request->alamat,
                     'review'        => $request->review,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
                     'kota_search'   => $kota->name,
                 ]);
-        } else {
-            FileUpload::where('nama', $pusat->nama)
-                ->update([
-                    'nama'      => $request->nama
-                ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namepusat = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('pusat', $namepusat);
+
             Pusat::where('id', $pusat->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'alamat'        => $request->alamat,
-                    'review'        => $request->review,
-                    'harga'         => $request->harga,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'alamat'        => $request->alamat,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namepusat,
+            ]);
         }
         return redirect('pusat')->with('status', 'Postingan Pusat Oleh-Oleh Berhasil Di Update');
     }
     public function destroy(Pusat $pusat)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $pusat->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $pusat->id_pusat)->get();
+
         foreach ($filegambar as $gambar) {
             Storage::delete('pusat/' . $gambar->foto);
         }
-        FileUpload::where('nama', $pusat->nama)->delete();
+        Storage::delete('pusat/' . $pusat->foto);
+        FileUpload::where('nama', $pusat->id_pusat)->delete();
         Pusat::destroy($pusat->id);
         return redirect('pusat')->with('status', 'Postingan Pust Oleh-Oleh Berhasil Di Hapus');
     }

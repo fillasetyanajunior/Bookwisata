@@ -1,45 +1,34 @@
 @extends('layouts.appdashboard')
-
 @section('title',$title)
-
 @section('main')
-    
 <x-slidebar></x-slidebar>
-
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0">{{$title}}</h1>
-                </div><!-- /.col -->
+                </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Konfrimasi</a></li>
                         <li class="breadcrumb-item active">{{$title}}</li>
                     </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+                </div>
+            </div>
+        </div>
     </div>
-    <!-- /.content-header -->
-
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4">
             @if (session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
             @endif
-
             @if (request()->user()->role == 1)
-            
             @else
-                <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary my-3">Konfrimasi</a>
+            <a href="{{route('create_konfirmasi_pembayaran')}}" class="btn btn-primary my-3">Konfrimasi</a>
             @endif
-
             <select class="form-control pilihankonfrimasi d-inline my-3 col-2">
                 <option value="1">Pembayaran Pesanan</option>
                 <option value="2">Pembayaran Mitra</option>
@@ -47,7 +36,6 @@
                 <option value="3">Pembayaran Unit</option>
                 @endif
             </select>
-
             <table class="table bg-info konfirmasipembayaran">
                 <thead>
                     <tr>
@@ -55,7 +43,7 @@
                         <th scope="col">Nama Produk</th>
                         <th scope="col">Kode Transaksi</th>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
-                            <th scope="col">Aksi</th>
+                        <th scope="col">Aksi</th>
                         @endif
                     </tr>
                 </thead>
@@ -84,7 +72,7 @@
                         <th scope="col">Nama Produk</th>
                         <th scope="col">Kode Transaksi</th>
                         @if (request()->user()->role == 1 || request()->user()->role == 2)
-                            <th scope="col">Aksi</th>
+                        <th scope="col">Aksi</th>
                         @endif
                     </tr>
                 </thead>
@@ -113,7 +101,7 @@
                         <th scope="col">Nama</th>
                         <th scope="col">Kode Transaksi</th>
                         @if (request()->user()->role == 1)
-                            <th scope="col">Aksi</th>
+                        <th scope="col">Aksi</th>
                         @endif
                     </tr>
                 </thead>
@@ -137,6 +125,4 @@
         </div>
     </div>
 </div>
- 
 @endsection
-

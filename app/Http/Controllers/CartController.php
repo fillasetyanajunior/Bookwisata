@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MyEvent;
 use App\Models\Bus;
 use App\Models\Camp;
 use App\Models\Destinasi;
@@ -41,6 +42,11 @@ class CartController extends Controller
             'hari'          => 'required',
             'date'          => 'required',
         ]);
+
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $qr = \Str::random($permitted_chars);
+
         for ($i=0; $i < count($request->qty); $i++) {
 
             $kode = \Str::limit($request->kode[$i], 3);
@@ -129,22 +135,30 @@ class CartController extends Controller
                     'total'                 => $jumlah,
                 ]);
             }
-            if ($produk->po == null || $produk->company == null) {
-                Riwayat::create([
+            if ($produk->company == null) {
+                $riwayat = Riwayat::create([
                     'user_nama_customer'    => request()->user()->name,
                     'user_id_owner'         => $produk->user_id,
                     'company'               => '-',
                     'id_detail_riwayat'     => $detail_riwayat->id,
-                    'is_active'             => 1
+                    'is_active'             => 1,
+                    'qr_code'               => $qr,
+                    'note'                  => $request->note
                 ]);
             }else{
-                Riwayat::create([
+                $riwayat = Riwayat::create([
                     'user_nama_customer'    => request()->user()->name,
                     'user_id_owner'         => $produk->user_id,
-                    'company'               => $produk->po,
+                    'company'               => $produk->company,
                     'id_detail_riwayat'     => $detail_riwayat->id,
-                    'is_active'             => 1
+                    'is_active'             => 1,
+                    'qr_code'               => $qr,
+                    'note'                  => $request->note
                 ]);
+            }
+
+            if ($produk->user_id == $riwayat->user_id_owner) {
+                event(new MyEvent($request->namalengkap . 'Memesan' . $request->pilihan[$i], $produk->user_id));
             }
         }
         Cart::destroy();

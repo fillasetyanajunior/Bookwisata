@@ -4,12 +4,14 @@
     <h1 class="mb-5">Bookwisata | Keranjang</h1>
     <hr>
     <div class="d-flex justify-content-end mb-5">
+        @if ($cart->count() > 0)
         <a href="{{route('checkout')}}" class="btn btn-primary">Checkout</a>
         <form action="/cartproduk/deleteall" method="post" class="d-inline ml-3">
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-danger">Hapus</button>
+            <button type="submit" class="btn btn-danger">Hapus Semua</button>
         </form>
+        @endif
     </div>
     <table class="table table-borderless">
         <thead>

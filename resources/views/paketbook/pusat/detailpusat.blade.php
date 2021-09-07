@@ -6,9 +6,9 @@
             <div class="card">
                 @php
                 $foto = DB::table('pusat')
-                ->join('fileuploads','fileuploads.nama','=','pusat.nama')
+                ->join('fileuploads','fileuploads.nama','=','pusat.id_pusat')
                 ->select('fileuploads.foto')
-                ->where('fileuploads.nama','=',$pusat->nama)
+                ->where('fileuploads.nama','=',$pusat->id_pusat)
                 ->get();
                 @endphp
                 <div class="card-body">

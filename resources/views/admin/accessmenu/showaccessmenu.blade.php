@@ -25,7 +25,8 @@
                 {{ session('status') }}
             </div>
             @endif
-            <button type="button" class="btn btn-primary mb-3" id="addaccessmenu" data-toggle="modal" data-target="#AccessMenuModal">Tambah
+            <button type="button" class="btn btn-primary mb-3" id="addaccessmenu" data-toggle="modal"
+                data-target="#AccessMenuModal">Tambah
                 Menu</button>
             <table class="table bg-info ">
                 <thead>

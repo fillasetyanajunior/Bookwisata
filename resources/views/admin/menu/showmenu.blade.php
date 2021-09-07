@@ -20,7 +20,6 @@
             </div>
         </div>
     </div>
-
     <div class="d-flex justify-content-center">
         <div class="col-sm-11 mx-4">
             @if (session('status'))

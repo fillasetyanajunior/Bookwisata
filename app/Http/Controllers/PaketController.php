@@ -29,19 +29,11 @@ class PaketController extends Controller
             'provinsi'  => 'required',
             'kabupaten' => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
+            'formFile'  => ['required','image'],
             'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('paket', $name);
-
-            FileUpload::create([
-                'nama'  => $request->nama,
-                'foto'  => $name,
-            ]);
-        }
 
         $no = Paket::orderBy("id_paket", "DESC")->first();
         if ($no == null) {
@@ -60,7 +52,22 @@ class PaketController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('paket', $name);
+
+            FileUpload::create([
+                'nama'  => $id_paket,
+                'foto'  => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namepaket = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('paket', $namepaket);
 
         Paket::create([
             'user_id'       => request()->user()->id,
@@ -70,9 +77,10 @@ class PaketController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namepaket,
         ]);
 
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Upload');
@@ -97,24 +105,20 @@ class PaketController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $paket->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $paket->id_paket)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('paket/' . $gambar->foto));
             }
 
-            FileUpload::where('nama', $paket->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('paket', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $paket->id_paket)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
 
             Paket::where('id', $paket->id)
@@ -124,36 +128,41 @@ class PaketController extends Controller
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'review'        => $request->review,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
                     'kota_search'   => $kota->name,
                 ]);
-        } else {
-            FileUpload::where('nama', $paket->nama)
-                ->update([
-                    'nama'      => $request->nama
-                ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namepaket = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('paket', $namepaket);
+
             Paket::where('id', $paket->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'review'        => $request->review,
-                    'harga'         => $request->harga,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namepaket,
+            ]);
         }
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Update');
     }
     public function destroy(Paket $paket)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $paket->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $paket->id_paket)->get();
+
         foreach ($filegambar as $gambar) {
             Storage::delete('paket/' . $gambar->foto);
         }
-        FileUpload::where('nama', $paket->nama)->delete();
+        Storage::delete('paket/' . $paket->foto);
+        FileUpload::where('nama', $paket->id_paket)->delete();
         Paket::destroy($paket->id);
         return redirect('paket')->with('status', 'Postingan Paket Wisata Berhasil Di Hapus');
     }

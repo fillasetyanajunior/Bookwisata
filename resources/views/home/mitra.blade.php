@@ -1,9 +1,7 @@
 @extends('layouts.apputama')
 @section('main')
- <!-- Blog Area Start -->
 <div class="home-blog-area my-5">
     <div class="container">
-        <!-- Section Tittle -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-tittle text-center">
@@ -17,7 +15,9 @@
                 <div class="single-place mb-30">
                     <center>
                         <div class="card text-white  mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-success"><h3>Trial Mitra</h3></div>
+                            <div class="card-header bg-success">
+                                <h3>Trial Mitra</h3>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">Trial Mitra 30 Hari</h4>
                                 <p class="card-text" style="color: white">Trial</p>
@@ -37,7 +37,9 @@
                 <div class="single-place mb-30">
                     <center>
                         <div class="card text-white  mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-success"><h3>Termurah</h3></div>
+                            <div class="card-header bg-success">
+                                <h3>Termurah</h3>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">Layanan 3 Bulan</h4>
                                 <p class="card-text" style="color: white">pemula</p>
@@ -57,7 +59,9 @@
                 <div class="single-place mb-30">
                     <center>
                         <div class="card text-white  mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-success"><h3>Diskon 30%</h3></div>
+                            <div class="card-header bg-success">
+                                <h3>Diskon 30%</h3>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">Layanan 6 Bulan</h4>
                                 <p class="card-text"><s>400.000.-</s></p>
@@ -77,7 +81,9 @@
                 <div class="single-place mb-30">
                     <center>
                         <div class="card text-white  mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-success"><h3>Diskon 75%</h3></div>
+                            <div class="card-header bg-success">
+                                <h3>Diskon 75%</h3>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">Layanan 2 Tahun</h4>
                                 <p class="card-text"><s>1.000.000.-</s></p>
@@ -97,7 +103,9 @@
                 <div class="single-place mb-30">
                     <center>
                         <div class="card text-white  mb-3" style="max-width: 18rem;">
-                            <div class="card-header bg-success"><h3>Diskon 50%</h3></div>
+                            <div class="card-header bg-success">
+                                <h3>Diskon 50%</h3>
+                            </div>
                             <div class="card-body">
                                 <h4 class="card-title">Layanan 1 Tahun</h4>
                                 <p class="card-text"><s>1.000.000.-</s></p>
@@ -116,6 +124,4 @@
         </div>
     </div>
 </div>
-<!-- Blog Area End -->
-    
 @endsection

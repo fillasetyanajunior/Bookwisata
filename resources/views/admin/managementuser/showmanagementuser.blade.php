@@ -25,7 +25,6 @@
                 {{ session('status') }}
             </div>
             @endif
-
             <table class="table bg-info ">
                 <thead>
                     <tr>
@@ -59,7 +58,8 @@
                             @endif
                         </td>
                         <td>
-                            <button type="button" class="btn btn-warning" id="editmanagementuser" data-id="{{$User->id}}" data-toggle="modal"
+                            <button type="button" class="btn btn-warning" id="editmanagementuser"
+                                data-id="{{$User->id}}" data-toggle="modal"
                                 data-target="#ManagemenUserModal">Edit</button>
                         </td>
                     </tr>
@@ -70,7 +70,8 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ManagemenUserModal" tabindex="-1" aria-labelledby="ManagemenUserModalLabel" aria-hidden="true">
+<div class="modal fade" id="ManagemenUserModal" tabindex="-1" aria-labelledby="ManagemenUserModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

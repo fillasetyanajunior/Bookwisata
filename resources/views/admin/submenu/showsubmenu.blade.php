@@ -59,8 +59,8 @@
                         <td>{{$Submenu->icon}}</td>
                         <td>{{$Submenu->url}}</td>
                         <td>
-                            <button type="button" class="btn btn-warning" id="editsubmenu"
-                                data-id="{{$Submenu->id}}" data-toggle="modal" data-target="#SubMenuModal">Edit</button>
+                            <button type="button" class="btn btn-warning" id="editsubmenu" data-id="{{$Submenu->id}}"
+                                data-toggle="modal" data-target="#SubMenuModal">Edit</button>
                             <form action="/submenu/delete/{{$Submenu->id}}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf

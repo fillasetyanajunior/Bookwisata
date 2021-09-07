@@ -20,8 +20,9 @@ class CreateGuideTable extends Migration
             $table->string('nama');
             $table->string('provinsi');
             $table->string('kabupaten');
-            $table->string('rating');
+            $table->string('rating')->default(0);
             $table->text('review');
+            $table->string('sale')->nullable();
             $table->string('harga');
             $table->string('kota_search');
             $table->string('foto');

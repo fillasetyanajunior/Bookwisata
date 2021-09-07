@@ -28,19 +28,12 @@ class KapalController extends Controller
             'provinsi'  => 'required',
             'kabupaten' => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'formFile'  => ['required','image'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('kapal', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         $no = Kapal::orderBy("id_kapal", "DESC")->first();
         if ($no == null) {
@@ -59,7 +52,22 @@ class KapalController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('kapal', $name);
+
+            FileUpload::create([
+                'nama' => $id_kapal,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namekapal = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('kapal', $namekapal);
 
         Kapal::create([
             'user_id'       => request()->user()->id,
@@ -68,9 +76,10 @@ class KapalController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namekapal,
         ]);
 
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Upload');
@@ -95,61 +104,62 @@ class KapalController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $kapal->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $kapal->id_kapal)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('kapal/' . $gambar->foto));
             }
 
-            FileUpload::where('nama', $kapal->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('kapal', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $kapal->id_kapal)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Kapal::where('id', $kapal->id)
+                ->update([
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota->name,
+            ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namekapal = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('kapal', $namekapal);
 
             Kapal::where('id', $kapal->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'review'        => $request->review,
-                    'harga'         => $request->harga,
-                    'kota_search'   => $kota->name,
-                ]);
-        } else {
-            FileUpload::where('nama', $kapal->nama)
-                ->update([
-                    'nama'      => $request->nama
-                ]);
-            Kapal::where('id', $kapal->id)
-                ->update([
-                    'nama'          => $request->nama,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'review'        => $request->review,
-                    'harga'         => $request->harga,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namekapal,
+            ]);
+
         }
+
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Update');
     }
     public function destroy(Kapal $kapal)
     {
-        $filegambar = DB::table('fileuploads')
-                        ->where('nama', '=', $kapal->nama)
-                        ->get();
+        $filegambar = FileUpload::where('nama', $kapal->id_kapal)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('kapal/' . $gambar->foto);
         }
-        FileUpload::where('nama', $kapal->nama)->delete();
+        Storage::delete('kapal/' . $kapal->foto);
+        FileUpload::where('nama', $kapal->id_kapal)->delete();
         Kapal::destroy($kapal->id);
         return redirect('kapal')->with('status', 'Postingan Kapal Berhasil Di Hapus');
     }

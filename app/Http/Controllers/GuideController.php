@@ -28,19 +28,11 @@ class GuideController extends Controller
             'provinsi'  => 'required',
             'kabupaten' => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
-            'gambar.*'    => ['required', 'image', 'mimes:jpg,jpeg,png'],
+            'formFile'  => ['required','image'],
+            'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('guide', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         //Acak Kode Mitra
         $no = Guide::orderBy("id_guide", "DESC")->first();
@@ -60,7 +52,22 @@ class GuideController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('guide', $name);
+
+            FileUpload::create([
+                'nama' => $id_guide,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $nameguide = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('guide', $nameguide);
 
         Guide::create([
             'user_id'       => request()->user()->id,
@@ -69,9 +76,10 @@ class GuideController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $nameguide,
         ]);
 
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Upload');
@@ -96,25 +104,36 @@ class GuideController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $guide->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $guide->id_guide)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('guide/' . $gambar->foto));
             }
 
-            FileUpload::where('nama', $guide->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('guide', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $guide->id_guide)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Guide::where('id', $guide->id)
+                ->update([
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota->name,
+            ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $nameguide = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('guide', $nameguide);
 
             Guide::where('id', $guide->id)
                 ->update([
@@ -122,35 +141,24 @@ class GuideController extends Controller
                 'provinsi'      => $request->provinsi,
                 'kabupaten'     => $request->kabupaten,
                 'review'        => $request->review,
+                'sale'          => $request->sale,
                 'harga'         => $request->harga,
+                'rating'        => 0,
                 'kota_search'   => $kota->name,
-                ]);
-        } else {
-            FileUpload::where('nama', $guide->nama)
-            ->update([
-                'nama'      => $request->nama
+                'foto'          => $nameguide,
             ]);
-            Guide::where('id', $guide->id)
-                ->update([
-                'nama'          => $request->nama,
-                'provinsi'      => $request->provinsi,
-                'kabupaten'     => $request->kabupaten,
-                'review'        => $request->review,
-                'harga'         => $request->harga,
-                'kota_search'   => $kota->name,
-                ]);
         }
+
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Update');
     }
     public function destroy(Guide $guide)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $guide->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $guide->id_guide)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('guide/' . $gambar->foto);
         }
-        FileUpload::where('nama', $guide->nama)->delete();
+        Storage::delete('guide/' . $guide->foto);
+        FileUpload::where('nama', $guide->id_guide)->delete();
         Guide::destroy($guide->id);
         return redirect('guide')->with('status', 'Postingan Tour Guide Berhasil Di Hapus');
     }

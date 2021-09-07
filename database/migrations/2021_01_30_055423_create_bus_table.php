@@ -18,7 +18,7 @@ class CreateBusTable extends Migration
             $table->string('user_id');
             $table->string('id_bus');
             $table->string('nama');
-            $table->string('po');
+            $table->string('company');
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('tipe');
@@ -26,8 +26,9 @@ class CreateBusTable extends Migration
             $table->string('ac');
             $table->string('overland');
             $table->string('jumlah_sit');
-            $table->string('rating');
+            $table->string('rating')->default(0);
             $table->text('review');
+            $table->string('sale')->nullable();
             $table->string('harga');
             $table->string('kota_search');
             $table->string('foto');

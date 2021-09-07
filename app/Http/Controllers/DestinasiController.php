@@ -29,19 +29,11 @@ class DestinasiController extends Controller
             'kabupaten' => 'required',
             'alamat'    => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
+            'formFile'  => ['required','image'],
             'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('destinasi', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         //Acak Kode Mitra
         $no = Destinasi::orderBy("id_destinasi", "DESC")->first();
@@ -61,7 +53,22 @@ class DestinasiController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('destinasi', $name);
+
+            FileUpload::create([
+                'nama' => $id_destinasi,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namedestinasi = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('destinasi', $namedestinasi);
 
         Destinasi::create([
             'user_id'       => request()->user()->id,
@@ -71,9 +78,10 @@ class DestinasiController extends Controller
             'kabupaten'     => $request->kabupaten,
             'alamat'        => $request->alamat,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namedestinasi,
         ]);
 
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Upload');
@@ -96,52 +104,55 @@ class DestinasiController extends Controller
             $request->validate([
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
-            $filegambar = DB::table('fileuploads')
-                            ->where('destinasi', '=', $destinasi->nama)
-                            ->get();
+            $filegambar = FileUpload::where('name', $destinasi->id_destinasi)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('destinasi/' . $gambar->foto));
             }
 
-            FileUpload::where('nama', $destinasi->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('destinasi', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('name', $destinasi->id_destinasi)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Destinasi::where('id', $destinasi->id)
+                ->update([
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'alamat'        => $request->alamat,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota->name,
+            ]);
+        } elseif ($request->hasfile('formFile')) {
+
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namedestinasi = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('destinasi', $namedestinasi);
 
             Destinasi::where('id', $destinasi->id)
-                ->update([
+                    ->update([
                     'nama'          => $request->nama,
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'alamat'        => $request->alamat,
                     'review'        => $request->review,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
+                    'rating'        => 0,
                     'kota_search'   => $kota->name,
+                    'foto'          => $namedestinasi,
                 ]);
-        } else {
-            FileUpload::where('nama', $destinasi->nama)
-                ->update([
-                    'nama'      => $request->nama
-                ]);
-            Destinasi::where('id', $destinasi->id)
-                ->update([
-                    'nama'          => $request->nama,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'alamat'        => $request->alamat,
-                    'review'        => $request->review,
-                    'harga'         => $request->harga,
-                    'kota_search'   => $kota->name,
-                ]);
+
         }
+
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Update');
     }
 
@@ -153,13 +164,12 @@ class DestinasiController extends Controller
      */
     public function destroy(Destinasi $destinasi)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $destinasi->nama)
-            ->get();
+        $filegambar = FileUpload::where('name', $destinasi->id_destinasi)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('destinasi/' . $gambar->foto);
         }
-        FileUpload::where('nama', $destinasi->nama)->delete();
+        Storage::delete('destinasi/' . $destinasi->foto);
+        FileUpload::where('nama', $destinasi->id_destinasi)->delete();
         Destinasi::destroy($destinasi->id);
         return redirect('destinasi')->with('status', 'Postingan Destinasi Berhasil Di Hapus');
     }

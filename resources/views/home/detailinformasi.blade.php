@@ -1,6 +1,5 @@
 @extends('layouts.apputama')
 @section('main')
- <!-- Blog Area Start -->
 <div class="home-blog-area my-5">
     <div class="container">
         <div class="d-flex justify-content-center">
@@ -17,6 +16,4 @@
         </div>
     </div>
 </div>
-<!-- Blog Area End -->
-    
 @endsection

@@ -22,8 +22,9 @@ class CreateHotelTable extends Migration
             $table->string('kabupaten');
             $table->string('tipe');
             $table->string('bad');
-            $table->string('rating');
+            $table->string('rating')->default(0);
             $table->text('review');
+            $table->string('sale')->nullable();
             $table->string('harga');
             $table->string('kota_search');
             $table->string('foto');

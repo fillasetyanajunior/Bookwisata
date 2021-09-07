@@ -6,9 +6,9 @@
             <div class="card">
                 @php
                 $foto = DB::table('camp')
-                ->join('fileuploads','fileuploads.nama','=','camp.nama')
+                ->join('fileuploads','fileuploads.nama','=','camp.id_camp')
                 ->select('fileuploads.foto')
-                ->where('fileuploads.nama','=',$camp->nama)
+                ->where('fileuploads.nama','=',$camp->id_camp)
                 ->get();
                 @endphp
                 <div class="card-body">
@@ -53,7 +53,7 @@
                             <tr>
                                 <th scope="row">Tipe</th>
                                 <td>
-                                     @if($camp->tipe == 41)
+                                    @if($camp->tipe == 41)
                                         Bundling
                                     @else
                                         Non Bundling

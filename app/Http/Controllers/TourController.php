@@ -29,20 +29,12 @@ class TourController extends Controller
             'provinsi'      => 'required',
             'kabupaten'     => 'required',
             'tipe'          => 'required',
+            'sale'          => 'required',
             'harga'         => 'required',
             'review'        => 'required',
+            'formFile'      => ['required','image'],
             'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('tour', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         $no = Tour::orderBy("id_tour", "DESC")->first();
         if ($no == null) {
@@ -61,7 +53,22 @@ class TourController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('tour', $name);
+
+            FileUpload::create([
+                'nama' => $id_tour,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $nametour = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('tour', $nametour);
 
         Tour::create([
             'user_id'       => request()->user()->id,
@@ -71,10 +78,11 @@ class TourController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'tipe'          => $request->tipe,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
             'review'        => $request->review,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $nametour,
         ]);
 
         return redirect('tour')->with('status', 'Postingan Perlengkapan Tour Berhasil Di Upload');
@@ -99,23 +107,20 @@ class TourController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $tour->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $tour->id_tour)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('tour/' . $gambar->foto));
             }
-            FileUpload::where('nama', $tour->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('tour', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $tour->id_tour)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
 
             Tour::where('id', $tour->id)
@@ -125,38 +130,44 @@ class TourController extends Controller
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'tipe'          => $request->tipe,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
                     'kota_search'   => $kota->name,
                 ]);
         } else {
-            FileUpload::where('nama', $tour->nama)
-                ->update([
-                    'nama'          => $request->nama
-                ]);
+            //Foto Unit
+            $files = $request->file('formFile');
+            $nametour = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('tour', $nametour);
+
             Tour::where('id', $tour->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'tipe'          => $request->tipe,
-                    'harga'         => $request->harga,
-                    'review'        => $request->review,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $nametour,
+            ]);
+
         }
         return redirect('tour')->with('status', 'Postingan Perlengkapan Tour Berhasil Di Update');
     }
     public function destroy(Tour $tour)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $tour->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $tour->id_tour)->get();
+
         foreach ($filegambar as $gambar) {
             Storage::delete('tour/' . $gambar->foto);
         }
-        FileUpload::where('nama', $tour->nama)->delete();
+        Storage::delete('tour/' . $tour->foto);
+        FileUpload::where('nama', $tour->id_tour)->delete();
         Tour::destroy($tour->id);
         return redirect('tour')->with('status', 'Postingan Perlengkapan Tour Berhasil Di Hapus');
     }

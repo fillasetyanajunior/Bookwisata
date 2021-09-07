@@ -6,9 +6,9 @@
             <div class="card">
                 @php
                 $foto = DB::table('bus')
-                ->join('fileuploads','fileuploads.nama','=','bus.nama')
+                ->join('fileuploads','fileuploads.nama','=','bus.id_bus')
                 ->select('fileuploads.foto')
-                ->where('fileuploads.nama','=',$bus->nama)
+                ->where('fileuploads.nama','=',$bus->id_bus)
                 ->get();
                 @endphp
                 <div class="card-body">
@@ -104,7 +104,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    <h1> {{$bus->nama . '/' . $bus->po}}</h1>
+                    <h1> {{$bus->nama . '/' . $bus->company}}</h1>
                     <small>{{$bus->kota_search}}</small>
                     <hr>
                     <div class="d-flex">

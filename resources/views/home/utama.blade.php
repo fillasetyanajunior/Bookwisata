@@ -59,37 +59,30 @@
         </div>
         <div class="row">
             @foreach ($mobil as $mobil)
-                @php
-                $foto = DB::table('mobil')
-                            ->join('fileuploads','fileuploads.nama','=','mobil.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$mobil->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('mobil/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('mobil/' . $mobil->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
                             @if ($mobil->rating)
-                                @if ($mobil->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($mobil->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($mobil->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($mobil->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($mobil->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($mobil->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$mobil->nama}}</a></h3>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($mobil->harga)),3)))}}<span>/Hari</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($mobil->harga)),3)))}}<span>/Hari</span>
+                            </p>
                         </div>
                         <div class="place-cap-bottom">
                             <ul>
@@ -112,37 +105,30 @@
         </div>
         <div class="row">
             @foreach ($bus as $bus)
-            @php
-                $foto = DB::table('bus')
-                            ->join('fileuploads','fileuploads.nama','=','bus.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$bus->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('bus/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('bus/' . $bus->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
                             @if ($bus->rating)
                             @if ($bus->rating >= 1000)
-                                <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
                             @elseif($bus->rating >= 500)
-                                <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
                             @elseif($bus->rating >= 250)
-                                <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
                             @endif
-                        @else
-                            <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
-                        @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
+                            @endif
                             <h3><a href="#"> {{$bus->nama}} </a></h3>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($bus->harga)),3)))}}<span>/Hari</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($bus->harga)),3)))}}<span>/Hari</span>
+                            </p>
                         </div>
                         <div class="place-cap-bottom">
                             <ul>
@@ -165,38 +151,31 @@
         </div>
         <div class="row">
             @foreach ($paket as $paket)
-            @php
-                $foto = DB::table('paket')
-                            ->join('fileuploads','fileuploads.nama','=','paket.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$paket->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('paket/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('paket/' . $paket->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($paket->rating)
-                                @if ($paket->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($paket->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($paket->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($paket->rating)
+                            @if ($paket->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($paket->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($paket->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$paket->nama}}</a></h3>
                             <h4>{{$paket->alamat}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($paket->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($paket->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -220,38 +199,31 @@
         </div>
         <div class="row">
             @foreach ($kapal as $kapal)
-            @php
-                $foto = DB::table('kapal')
-                            ->join('fileuploads','fileuploads.nama','=','kapal.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$kapal->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('kapal/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('kapal/' . $kapal->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($kapal->rating)
-                                @if ($kapal->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($kapal->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($kapal->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($kapal->rating)
+                            @if ($kapal->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($kapal->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($kapal->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$kapal->nama}} </a></h3>
                             <h4>{{$kapal->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kapal->harga)),3)))}}<span>/Kapal</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($kapal->harga)),3)))}}<span>/Kapal</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -275,38 +247,31 @@
         </div>
         <div class="row">
             @foreach ($hotel as $hotel)
-            @php
-                $foto = DB::table('hotel')
-                            ->join('fileuploads','fileuploads.nama','=','hotel.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$hotel->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('hotel/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('hotel/' . $hotel->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($hotel->rating)
-                                @if ($hotel->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($hotel->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($hotel->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($hotel->rating)
+                            @if ($hotel->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($hotel->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($hotel->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$hotel->nama}} </a></h3>
                             <h4>{{$hotel->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($hotel->harga)),3)))}}<span>/Hari</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($hotel->harga)),3)))}}<span>/Hari</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -330,38 +295,31 @@
         </div>
         <div class="row">
             @foreach ($guide as $guide)
-            @php
-                $foto = DB::table('guide')
-                            ->join('fileuploads','fileuploads.nama','=','guide.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$guide->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('guide/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('guide/' . $guide->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($guide->rating)
-                                @if ($guide->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($guide->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($guide->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($guide->rating)
+                            @if ($guide->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($guide->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($guide->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$guide->nama}} </a></h3>
                             <h4>{{$guide->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($guide->harga)),3)))}}<span>/Hari</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($guide->harga)),3)))}}<span>/Hari</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -385,38 +343,31 @@
         </div>
         <div class="row">
             @foreach ($kuliner as $kuliner)
-            @php
-                $foto = DB::table('kuliner')
-                            ->join('fileuploads','fileuploads.nama','=','kuliner.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$kuliner->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('kuliner/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('kuliner/' . $kuliner->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($kuliner->rating)
-                                @if ($kuliner->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($kuliner->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($kuliner->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($kuliner->rating)
+                            @if ($kuliner->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($kuliner->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($kuliner->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$kuliner->nama}}</a></h3>
                             <h4>{{$kuliner->alamat}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($kuliner->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($kuliner->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -440,38 +391,31 @@
         </div>
         <div class="row">
             @foreach ($destinasi as $destinasi)
-            @php
-                $foto = DB::table('destinasi')
-                            ->join('fileuploads','fileuploads.nama','=','destinasi.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$destinasi->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('destinasi/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('destinasi/' . $destinasi->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($destinasi->rating)
-                                @if ($destinasi->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($destinasi->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($destinasi->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($destinasi->rating)
+                            @if ($destinasi->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($destinasi->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($destinasi->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$destinasi->nama}} </a></h3>
                             <h4>{{$destinasi->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($destinasi->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($destinasi->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -495,38 +439,31 @@
         </div>
         <div class="row">
             @foreach ($pusat as $pusat)
-            @php
-                $foto = DB::table('pusat')
-                            ->join('fileuploads','fileuploads.nama','=','pusat.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$pusat->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('pusat/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('pusat/' . $pusat->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($pusat->rating)
-                                @if ($pusat->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($pusat->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($pusat->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($pusat->rating)
+                            @if ($pusat->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($pusat->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($pusat->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$pusat->nama}} </a></h3>
                             <h4>{{$pusat->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($pusat->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($pusat->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -550,38 +487,31 @@
         </div>
         <div class="row">
             @foreach ($sepeda as $sepeda)
-            @php
-                $foto = DB::table('sepeda')
-                            ->join('fileuploads','fileuploads.nama','=','sepeda.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$sepeda->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('sepeda/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('sepeda/' . $sepeda->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($sepeda->rating)
-                                @if ($sepeda->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($sepeda->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($sepeda->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($sepeda->rating)
+                            @if ($sepeda->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($sepeda->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($sepeda->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$sepeda->nama}} </a></h3>
                             <h4>{{$sepeda->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($sepeda->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($sepeda->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -605,38 +535,31 @@
         </div>
         <div class="row">
             @foreach ($camp as $camp)
-            @php
-                $foto = DB::table('camp')
-                            ->join('fileuploads','fileuploads.nama','=','camp.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$camp->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('camp/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('camp/' . $camp->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($camp->rating)
-                                @if ($camp->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($camp->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($camp->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($camp->rating)
+                            @if ($camp->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($camp->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($camp->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$camp->nama}} </a></h3>
                             <h4>{{$camp->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($camp->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($camp->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">
@@ -660,38 +583,31 @@
         </div>
         <div class="row">
             @foreach ($tour as $tour)
-            @php
-                $foto = DB::table('tour')
-                            ->join('fileuploads','fileuploads.nama','=','tour.nama')
-                            ->limit('1')
-                            ->where('fileuploads.nama','=',$tour->nama)
-                            ->get();
-            @endphp
             <div class="col-xl-4 col-lg-4 col-md-6">
                 <div class="single-place mb-30">
                     <div class="place-img">
-                        @foreach ($foto as $foto)
-                        <img src="{{asset('tour/' . $foto->foto)}}" alt="" height="250px">
-                        @endforeach
+                        <img src="{{asset('tour/' . $tour->foto)}}" alt="" height="250px">
                     </div>
                     <div class="place-cap">
                         <div class="place-cap-top">
-                                @if ($tour->rating)
-                                @if ($tour->rating >= 1000)
-                                    <span><i class="fas fa-star">  </i><span>4.0 Superb</span> </span>
-                                @elseif($tour->rating >= 500)
-                                    <span><i class="fas fa-star">  </i><span>3.0 Superb</span> </span>
-                                @elseif($tour->rating >= 250)
-                                    <span><i class="fas fa-star">  </i><span>2.0 Superb</span> </span>
-                                @else
-                                    <span><i class="fas fa-star">  </i><span>1.0 Superb</span> </span>
-                                @endif
+                            @if ($tour->rating)
+                            @if ($tour->rating >= 1000)
+                            <span><i class="fas fa-star"> </i><span>4.0 Superb</span> </span>
+                            @elseif($tour->rating >= 500)
+                            <span><i class="fas fa-star"> </i><span>3.0 Superb</span> </span>
+                            @elseif($tour->rating >= 250)
+                            <span><i class="fas fa-star"> </i><span>2.0 Superb</span> </span>
                             @else
-                                <span><i class="fas fa-star">  </i><span>0.0 Superb</span> </span>
+                            <span><i class="fas fa-star"> </i><span>1.0 Superb</span> </span>
+                            @endif
+                            @else
+                            <span><i class="fas fa-star"> </i><span>0.0 Superb</span> </span>
                             @endif
                             <h3><a href="#">{{$tour->nama}} </a></h3>
                             <h4>{{$tour->lokasi}}</h4>
-                            <p class="dolor">{{'Rp. '.strrev(implode('.',str_split(strrev(strval($tour->harga)),3)))}}<span>/Paket</span></p>
+                            <p class="dolor">
+                                {{'Rp. '.strrev(implode('.',str_split(strrev(strval($tour->harga)),3)))}}<span>/Paket</span>
+                            </p>
                             <p class="dolor"></p>
                         </div>
                         <div class="place-cap-bottom">

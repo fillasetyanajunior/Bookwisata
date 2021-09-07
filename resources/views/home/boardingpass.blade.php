@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Boardingpass</title>
 </head>
+
 <body>
     <center>
         <img src="{{url('assets/utama/img/logo/Logo.jpg')}}" width="300px">
@@ -16,7 +19,9 @@
                         <th scope="row">Kepada Mr/Mr's {{$riwayat->nama}}</th>
                     </tr>
                     <tr>
-                        <th scope="row"> <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($riwayat->qr_code)) !!} "></th>
+                        <th scope="row"> <img
+                                src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(200)->generate($riwayat->qr_code)) !!} ">
+                        </th>
                     </tr>
                 </tbody>
             </table>
@@ -78,33 +83,34 @@
                 <tbody>
                     <tr>
                         <th scope="row">Harga</th>
-                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}&nbsp;Hari</td>
+                        <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->harga)),3)))}}&nbsp;X&nbsp;{{$riwayat->hari}}&nbsp;Hari
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">Admin %</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($riwayat->potongan)),3)))}}</td>
                     </tr>
                     @php
-                        if ($riwayat->cost == null) {
-                            $tambahan = ('-' . $riwayat->event);
-                        } elseif ($riwayat->event == null) {
-                            $tambahan = ('+' . $riwayat->cost);
-                        } else{
-                            $tambahan = 0;
-                        }
+                    if ($riwayat->cost == null) {
+                    $tambahan = ('-' . $riwayat->event);
+                    } elseif ($riwayat->event == null) {
+                    $tambahan = ('+' . $riwayat->cost);
+                    } else{
+                    $tambahan = 0;
+                    }
                     @endphp
                     <tr>
                         <th scope="row">Cost/Diskon</th>
                         <td>{{'Rp. '.strrev(implode('.',str_split(strrev(strval($tambahan)),3)))}}</td>
                     </tr>
                     @php
-                        if ($riwayat->cost != null) {
-                            $total = $riwayat->total - $tambahan;
-                        } elseif ($riwayat->event != null) {
-                            $total = $riwayat->total + $tambahan;
-                        } else{
-                            $total = $riwayat->total;
-                        }
+                    if ($riwayat->cost != null) {
+                    $total = $riwayat->total - $tambahan;
+                    } elseif ($riwayat->event != null) {
+                    $total = $riwayat->total + $tambahan;
+                    } else{
+                    $total = $riwayat->total;
+                    }
                     @endphp
                     <tr>
                         <th scope="row">Total</th>
@@ -114,14 +120,18 @@
             </table>
         </div>
         <div class="d-flex justify-content-around">
-            <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">Bookwisata Indonesia</p>
+            <p style="margin:0 0 4px; font-weight:bold; color:#333333; font-size:14px; line-height:22px;">Bookwisata
+                Indonesia</p>
         </div>
         <div class="d-flex justify-content-around">
             <p style="margin:0; color:#333333; font-size:11px; line-height:18px;">
-                Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia. P: 24/7 customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
-                Website: <a href="{{url('/')}}" style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.Bookwisata.com</a>
+                Jl. Wonosari Km.7 Brojogaten Gg. Sukun No. 36 Banguntapan Bantul Daerah Istimewa Yogyakarta,Indonesia.
+                P: 24/7 customer support: +62 274 - 443165 | WA. +62 81 5791 3168 | E: info@bookwisata.com<br>
+                Website: <a href="{{url('/')}}"
+                    style="color:#6d7e44; text-decoration:none; font-weight:bold;">www.Bookwisata.com</a>
             </p>
         </div>
     </div>
 </body>
+
 </html>

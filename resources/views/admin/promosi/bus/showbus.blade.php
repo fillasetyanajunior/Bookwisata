@@ -34,16 +34,34 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama Bus</th>
                         <th scope="col">PO</th>
+                        <th scope="col">Provinsi</th>
+                        <th scope="col">Kabupaten</th>
+                        <th scope="col">Tipe</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($bus as $Bus)
+                    @php
+                    $provinsis = DB::table('provinsis')->where('kode',$Bus->provinsi)->first();
+                    $kabupatens = DB::table('kabupatens')->where('kode',$Bus->kabupaten)->first();
+                    @endphp
                     <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Bus->nama}}</td>
-                        <td>{{$Bus->po}}</td>
+                        <td>{{$Bus->company}}</td>
+                        <td>{{$provinsis->name}}</td>
+                        <td>{{$kabupatens->name}}</td>
+                        <td>
+                            @if($Bus->tipe == 31)
+                            Small Bus
+                            @elseif($Bus->tipe == 32)
+                            Medium Bus
+                            @else
+                            Big Bus
+                            @endif
+                        </td>
                         <td>
                             <button type="button" data-toggle="modal" data-id="{{$Bus->id}}" data-target="#BusModal"
                                 id="editbus" class="btn btn-primary my-3">Edit</button>
@@ -92,7 +110,7 @@
                                 <label class="form-label">Provinsi</label>
                                 <select class="form-select form-control  @error('provinsi') is-invalid @enderror"
                                     aria-label="Default select example" id="form_prov" name="provinsi">
-                                    <option selected disabled>Pilih Provinsi</option>
+                                    <option value="">Pilih Provinsi</option>
                                     @foreach ($provinsi as $item)
                                     <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
                                     @endforeach
@@ -102,7 +120,7 @@
                                 <label class="form-label">Kabupaten/Kota</label>
                                 <select class="form-select form-control  @error('kabupaten') is-invalid @enderror"
                                     aria-label="Default select example" id="form_kab" name="kabupaten">
-                                    <option selected>Pilih Kota</option>
+                                    <option value="">Pilih Kota</option>
                                     @foreach ($kabupaten as $item)
                                     <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
                                     @endforeach
@@ -157,7 +175,13 @@
                                 value="{{old('jumlah_sit')}}">
                         </div>
                         <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
+                            <label for="sale" class="form-label">Harga Sale</label>
+                            <input type="text" class="form-control  @error('sale') is-invalid @enderror" id="sale"
+                                placeholder="sale" name="sale" value="{{old('sale')}}">
+                            <small id="emailHelp" class="form-text text-muted">Opsional</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga Reguler</label>
                             <input type="text" class="form-control  @error('harga') is-invalid @enderror" id="harga"
                                 placeholder="Harga" name="harga" value="{{old('harga')}}">
                         </div>
@@ -168,8 +192,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Foto Unit</label>
-                            <input class="form-control  @error('formFile') is-invalid @enderror" type="file" id="formFile"
-                                name="formFile">
+                            <input class="form-control  @error('formFile') is-invalid @enderror" type="file"
+                                id="formFile" name="formFile">
                         </div>
                         <div class="mb-3">
                             <label for="gambar" class="form-label">Foto Detail</label>

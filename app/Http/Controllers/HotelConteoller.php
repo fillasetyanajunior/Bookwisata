@@ -32,19 +32,11 @@ class HotelConteoller extends Controller
             'tipe'      => 'required',
             'bad'       => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
+            'formFile'  => ['required','image'],
             'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('hotel', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         $no = Hotel::orderBy("id_hotel", "DESC")->first();
         if ($no == null) {
@@ -63,7 +55,22 @@ class HotelConteoller extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('hotel', $name);
+
+            FileUpload::create([
+                'nama' => $id_hotel,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namehotel = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('hotel', $namehotel);
 
         Hotel::create([
             'user_id'       => request()->user()->id,
@@ -74,9 +81,10 @@ class HotelConteoller extends Controller
             'tipe'          => $request->tipe,
             'bad'           => $request->bad,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namehotel,
         ]);
 
         return redirect('hotel')->with('status','Postingan Hotel Berhasil Di Upload');
@@ -102,25 +110,38 @@ class HotelConteoller extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $hotel->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $hotel->id_hotel)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('hotel/' . $gambar->foto));
             }
 
-            FileUpload::where('nama', $hotel->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('hotel', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $hotel->id_hotel)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Hotel::where('id', $hotel->id)
+                ->update([
+                'nama'          => $request->nama,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'bad'           => $request->bad,
+                'review'        => $request->review,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'kota_search'   => $kota->name,
+            ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namehotel = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('hotel', $namehotel);
 
             Hotel::where('id', $hotel->id)
                 ->update([
@@ -130,37 +151,25 @@ class HotelConteoller extends Controller
                 'tipe'          => $request->tipe,
                 'bad'           => $request->bad,
                 'review'        => $request->review,
+                'sale'          => $request->sale,
                 'harga'         => $request->harga,
+                'rating'        => 0,
                 'kota_search'   => $kota->name,
-                ]);
-        } else {
-            FileUpload::where('nama', $hotel->nama)
-                ->update([
-                    'nama'  => $request->nama
-                ]);
-            Hotel::where('id', $hotel->id)
-                ->update([
-                'nama'          => $request->nama,
-                'provinsi'      => $request->provinsi,
-                'kabupaten'     => $request->kabupaten,
-                'tipe'          => $request->tipe,
-                'bad'           => $request->bad,
-                'review'        => $request->review,
-                'harga'         => $request->harga,
-                'kota_search'   => $kota->name,
-                ]);
+                'foto'          => $namehotel,
+            ]);
+
         }
+
         return redirect('hotel')->with('status', 'Postingan Hotel Berhasil Di Update');
     }
     public function destroy(Hotel $hotel)
     {
-        $filegambar = DB::table('fileuploads')
-                        ->where('nama', '=', $hotel->nama)
-                        ->get();
+        $filegambar = FileUpload::where('nama', $hotel->id_hotel)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('hotel/' . $gambar->foto);
         }
-        FileUpload::where('nama', $hotel->nama)->delete();
+        Storage::delete('hotel/' . $hotel->foto);
+        FileUpload::where('nama', $hotel->id_hotel)->delete();
         Hotel::destroy($hotel->id);
         return redirect('hotel')->with('status', 'Postingan Hotel Berhasil Di Hapus');
     }

@@ -34,20 +34,12 @@ class SepedaController extends Controller
             'provinsi'      => 'required',
             'kabupaten'     => 'required',
             'tipe'          => 'required',
+            'sale'          => 'required',
             'harga'         => 'required',
-            'review'         => 'required',
+            'review'        => 'required',
+            'formFile'      => ['required','image'],
             'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('sepeda', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         $no = Sepeda::orderBy("id_sepeda", "DESC")->first();
         if ($no == null) {
@@ -66,7 +58,22 @@ class SepedaController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('sepeda', $name);
+
+            FileUpload::create([
+                'nama' => $id_sepeda,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namesepeda = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('sepeda', $namesepeda);
 
         Sepeda::create([
             'user_id'       => request()->user()->id,
@@ -76,10 +83,11 @@ class SepedaController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'tipe'          => $request->tipe,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
             'review'        => $request->review,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namesepeda,
         ]);
 
         return redirect('sepeda')->with('status', 'Postingan Rental Sepeda motor & Gowes Berhasil Di Upload');
@@ -104,23 +112,20 @@ class SepedaController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $sepeda->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $sepeda->id_sepeda)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('sepeda/' . $gambar->foto));
             }
-            FileUpload::where('nama', $sepeda->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('sepeda', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $sepeda->id_sepeda)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
 
             Sepeda::where('id', $sepeda->id)
@@ -130,38 +135,43 @@ class SepedaController extends Controller
                     'provinsi'      => $request->provinsi,
                     'kabupaten'     => $request->kabupaten,
                     'tipe'          => $request->tipe,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
                     'kota_search'   => $kota->name,
                 ]);
         } else {
-            FileUpload::where('nama', $sepeda->nama)
-                ->update([
-                    'nama'          => $request->nama
-                ]);
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namesepeda = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('sepeda', $namesepeda);
+
             Sepeda::where('id', $sepeda->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'tipe'          => $request->tipe,
-                    'harga'         => $request->harga,
-                    'review'        => $request->review,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namesepeda,
+            ]);
         }
         return redirect('sepeda')->with('status', 'Postingan Rental Sepeda motor & Gowes Berhasil Di Update');
     }
     public function destroy(Sepeda $sepeda)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $sepeda->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $sepeda->id_sepeda)->get();
+
         foreach ($filegambar as $gambar) {
             Storage::delete('sepeda/' . $gambar->foto);
         }
-        FileUpload::where('nama', $sepeda->nama)->delete();
+        Storage::delete('sepeda/' . $sepeda->foto);
+        FileUpload::where('nama', $sepeda->id_sepeda)->delete();
         Sepeda::destroy($sepeda->id);
         return redirect('sepeda')->with('status', 'Postingan Rental Sepeda motor & Gowes Berhasil Di Hapus');
     }

@@ -33,20 +33,12 @@ class MobilController extends Controller
             'ac'            => 'required',
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
+            'sale'          => 'required',
             'harga'         => 'required',
             'review'        => 'required',
+            'formFile'      => ['required','image'],
             'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('mobil', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         $no = Mobil::orderBy("id_mobil", "DESC")->first();
         if ($no == null) {
@@ -65,7 +57,22 @@ class MobilController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('mobil', $name);
+
+            FileUpload::create([
+                'nama' => $id_mobil,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namemobil = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('mobil', $namemobil);
 
         Mobil::create([
             'user_id'       => request()->user()->id,
@@ -79,10 +86,11 @@ class MobilController extends Controller
             'overland'      => $request->overland,
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
             'review'        => $request->review,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namemobil,
         ]);
 
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Upload');
@@ -107,23 +115,20 @@ class MobilController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $mobil->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $mobil->id_mobil)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('mobil/' . $gambar->foto));
             }
-            FileUpload::where('nama', $mobil->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('mobil', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $mobil->id_mobil)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
 
             Mobil::where('id', $mobil->id)
@@ -137,42 +142,47 @@ class MobilController extends Controller
                     'overland'      => $request->overland,
                     'ac'            => $request->ac,
                     'jumlah_sit'    => $request->jumlah_sit,
+                    'sale'          => $request->sale,
                     'harga'         => $request->harga,
                     'review'        => $request->review,
                     'kota_search'   => $kota->name,
                 ]);
-        } else {
-            FileUpload::where('nama', $mobil->nama)
-                ->update([
-                    'nama'          => $request->nama
-                ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namemobil = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('mobil', $namemobil);
+
             Mobil::where('id', $mobil->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'tipe'          => $request->tipe,
-                    'transmisi'     => $request->transmisi,
-                    'overland'      => $request->overland,
-                    'ac'            => $request->ac,
-                    'jumlah_sit'    => $request->jumlah_sit,
-                    'harga'         => $request->harga,
-                    'review'        => $request->review,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'transmisi'     => $request->transmisi,
+                'overland'      => $request->overland,
+                'ac'            => $request->ac,
+                'jumlah_sit'    => $request->jumlah_sit,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namemobil,
+            ]);
         }
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Update');
     }
     public function destroy(Mobil $mobil)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $mobil->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $mobil->id_mobil)->get();
+
         foreach ($filegambar as $gambar) {
             Storage::delete('mobil/' . $gambar->foto);
         }
-        FileUpload::where('nama', $mobil->nama)->delete();
+        Storage::delete('mobil/' . $mobil->foto);
+        FileUpload::where('nama', $mobil->id_mobil)->delete();
         Mobil::destroy($mobil->id);
         return redirect('mobil')->with('status', 'Postingan Mobil Berhasil Di Hapus');
     }

@@ -33,20 +33,12 @@ class BusController extends Controller
             'ac'            => 'required',
             'overland'      => 'required',
             'jumlah_sit'    => 'required',
+            'sale'          => 'required',
             'harga'         => 'required',
             'review'        => 'required',
-            'gambar.*'      => ['required','image'],
+            'formFile'      => ['required','image'],
+            'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('bus', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
 
         //Acak Kode Mitra
         $no = Bus::orderBy("id_bus", "DESC")->first();
@@ -66,13 +58,29 @@ class BusController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('bus', $name);
+
+            FileUpload::create([
+                'nama' => $id_bus,
+                'foto' => $name,
+            ]);
+        }
+
+        //Kota Search
         $kota = Kabupaten::where('kode',$request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namebus = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('bus', $namebus);
 
         Bus::create([
             'user_id'       => request()->user()->id,
             'id_bus'        => $id_bus,
             'nama'          => $request->nama,
-            'po'            => $request->po,
+            'company'       => $request->po,
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'tipe'          => $request->tipe,
@@ -80,10 +88,11 @@ class BusController extends Controller
             'overland'      => $request->overland,
             'ac'            => $request->ac,
             'jumlah_sit'    => $request->jumlah_sit,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
             'review'        => $request->review,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namebus,
         ]);
 
         return redirect('bus')->with('status','Postingan Bus Berhasil Di Upload');
@@ -106,33 +115,55 @@ class BusController extends Controller
         if($request->hasfile('gambar'))
         {
             $request->validate([
-                'gambar.*' => 'image|mimes:jpg,jpeg,png'
-                ]);
-                $filegambar = DB::table('fileuploads')
-                                ->where('nama', '=', $bus->nama)
-                                ->get();
+            'gambar.*' => 'image|mimes:jpg,jpeg,png'
+            ]);
+
+            $filegambar = FileUpload::where('nama', $bus->id_bus)->get();
 
             foreach($filegambar as $gambar)
             {
                 Storage::delete(asset('bus/'. $gambar->foto));
             }
 
-            FileUpload::where('nama', $bus->nama)->delete();
-
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('bus', $name);
 
-                FileUpload::create([
-                        'nama' => $request->nama,
+                FileUpload::where('nama', $bus->id_bus)
+                        ->update([
                         'foto' => $name,
                     ]);
             }
 
+            Bus::where('id', $bus->id)
+            ->update([
+                'nama'          => $request->nama,
+                'company'       => $request->po,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'transmisi'     => $request->transmisi,
+                'overland'      => $request->overland,
+                'ac'            => $request->ac,
+                'jumlah_sit'    => $request->jumlah_sit,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'kota_search'   => $kota->name,
+            ]);
+        }elseif ($request->hasfile('formFile')) {
+
+            Storage::delete(asset('bus/' . $bus->foto));
+
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namebus = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('bus', $bus);
+
             Bus::where('id',$bus->id)
                 ->update([
                 'nama'          => $request->nama,
-                'po'            => $request->po,
+                'company'       => $request->po,
                 'provinsi'      => $request->provinsi,
                 'kabupaten'     => $request->kabupaten,
                 'tipe'          => $request->tipe,
@@ -140,44 +171,25 @@ class BusController extends Controller
                 'overland'      => $request->overland,
                 'ac'            => $request->ac,
                 'jumlah_sit'    => $request->jumlah_sit,
+                'sale'          => $request->sale,
                 'harga'         => $request->harga,
                 'review'        => $request->review,
+                'rating'        => 0,
                 'kota_search'   => $kota->name,
+                'foto'          => $namebus,
             ]);
         }
-        else
-        {
-            FileUpload::where('nama', $bus->nama)
-            ->update([
-                'nama' => $request->nama,
-            ]);
-            Bus::where('id', $bus->id)
-                ->update([
-                'nama'          => $request->nama,
-                'po'            => $request->po,
-                'provinsi'      => $request->provinsi,
-                'kabupaten'     => $request->kabupaten,
-                'tipe'          => $request->tipe,
-                'transmisi'     => $request->transmisi,
-                'overland'      => $request->overland,
-                'ac'            => $request->ac,
-                'jumlah_sit'    => $request->jumlah_sit,
-                'harga'         => $request->harga,
-                'review'        => $request->review,
-                'kota_search'   => $kota->name,
-                ]);
-        }
+
         return redirect('bus')->with('status', 'Postingan Bus Berhasil Di Update');
     }
     public function destroy(Bus $bus)
     {
-        $filegambar = DB::table('fileuploads')
-                    ->where('nama','=', $bus->nama)
-                    ->get();
+        $filegambar = FileUpload::where('nama', $bus->id_bus)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('bus/'.$gambar->foto);
         }
-        FileUpload::where('nama',$bus->nama)->delete();
+        Storage::delete('bus/'.$bus->foto);
+        FileUpload::where('nama',$bus->id_bus)->delete();
         Bus::destroy($bus->id);
         return redirect('bus')->with('status', 'Postingan Bus Berhasil Di Hapus');
     }

@@ -33,16 +33,24 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama Destinasi</th>
                         <th scope="col">Alamat</th>
+                        <th scope="col">Provinsi</th>
+                        <th scope="col">Kabupaten</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php $i=1;?>
                     @foreach ($destinasi as $Destinasi)
+                    @php
+                        $provinsis  = DB::table('provinsis')->where('kode',$Destinasi->provinsi)->first();
+                        $kabupatens = DB::table('kabupatens')->where('kode',$Destinasi->kabupaten)->first();
+                    @endphp
                     <tr>
                         <th scope="row">{{$i}}</th>
                         <td>{{$Destinasi->nama}}</td>
                         <td>{{$Destinasi->alamat }} </td>
+                        <td>{{$provinsis->name}}</td>
+                        <td>{{$kabupatens->name}}</td>
                         <td>
                             <button type="button" class="btn btn-warning my-3" data-toggle="modal" id="editdestinasi"
                                 data-id="{{$Destinasi->id}}" data-target="#DestinasiModal">Edit</button>
@@ -84,7 +92,7 @@
                                 <label class="form-label">Provinsi</label>
                                 <select class="form-select form-control  @error('provinsi') is-invalid @enderror"
                                     aria-label="Default select example" id="form_prov" name="provinsi">
-                                    <option selected disabled>Pilih Provinsi</option>
+                                    <option value="">Pilih Provinsi</option>
                                     @foreach ($provinsi as $item)
                                     <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
                                     @endforeach
@@ -94,7 +102,7 @@
                                 <label class="form-label">Kabupaten/Kota</label>
                                 <select class="form-select form-control  @error('kabupaten') is-invalid @enderror"
                                     aria-label="Default select example" id="form_kab" name="kabupaten">
-                                    <option selected >Pilih Kota</option>
+                                    <option value="" >Pilih Kota</option>
                                      @foreach ($kabupaten as $item)
                                     <option value="{{ $item['kode'] }}">{{ $item['name'] }}</option>
                                     @endforeach
@@ -112,7 +120,13 @@
                                 name="review"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="harga" class="form-label">Harga</label>
+                            <label for="sale" class="form-label">Harga Sale</label>
+                            <input type="text" class="form-control  @error('sale') is-invalid @enderror" id="sale"
+                                placeholder="sale" name="sale" value="{{old('sale')}}">
+                            <small id="emailHelp" class="form-text text-muted">Opsional</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="harga" class="form-label">Harga Reguler</label>
                             <input type="text" class="form-control  @error('harga') is-invalid @enderror" id="harga"
                                 placeholder="Harga" name="harga" value="{{old('harga')}}">
                         </div>

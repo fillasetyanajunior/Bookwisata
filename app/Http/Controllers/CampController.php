@@ -29,20 +29,13 @@ class CampController extends Controller
             'provinsi'      => 'required',
             'kabupaten'     => 'required',
             'tipe'          => 'required',
+            'sale'          => 'required',
             'harga'         => 'required',
             'review'        => 'required',
+            'formFile'      => ['required','image'],
             'gambar.*'      => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('camp', $name);
-
-            FileUpload::create([
-                'nama' => $request->nama,
-                'foto' => $name,
-            ]);
-        }
         $no = Camp::orderBy("id_camp", "DESC")->first();
         if ($no == null) {
             $id_camp = 'CAM0001';
@@ -60,7 +53,22 @@ class CampController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('camp', $name);
+
+            FileUpload::create([
+                'nama' => $id_camp,
+                'foto' => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namecamp = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('camp', $namecamp);
 
         Camp::create([
             'user_id'       => request()->user()->id,
@@ -70,10 +78,11 @@ class CampController extends Controller
             'provinsi'      => $request->provinsi,
             'kabupaten'     => $request->kabupaten,
             'tipe'          => $request->tipe,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
             'review'        => $request->review,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namecamp,
         ]);
 
         return redirect('camp')->with('status', 'Postingan Perlengkapan Camping & Outdoor Berhasil Di Upload');
@@ -98,64 +107,67 @@ class CampController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $camp->nama)
+            $filegambar = FileUpload::where('nama',$camp->id_camp)
                             ->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('camp/' . $gambar->foto));
             }
-            FileUpload::where('nama', $camp->nama)->delete();
 
             foreach ($request->file('gambar') as $file) {
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('camp', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $camp->id_camp)
+                        ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Camp::where('id', $camp->id)
+                ->update([
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'kota_search'   => $kota->name,
+            ]);
+        } elseif ($request->hasfile('formFile')) {
+
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namecamp = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('camp', $namecamp);
 
             Camp::where('id', $camp->id)
                 ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'tipe'          => $request->tipe,
-                    'harga'         => $request->harga,
-                    'review'        => $request->review,
-                    'kota_search'   => $kota->name,
-                ]);
-        } else {
-            FileUpload::where('nama', $camp->nama)
-                ->update([
-                    'nama'          => $request->nama
-                ]);
-            Camp::where('id', $camp->id)
-                ->update([
-                    'nama'          => $request->nama,
-                    'company'       => $request->company,
-                    'provinsi'      => $request->provinsi,
-                    'kabupaten'     => $request->kabupaten,
-                    'tipe'          => $request->tipe,
-                    'harga'         => $request->harga,
-                    'review'        => $request->review,
-                    'kota_search'   => $kota->name,
-                ]);
+                'nama'          => $request->nama,
+                'company'       => $request->company,
+                'provinsi'      => $request->provinsi,
+                'kabupaten'     => $request->kabupaten,
+                'tipe'          => $request->tipe,
+                'sale'          => $request->sale,
+                'harga'         => $request->harga,
+                'review'        => $request->review,
+                'rating'        => 0,
+                'kota_search'   => $kota->name,
+                'foto'          => $namecamp,
+            ]);
         }
+
         return redirect('camp')->with('status', 'Postingan Perlengkapan Camping & Outdoor Berhasil Di Update');
     }
     public function destroy(Camp $camp)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $camp->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $camp->id_camp)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('camp/' . $gambar->foto);
         }
-        FileUpload::where('nama', $camp->nama)->delete();
+        Storage::delete('camp/' . $camp->foto);
+        FileUpload::where('nama', $camp->id_camp)->delete();
         Camp::destroy($camp->id);
         return redirect('camp')->with('status', 'Postingan Perlengkapan Camping & Outdoor Berhasil Di Hapus');
     }

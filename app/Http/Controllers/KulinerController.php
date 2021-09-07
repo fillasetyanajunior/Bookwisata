@@ -29,19 +29,11 @@ class KulinerController extends Controller
             'kabupaten' => 'required',
             'alamat'    => 'required',
             'review'    => 'required',
+            'sale'      => 'required',
             'harga'     => 'required',
+            'formFile'  => ['required','image'],
             'gambar.*'  => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
-
-        foreach ($request->file('gambar') as $file) {
-            $name = time() . rand(1, 100) . '.' . $file->extension();
-            $file->storeAs('kuliner', $name);
-
-            FileUpload::create([
-                'nama'  => $request->nama,
-                'foto'  => $name,
-            ]);
-        }
 
         $no = Kuliner::orderBy("id_kuliner", "DESC")->first();
         if ($no == null) {
@@ -60,7 +52,22 @@ class KulinerController extends Controller
             }
         }
 
+        foreach ($request->file('gambar') as $file) {
+            $name = time() . rand(1, 100) . '.' . $file->extension();
+            $file->storeAs('kuliner', $name);
+
+            FileUpload::create([
+                'nama'  => $id_kuliner,
+                'foto'  => $name,
+            ]);
+        }
+
         $kota = Kabupaten::where('kode', $request->kabupaten)->first();
+
+        //Foto Unit
+        $files = $request->file('formFile');
+        $namekuliner = time() . rand(1, 100) . '.' . $files->extension();
+        $files->storeAs('kuliner', $namekuliner);
 
         Kuliner::create([
             'user_id'       => request()->user()->id,
@@ -70,9 +77,10 @@ class KulinerController extends Controller
             'kabupaten'     => $request->kabupaten,
             'alamat'        => $request->alamat,
             'review'        => $request->review,
+            'sale'          => $request->sale,
             'harga'         => $request->harga,
-            'rating'        => 0,
             'kota_search'   => $kota->name,
+            'foto'          => $namekuliner,
         ]);
 
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Upload');
@@ -97,9 +105,7 @@ class KulinerController extends Controller
                 'gambar.*' => 'image|mimes:jpg,jpeg,png'
             ]);
 
-            $filegambar = DB::table('fileuploads')
-                            ->where('nama', '=', $kuliner->nama)
-                            ->get();
+            $filegambar = FileUpload::where('nama', $kuliner->id_kuliner)->get();
 
             foreach ($filegambar as $gambar) {
                 Storage::delete(asset('kuliner/' . $gambar->foto));
@@ -111,11 +117,27 @@ class KulinerController extends Controller
                 $name = time() . rand(1, 100) . '.' . $file->extension();
                 $file->storeAs('kuliner', $name);
 
-                FileUpload::create([
-                    'nama' => $request->nama,
-                    'foto' => $name,
-                ]);
+                FileUpload::where('nama', $kuliner->id_kuliner)
+                            ->update([
+                            'foto' => $name,
+                        ]);
             }
+            Kuliner::where('id', $kuliner->id)
+                ->update([
+                    'nama'          => $request->nama,
+                    'provinsi'      => $request->provinsi,
+                    'kabupaten'     => $request->kabupaten,
+                    'alamat'        => $request->alamat,
+                    'review'        => $request->review,
+                    'sale'          => $request->sale,
+                    'harga'         => $request->harga,
+                    'kota_search'   => $kota->name,
+                ]);
+        } elseif ($request->hasfile('formFile')) {
+            //Foto Unit
+            $files = $request->file('formFile');
+            $namekuliner = time() . rand(1, 100) . '.' . $files->extension();
+            $files->storeAs('kuliner', $namekuliner);
 
             Kuliner::where('id', $kuliner->id)
                 ->update([
@@ -124,36 +146,23 @@ class KulinerController extends Controller
                 'kabupaten'     => $request->kabupaten,
                 'alamat'        => $request->alamat,
                 'review'        => $request->review,
+                'sale'          => $request->sale,
                 'harga'         => $request->harga,
+                'rating'        => 0,
                 'kota_search'   => $kota->name,
-                ]);
-        } else {
-            FileUpload::where('nama', $kuliner->nama)
-                ->update([
-                    'nama'  => $request->nama
-                ]);
-            Kuliner::where('id', $kuliner->id)
-                ->update([
-                'nama'          => $request->nama,
-                'provinsi'      => $request->provinsi,
-                'kabupaten'     => $request->kabupaten,
-                'alamat'        => $request->alamat,
-                'review'        => $request->review,
-                'harga'         => $request->harga,
-                'kota_search'   => $kota->name,
-                ]);
+                'foto'          => $namekuliner,
+            ]);
         }
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Update');
     }
     public function destroy(Kuliner $kuliner)
     {
-        $filegambar = DB::table('fileuploads')
-        ->where('nama', '=', $kuliner->nama)
-            ->get();
+        $filegambar = FileUpload::where('nama', $kuliner->id_kuliner)->get();
         foreach ($filegambar as $gambar) {
             Storage::delete('kuliner/' . $gambar->foto);
         }
-        FileUpload::where('nama', $kuliner->nama)->delete();
+        Storage::delete('kuliner/' . $kuliner->foto);
+        FileUpload::where('nama', $kuliner->id_kuliner)->delete();
         Kuliner::destroy($kuliner->id);
         return redirect('kuliner')->with('status', 'Postingan Kuliner Berhasil Di Hapus');
     }
