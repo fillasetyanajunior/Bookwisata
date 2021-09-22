@@ -18,6 +18,7 @@ use App\Http\Controllers\PaketController;
 use App\Http\Controllers\PusatController;
 use App\Http\Controllers\CampController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SepedaController;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\PromosiBusController;
@@ -131,6 +132,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     Route::middleware(['admin'])->group(function () {
+
+        //Coupon
+        Route::get('/coupon', [CouponController::class,'index'])->name('coupon');
+        Route::post('/coupon', [CouponController::class,'store'])->name('couponstore');
 
         Route::get('/menu',[MenuController::class,'index'])->name('menu');
         Route::post('/menu/store',[MenuController::class,'store']);

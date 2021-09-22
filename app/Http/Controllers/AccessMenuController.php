@@ -11,7 +11,7 @@ class AccessMenuController extends Controller
     public function index()
     {
         $data['title']  = 'Access Menu';
-        $data['access'] = AccessMenu::all();
+        $data['access'] = AccessMenu::simplePaginate(20);
         $data['menu']   = Menu::all();
         return view('admin.accessmenu.showaccessmenu',$data);
     }

@@ -43,9 +43,9 @@ class CartController extends Controller
             'date'          => 'required',
         ]);
 
-        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        // $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-        $qr = \Str::random($permitted_chars);
+        $qr = \Str::random(6);
 
         for ($i=0; $i < count($request->qty); $i++) {
 

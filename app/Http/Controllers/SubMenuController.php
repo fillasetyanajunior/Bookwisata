@@ -11,8 +11,8 @@ class SubMenuController extends Controller
     public function index()
     {
         $data['title']      = 'Sub Menu';
-        $data['submenu']    = SubMenu::all();
-        $data['menu']   = Menu::all();
+        $data['submenu']    = SubMenu::simplePaginate(20);
+        $data['menu']       = Menu::all();
         return view('admin.submenu.showsubmenu',$data);
     }
     public function store(Request $request)

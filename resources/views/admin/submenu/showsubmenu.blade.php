@@ -73,6 +73,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{$submenu->links()}}
+            <br>
         </div>
     </div>
 </div>
@@ -117,7 +119,7 @@
                     </div>
                     <div class="modal-footer footer_submenu">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>

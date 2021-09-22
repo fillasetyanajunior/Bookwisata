@@ -78,6 +78,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{$access->links()}}
+            <br>
         </div>
     </div>
 </div>

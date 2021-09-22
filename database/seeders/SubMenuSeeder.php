@@ -69,6 +69,12 @@ class SubMenuSeeder extends Seeder
             'url' => 'informasi',
         ]);
         DB::table('sub_menu')->insert([
+            'menu_id' => '3',
+            'sub_menu' => 'Coupon',
+            'icon' => 'fas fa-code',
+            'url' => 'coupon',
+        ]);
+        DB::table('sub_menu')->insert([
             'menu_id' => '4',
             'sub_menu' => 'Promosi Bus',
             'icon' => 'fas fa-bus',

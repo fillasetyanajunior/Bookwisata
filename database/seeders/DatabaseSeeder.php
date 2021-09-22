@@ -43,6 +43,34 @@ class DatabaseSeeder extends Seeder
             'updated_at'        => Carbon::now(),
         ]);
 
+        //Mitra
+        DB::table('users')->insert([
+            'name'              => 'Mitra',
+            'email'             => 'mitra@mitra.com',
+            'email_verified_at' => Carbon::now(),
+            'password'          => Hash::make("12345678"),
+            'nomer'             => '-',
+            'role'              => 2,
+            'avatar'            => '-',
+            'is_active'         => 1,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+
+        //Customer
+        DB::table('users')->insert([
+            'name'              => 'Customer',
+            'email'             => 'customer@customer.com',
+            'email_verified_at' => Carbon::now(),
+            'password'          => Hash::make("12345678"),
+            'nomer'             => '-',
+            'role'              => 2,
+            'avatar'            => '-',
+            'is_active'         => 1,
+            'created_at'        => Carbon::now(),
+            'updated_at'        => Carbon::now(),
+        ]);
+
         $this->call([
             TipekamarSeeder::class,
             MenuSeeder::class,

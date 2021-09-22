@@ -44,6 +44,7 @@ $(document).ready(function () {
                 $("#ac option[value='" + hasil.bus.ac + "']").attr('selected', true);
                 $("#overland option[value='" + hasil.bus.overland + "']").attr('selected', true);
                 $("#jumlah_sit").val(hasil.bus.jumlah_sit);
+                $("#sale").val(hasil.bus.sale);
                 $("#harga").val(hasil.bus.harga);
                 $("#review").val(hasil.bus.review);
             }
@@ -86,6 +87,7 @@ $(document).ready(function () {
                 $("#form_prov option[value='" + hasil.camp.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.camp.kabupaten + "']").attr('selected', true);
                 $("#tipe option[value='" + hasil.camp.tipe + "']").attr('selected', true);
+                $("#sale").val(hasil.camp.sale);
                 $("#harga").val(hasil.camp.harga);
                 $("#review").val(hasil.camp.review);
             }
@@ -126,6 +128,7 @@ $(document).ready(function () {
                 $("#alamat").val(hasil.destinasi.alamat);
                 $("#form_prov option[value='" + hasil.destinasi.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.destinasi.kabupaten + "']").attr('selected', true);
+                $("#sale").val(hasil.destinasi.sale);
                 $("#harga").val(hasil.destinasi.harga);
                 $("#review").val(hasil.destinasi.review);
             }
@@ -164,6 +167,7 @@ $(document).ready(function () {
                 $("#nama").val(hasil.guide.nama);
                 $("#form_prov option[value='" + hasil.guide.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.guide.kabupaten + "']").attr('selected', true);
+                $("#sale").val(hasil.guide.sale);
                 $("#harga").val(hasil.guide.harga);
                 $("#review").val(hasil.guide.review);
             }
@@ -206,6 +210,7 @@ $(document).ready(function () {
                 $("#form_kab option[value='" + hasil.hotel.kabupaten + "']").attr('selected', true);
                 $("#tipe option[value='" + hasil.hotel.tipe + "']").attr('selected', true);
                 $("#bad option[value='" + hasil.hotel.bad + "']").attr('selected', true);
+                $("#sale").val(hasil.hotel.sale);
                 $("#harga").val(hasil.hotel.harga);
                 $("#review").val(hasil.hotel.review);
             }
@@ -244,6 +249,7 @@ $(document).ready(function () {
                 $("#nama").val(hasil.kapal.nama);
                 $("#form_prov option[value='" + hasil.kapal.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.kapal.kabupaten + "']").attr('selected', true);
+                $("#sale").val(hasil.kapal.sale);
                 $("#harga").val(hasil.kapal.harga);
                 $("#review").val(hasil.kapal.review);
             }
@@ -284,6 +290,7 @@ $(document).ready(function () {
                 $("#form_prov option[value='" + hasil.kuliner.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.kuliner.kabupaten + "']").attr('selected', true);
                 $("#alamat").val(hasil.kuliner.alamat);
+                $("#sale").val(hasil.kuliner.sale);
                 $("#harga").val(hasil.kuliner.harga);
                 $("#review").val(hasil.kuliner.review);
             }
@@ -334,6 +341,7 @@ $(document).ready(function () {
                 $("#ac option[value='" + hasil.mobil.ac + "']").attr('selected', true);
                 $("#overland option[value='" + hasil.mobil.overland + "']").attr('selected', true);
                 $("#jumlah_sit").val(hasil.mobil.jumlah_sit);
+                $("#sale").val(hasil.mobil.sale);
                 $("#harga").val(hasil.mobil.harga);
                 $("#review").val(hasil.mobil.review);
             }
@@ -374,6 +382,7 @@ $(document).ready(function () {
                 $("#company").val(hasil.paket.company);
                 $("#form_prov option[value='" + hasil.paket.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.paket.kabupaten + "']").attr('selected', true);
+                $("#sale").val(hasil.paket.sale);
                 $("#harga").val(hasil.paket.harga);
                 $("#review").val(hasil.paket.review);
             }
@@ -414,6 +423,7 @@ $(document).ready(function () {
                 $("#alamat").val(hasil.pusat.alamat);
                 $("#form_prov option[value='" + hasil.pusat.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.pusat.kabupaten + "']").attr('selected', true);
+                $("#sale").val(hasil.pusat.sale);
                 $("#harga").val(hasil.pusat.harga);
                 $("#review").val(hasil.pusat.review);
             }
@@ -456,6 +466,7 @@ $(document).ready(function () {
                 $("#form_prov option[value='" + hasil.sepeda.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.sepeda.kabupaten + "']").attr('selected', true);
                 $("#tipe option[value='" + hasil.sepeda.tipe + "']").attr('selected', true);
+                $("#sale").val(hasil.sepeda.sale);
                 $("#harga").val(hasil.sepeda.harga);
                 $("#review").val(hasil.sepeda.review);
             }
@@ -498,6 +509,7 @@ $(document).ready(function () {
                 $("#form_prov option[value='" + hasil.tour.provinsi + "']").attr('selected', true);
                 $("#form_kab option[value='" + hasil.tour.kabupaten + "']").attr('selected', true);
                 $("#tipe option[value='" + hasil.tour.tipe + "']").attr('selected', true);
+                $("#sale").val(hasil.tour.sale);
                 $("#harga").val(hasil.tour.harga);
                 $("#review").val(hasil.tour.review);
             }
